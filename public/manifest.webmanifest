@@ -3,7 +3,7 @@
   "name": "Quick PKT",
   "display": "standalone",
   "description": "Recharge, Relax, and Redeem Rewards.",
-  "start_url": "/",
+  "start_url": "/quick-pkt",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
