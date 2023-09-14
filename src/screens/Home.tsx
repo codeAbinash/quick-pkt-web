@@ -27,11 +27,11 @@ const Home = () => {
         </p>
         <div className='flex w-full items-center justify-center rounded-btn bg-inputBg pl-4 text-btn dark:bg-white/10'>
           <p className='pr-1'>+91</p>
-          <div className=' darkL mx-2 h-[1.5em] w-0.5 rounded-full bg-gray-300 dark:bg-white/20'></div>
+          <div className=' darkL mx-2 h-[1.5em] w-0.5 rounded-full bg-gray-300 dark:bg-white/10'></div>
           <input
             type='tel'
             className='w-full border-none bg-transparent p-4 pl-1 caret-accent outline-none'
-            placeholder='9876 543 210'
+            placeholder='xxxx xxx xxx'
             maxLength={10}
             onChange={handelInput}
           />
