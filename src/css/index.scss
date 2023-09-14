@@ -1,0 +1,76 @@
+@forward './tailwind.css';
+@forward './animations.scss';
+
+@font-face {
+   font-family: 'Rubik';
+   font-style: normal;
+   src:
+      url('/fonts/Rubik-VariableFont.woff2') format('woff2-variations'),
+      url('/fonts/Rubik-VariableFont.woff2') format('woff2');
+   font-weight: 1 1000;
+   font-display: swap;
+}
+
+* {
+   font-family: 'Rubik', sans-serif;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+.highlight-none {
+   -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+   // --bg: #090a1a;
+   // background-color: var(--bg);
+}
+
+
+
+// View Transition Animations
+
+.start-heading {
+   view-transition-name: start-heading;
+}
+
+.start-btn {
+   view-transition-name: start-btn;
+}
+
+
+.mid-animation {
+   view-transition-name: mid-animation;
+}
+
+.gps-button {
+   view-transition-name: gps-button;
+}
+
+
+
+
+// Search Cancel button
+.searchCancel::-webkit-search-cancel-button {
+   -webkit-appearance: none;
+   height: 2em;
+   width: 2em;
+   background-size: 1.6em;
+   opacity: 0.5;
+   // outline: 1px solid red;
+   background-image: url('../assets/icons/src/clear_black_48dp.svg');
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+
+// Hide scrollbar
+.no-scrollbar {
+   scrollbar-width: none;
+   -ms-overflow-style: none;
+
+   &::-webkit-scrollbar {
+      display: none;
+   }
+}

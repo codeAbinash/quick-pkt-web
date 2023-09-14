@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply highlight-none text-btn max-w-lg cursor-pointer select-none rounded-btn bg-accent p-4 text-center text-white;
+}
+
+.screen {
+  @apply dark:bg-bg dark:text-white min-h-[100dvh] bg-white p-5 text-text;
+}

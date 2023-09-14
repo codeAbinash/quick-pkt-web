@@ -1,0 +1,63 @@
+$anim-duration: 3; // in seconds
+$anim-speed: 0.65; // in seconds
+
+
+.shine {
+  position: relative;
+  overflow: hidden; // debug
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    top: 0;
+  }
+
+  &:before {
+    background: rgba(255, 255, 255, 0.7);
+    width: 60px;
+    left: 0;
+    filter: blur(30px);
+    animation: shine-alt1 #{$anim-duration}s ease-in-out infinite;
+  }
+
+  &:after {
+    background: rgba(255, 255, 255, 0.5);
+    width: 30px;
+    left: 30px;
+    filter: blur(5px);
+    animation: shine-alt2 #{$anim-duration}s ease-in-out infinite;
+  }
+}
+
+@keyframes shine-alt1 {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-100vw) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+
+  30%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(100vw) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+}
+
+@keyframes shine-alt2 {
+  0% {
+    opacity: 0;
+    transform: translateX(calc(-100vw + 100px)) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+
+  30%,
+  100% {
+    opacity: 1;
+    transform: translateX(100vw) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+}
