@@ -5,12 +5,39 @@ import ReadPrivacyPolicyTerms from '../../components/Extras';
 import transitions from '../../lib/transition';
 import { useState } from 'react';
 import { phoneNumberValidation } from '../../lib/util';
+import icons from '../../assets/icons/icons';
+import API from '../../lib/api';
+
+type apiResponse = {
+  status: boolean;
+  message: string;
+};
+async function sendOTP(phone: string) {
+  try {
+    const res = await fetch(API.send_otp, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ phone: phone }),
+    });
+    const data = await res.json();
+
+    if (data.status === false) {
+      console.log(data.message);
+      return { status: false, message: data.message };
+    }
+  } catch (err) {
+    console.log(err);
+    return { status: false, message: 'Something went wrong' };
+  }
+  return { status: true, message: 'OTP sent' };
+}
 
 const Login = () => {
   const navigate = useNavigate();
   const state = useLocation().state;
   const [error, setError] = useState('');
   const [phone, setPhone] = useState(state?.phone || '');
+  const [sending, setSending] = useState(false);
 
   function handleInput(event: React.KeyboardEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
@@ -19,14 +46,23 @@ const Login = () => {
   }
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    sendOTP(phone);
+    handelOTPSend(phone);
   };
 
-  function sendOTP(phone: string) {
+  async function handelOTPSend(phone: string) {
+    if (sending) return;
     const validation = phoneNumberValidation(phone);
-    transitions(() => {
-      if (validation.status) navigate('/otp', { replace: false, state: { phone: phone } });
-      else setError(validation.message);
+    transitions(async () => {
+      if (validation.status) {
+        setSending(true);
+        const otpStatus = await sendOTP(phone);
+        setSending(false);
+        if (otpStatus.status) {
+          navigate('/otp', { replace: true, state: { phone: phone } });
+        } else {
+          setError(otpStatus.message);
+        }
+      } else setError(validation.message);
     })();
   }
 
@@ -34,7 +70,7 @@ const Login = () => {
     setError('');
     const target = event.target as HTMLInputElement;
     if (event.key === 'Enter') {
-      sendOTP(target.value);
+      handelOTPSend(target.value);
     }
   }
 
@@ -90,9 +126,16 @@ const Login = () => {
           <span className='checkmark'></span> I Have referral code
         </label> */}
 
-        <Button className='btn w-full' onClick={handleClick}>
-          Send OTP
-        </Button>
+        {sending ? (
+          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-5 pr-5'>
+            <img src={icons.loading} className='w-5 dark:invert' />
+            <p>Sending OTP</p>
+          </div>
+        ) : (
+          <Button className='send-otp-button btn w-full' onClick={handleClick}>
+            Send OTP
+          </Button>
+        )}
       </div>
       <ReadPrivacyPolicyTerms />
     </div>

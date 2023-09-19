@@ -35,7 +35,7 @@ export default function OTP() {
     };
   }, []);
 
-  function verifyOtp() {
+  async function verifyOtp() {
     if (isVerifying) return;
     // Disable all inputs
     inputs.forEach((r: InputRef) => (r.current.disabled = true));
@@ -72,7 +72,7 @@ export default function OTP() {
   const editnumber = useCallback(() => {
     return transitions(() => {
       navigate('/login', {
-        replace: false,
+        replace: true,
         state: {
           phone: phone,
         },

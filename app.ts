@@ -4,7 +4,8 @@ const app = {
   description: 'Recharge, Relax, and Redeem Rewards!',
   base: '/quick-pkt',
   URL: 'https://quickpkt.in',
-  backendURL: 'https://quickpkt.in/api',
+  backendURL: 'https://system.quickpkt.in',
+  api: 'https://quickpkt.in/api',
 };
 
 export default app;

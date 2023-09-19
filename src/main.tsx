@@ -9,6 +9,7 @@ import './css/index.scss';
 import { loadTheme } from './lib/util';
 import Home from './screens/home/Home';
 import Login from './screens/login/Login';
+import app from '../app';
 
 loadTheme();
 
@@ -35,7 +36,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/quick-pkt',
+    basename: app.base,
   },
 );
 

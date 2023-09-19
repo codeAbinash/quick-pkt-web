@@ -8,15 +8,16 @@ type ButtonProps = {
   children: React.ReactNode;
   className?: string;
   to?: string;
+  disabled?: boolean;
   onClick?: Function;
 };
 
-const Button = forwardRef<HTMLDivElement, ButtonProps>((props, ref) => {
-  const { children, className, to, onClick, ...rest } = props;
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const { children, className, to, onClick, disabled, ...rest } = props;
   const navigate = useNavigate();
 
   return (
-    <motion.div
+    <motion.button
       className={className}
       whileTap={{ scale: 0.98 }}
       whileHover={{ scale: 1.02 }}
@@ -32,10 +33,11 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>((props, ref) => {
         }
       }}
       ref={ref}
+      disabled={disabled}
       {...rest}
     >
       {children}
-    </motion.div>
+    </motion.button>
   );
 });
 

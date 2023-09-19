@@ -16,9 +16,11 @@ import search from './src/search.svg';
 import location from './src/location.svg';
 import sun from './src/sun.svg';
 import refer from './src/refer.svg';
+import loading from './src/loading.svg';
 
 const icons = {
   back,
+  loading,
   refer,
   sun,
   location,
