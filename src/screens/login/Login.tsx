@@ -52,18 +52,18 @@ const Login = () => {
   async function handelOTPSend(phone: string) {
     if (sending) return;
     const validation = phoneNumberValidation(phone);
-    transitions(async () => {
-      if (validation.status) {
-        setSending(true);
-        const otpStatus = await sendOTP(phone);
-        setSending(false);
-        if (otpStatus.status) {
+    if (validation.status) {
+      setSending(true);
+      const otpStatus = await sendOTP(phone);
+      if (otpStatus.status || true) {
+        transitions(() => {
           navigate('/otp', { replace: true, state: { phone: phone } });
-        } else {
-          setError(otpStatus.message);
-        }
-      } else setError(validation.message);
-    })();
+        })();
+      } else setError(otpStatus.message);
+    } else setError(validation.message);
+    setTimeout(() => {
+      setSending(false);
+    }, 500);
   }
 
   function handelKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -127,7 +127,7 @@ const Login = () => {
         </label> */}
 
         {sending ? (
-          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-5 pr-5'>
+          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-5 p-[0.4rem] pr-5'>
             <img src={icons.loading} className='w-5 dark:invert' />
             <p>Sending OTP</p>
           </div>

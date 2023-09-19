@@ -54,7 +54,6 @@ export function TextButton({
   moreClasses = '',
   ...rest
 }: TextButtonProps) {
-  console.log(rest);
   return (
     <button onClick={onClick} className={className + ' ' + moreClasses} {...rest}>
       {children}
