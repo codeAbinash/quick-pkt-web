@@ -7,16 +7,24 @@ import store from './Redux/sample';
 import images from './assets/images/images';
 import './css/index.scss';
 import { loadTheme } from './lib/util';
-import Home from './screens/Home';
+import Login from './screens/login/Login';
 
 loadTheme();
+// Lazy import OTP
+const OTP = lazyWithPreload(() => import('./screens/login/OTP'));
+OTP.preload();
+
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Home />,
+      element: <Login />,
     },
+    {
+      path: '/otp',
+      element: <OTP />,
+    }
   ],
   {
     basename: '/quick-pkt',

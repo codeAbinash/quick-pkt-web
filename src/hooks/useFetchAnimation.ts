@@ -5,7 +5,7 @@ function useFetchAnimation(animationName: string) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    fetch(`/weather/animations/${animationName}.json`)
+    fetch(`/quick-pkt/animations/${animationName}.json`)
       .then((response) => response.json())
       .then((data) => {
         setAnimationData(data);

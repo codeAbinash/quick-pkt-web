@@ -7,7 +7,7 @@ type ButtonProps = {
   children: React.ReactNode;
   className?: string;
   to?: string;
-  onClick?: () => void;
+  onClick?: Function;
 };
 
 const Button = forwardRef<HTMLDivElement, ButtonProps>((props, ref) => {

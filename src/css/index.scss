@@ -2,75 +2,114 @@
 @forward './animations.scss';
 
 @font-face {
-   font-family: 'Rubik';
-   font-style: normal;
-   src:
-      url('/fonts/Rubik-VariableFont.woff2') format('woff2-variations'),
-      url('/fonts/Rubik-VariableFont.woff2') format('woff2');
-   font-weight: 1 1000;
-   font-display: swap;
+  font-family: 'Rubik';
+  font-style: normal;
+  src:
+    url('/fonts/Rubik-VariableFont.woff2') format('woff2-variations'),
+    url('/fonts/Rubik-VariableFont.woff2') format('woff2');
+  font-weight: 1 1000;
+  font-display: swap;
 }
 
 * {
-   font-family: 'Rubik', sans-serif;
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .highlight-none {
-   -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-   // --bg: #090a1a;
-   // background-color: var(--bg);
+  --accent: #ed4525;
+  // --bg: #090a1a;
+  // background-color: var(--bg);
 }
-
-
 
 // View Transition Animations
-
-.start-heading {
-   view-transition-name: start-heading;
+.logo-long {
+  view-transition-name: logo-long;
 }
-
-.start-btn {
-   view-transition-name: start-btn;
+.phone-number {
+  view-transition-name: phone-number;
 }
-
-
-.mid-animation {
-   view-transition-name: mid-animation;
+.normal-text {
+  view-transition-name: normal-text;
 }
-
-.gps-button {
-   view-transition-name: gps-button;
-}
-
-
-
 
 // Search Cancel button
 .searchCancel::-webkit-search-cancel-button {
-   -webkit-appearance: none;
-   height: 2em;
-   width: 2em;
-   background-size: 1.6em;
-   opacity: 0.5;
-   // outline: 1px solid red;
-   background-image: url('../assets/icons/src/clear_black_48dp.svg');
-   background-repeat: no-repeat;
-   background-position: center;
+  -webkit-appearance: none;
+  height: 2em;
+  width: 2em;
+  background-size: 1.6em;
+  opacity: 0.5;
+  // outline: 1px solid red;
+  background-image: url('../assets/icons/src/clear_black_48dp.svg');
+  background-repeat: no-repeat;
+  background-position: center;
 }
-
 
 // Hide scrollbar
 .no-scrollbar {
-   scrollbar-width: none;
-   -ms-overflow-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-   &::-webkit-scrollbar {
-      display: none;
-   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.no-input-arrow {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.custom-checkbox {
+  $checkbox-size: 19px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  input[type='checkbox'] {
+    display: none;
+  }
+  /* Style the custom checkbox */
+  .checkmark {
+    display: inline-block;
+    background-color: var(--accent);
+    vertical-align: middle;
+    aspect-ratio: 1 / 1;
+    height: $checkbox-size;
+    border-radius: 5px;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  /* Add a checkmark using a pseudo-element */
+  .checkmark::before {
+    content: '\2713'; /* Unicode character for checkmark */
+    display: block;
+    text-align: center;
+    line-height: $checkbox-size; /* Adjust as needed for vertical centering */
+    color: white; /* Color of the checkmark when checked */
+    font-size: 11px; /* Adjust size as needed */
+  }
+  /* Style the custom checkbox when checked */
+  input[type='checkbox']:checked + .checkmark {
+    filter: grayscale(1) opacity(0.3);
+  }
+
+  /* Style the label text */
+  label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
 }

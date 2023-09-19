@@ -1,5 +1,4 @@
 import Lottie, { LottieComponentProps } from 'lottie-react';
-import { forwardRef } from 'react';
 import loading from '../assets/animations/loading.json';
 import useFetchAnimation from '../hooks/useFetchAnimation';
 

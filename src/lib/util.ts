@@ -53,7 +53,7 @@ export function loadTheme() {
   }
 }
 
-export function blank() {}
+export function blank_fn() {}
 
 export function delay(callback: Function, time = 150) {
   setTimeout(callback, time);
