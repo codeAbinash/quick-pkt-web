@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import transitions from '../lib/transition';
+import { blank_fn } from '../lib/util';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -37,5 +38,26 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>((props, ref) => {
     </motion.div>
   );
 });
+
+type TextButtonProps = {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  moreClasses?: string;
+};
+export function TextButton({
+  children,
+  className = 'highlight-none rounded-md p-0.5 px-1 text-accent transition-colors active:bg-accent/10 dark:active:bg-accent/20',
+  onClick = blank_fn,
+  moreClasses = '',
+  ...rest
+}: TextButtonProps) {
+  console.log(rest);
+  return (
+    <button onClick={onClick} className={className + ' ' + moreClasses} {...rest}>
+      {children}
+    </button>
+  );
+}
 
 export default Button;

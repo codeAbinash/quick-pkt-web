@@ -64,3 +64,21 @@ export function delayFn(callback: Function, time = 150) {
     setTimeout(callback, time);
   };
 }
+
+export function phoneNumberValidation(phone: string) {
+  if (phone.length === 0)
+    return {
+      status: false,
+      message: 'Phone number is required',
+    };
+  if (phone.length !== 10)
+    return {
+      status: false,
+      message: 'Phone number must be 10 digits long',
+    };
+  const regex = /^[6-9]\d{9}$/;
+  return {
+    status: regex.test(phone),
+    message: 'Invalid phone number',
+  };
+}
