@@ -11,7 +11,10 @@ export default function Home() {
   const isLoggedIn = useMemo(() => getLoginStatus(), []);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!isLoggedIn) navigate('/login');
+    if (!isLoggedIn)
+      navigate('/login', {
+        replace: true,
+      });
   }, []);
   useEffect(() => {}, []);
 

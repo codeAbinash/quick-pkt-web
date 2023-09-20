@@ -123,7 +123,7 @@ const Login = () => {
         </label> */}
 
         {sending ? (
-          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-3 p-[0.4rem] pr-5'>
+          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-3 p-[0.4rem] pr-5 text-sm'>
             <img src={icons.loading} className='w-5 dark:invert' />
             <p>Sending OTP</p>
           </div>

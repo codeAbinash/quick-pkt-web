@@ -12,6 +12,7 @@ import ls from '../../lib/util';
 type InputRef = React.MutableRefObject<HTMLInputElement>;
 
 async function checkOTP(otp: string, phone: string): Promise<apiResponse> {
+  // return { status: true, message: 'OK' };
   try {
     const res = await fetch(API.login, {
       method: 'POST',
@@ -44,20 +45,21 @@ export default function OTP() {
 
   useEffect(() => {
     setTimeout(() => {
-      inputs[0].current.focus();
+      inputs[0].current?.focus();
     }, 500);
   }, [inputs]);
 
-  useEffect(() => {
-    // Disable back button
-    window.history.pushState(null, '', window.location.href);
-    window.onpopstate = () => {
-      window.history.go(1);
-    };
-    return () => {
-      window.onpopstate = null;
-    };
-  }, []);
+  // useEffect(() => {
+  // Disable back button
+  // window.history.pushState(null, '', window.location.href);
+  // window.onpopstate = () => {
+  //   window.history.go(1);
+  // };
+  // console.log(window.history);
+  // return () => {
+  //   window.onpopstate = null;
+  // };
+  // }, []);
 
   async function verifyOtp() {
     if (isVerifying) return;
@@ -69,6 +71,7 @@ export default function OTP() {
     setIsVerifying(true);
     setError('');
     const otpStatus = await checkOTP(otp, phone);
+
     if (otpStatus.status) {
       const data = otpStatus.data;
       ls.set('token', data.token);
@@ -93,15 +96,15 @@ export default function OTP() {
     // transitions(() => {
     event.preventDefault();
     const target = event.target as HTMLInputElement;
-    if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current.focus();
-    else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current.focus();
+    if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
+    else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
     else if (event.key === 'Backspace') {
       target.value = '';
-      i > 0 && inputs[i - 1].current.focus();
+      i > 0 && inputs[i - 1].current?.focus();
     } else if (!isNaN(Number(event.key))) {
       target.value = event.key;
       if (i == 5 && inputs.every((r: InputRef) => r.current.value)) verifyOtp();
-      else i < 5 && inputs[i + 1].current.focus();
+      else i < 5 && inputs[i + 1].current?.focus();
     } else if (i == 5) if (event.key == 'Enter') verifyOtp();
     // })();
   }
@@ -137,6 +140,13 @@ export default function OTP() {
           <span className='pl-1.5 text-sm text-red-500'>{error}</span>
         </div>
       )}
+      {isVerifying ? (
+        <div className='send-otp-button flex animate-pulse items-center justify-center gap-3 pr-5 text-sm'>
+          <img src={icons.loading} className='w-5 dark:invert' />
+          <p>Verifying OTP</p>
+        </div>
+      ) : null}
+
       <div className='phone-number flex gap-2'>
         {inputs.map((r: any, i: number) => {
           return (
@@ -151,13 +161,6 @@ export default function OTP() {
           );
         })}
       </div>
-      {isVerifying ? (
-        <div className='send-otp-button flex animate-pulse items-center justify-center gap-3 pr-5'>
-          <img src={icons.loading} className='w-5 dark:invert' />
-          <p>Verifying OTP</p>
-        </div>
-      ) : null}
-
       <div>
         <p className='text-center text-sm'>
           Didn't receive OTP? <br /> <TextButton onClick={resendOtp}>Resend OTP</TextButton>
