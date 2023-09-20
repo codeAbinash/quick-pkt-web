@@ -73,6 +73,7 @@ export default function OTP() {
       })();
     } else {
       setError(otpStatus.message);
+      setMessage('');
       inputs.forEach((r: InputRef) => {
         r.current.disabled = false;
         r.current.value = '';
