@@ -1,32 +1,12 @@
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import icons from '../../assets/icons/icons';
 import images from '../../assets/images/images';
 import Button from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
+import { sendOTP } from '../../lib/api';
 import transitions from '../../lib/transition';
-import { useState } from 'react';
 import { phoneNumberValidation } from '../../lib/util';
-import icons from '../../assets/icons/icons';
-import API, { apiResponse } from '../../lib/api';
-import { defaultHeaders } from '../../../app';
-
-async function sendOTP(phone: string): Promise<apiResponse> {
-  try {
-    const res = await fetch(API.send_otp, {
-      method: 'POST',
-      headers: defaultHeaders,
-      body: JSON.stringify({ phone: phone }),
-    });
-    const data = await res.json();
-    if (data.status === false) {
-      console.log(data.message);
-      return { status: false, message: data.message };
-    }
-  } catch (err) {
-    console.log(err);
-    return { status: false, message: 'Something went wrong' };
-  }
-  return { status: true, message: 'OTP sent' };
-}
 
 const Login = () => {
   const navigate = useNavigate();

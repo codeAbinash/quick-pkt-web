@@ -1,38 +1,14 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import images from '../../assets/images/images';
 import { TextButton } from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
 import transitions from '../../lib/transition';
-import API, { apiResponse } from '../../lib/api';
-import { defaultHeaders } from '../../../app';
+import API, { apiResponse, checkOTP, resendOTP } from '../../lib/api';
 import icons from '../../assets/icons/icons';
 import ls from '../../lib/util';
 
 type InputRef = React.MutableRefObject<HTMLInputElement>;
-
-async function checkOTP(otp: string, phone: string): Promise<apiResponse> {
-  // return { status: true, message: 'OK' };
-  try {
-    const res = await fetch(API.login, {
-      method: 'POST',
-      headers: defaultHeaders,
-      body: JSON.stringify({ otp: otp, phone: phone }),
-    });
-
-    const data = await res.json();
-    console.log(data);
-
-    if (data.status === false) {
-      console.log(data.message);
-      return { status: false, message: data.message };
-    } else {
-      return { status: true, message: data.message, data: data };
-    }
-  } catch {
-    return { status: false, message: 'Something went wrong' };
-  }
-}
 
 export default function OTP() {
   const navigate = useNavigate();
@@ -40,8 +16,24 @@ export default function OTP() {
   const [isVerifying, setIsVerifying] = React.useState(false);
   const phone = useLocation().state?.phone;
   const [error, setError] = React.useState('');
+  const [message, setMessage] = React.useState('');
+  const [resendingOTP, setResendingOTP] = useState(false);
 
-  function resendOtp() {}
+  async function resendOtp() {
+    if (resendingOTP) return;
+    setResendingOTP(true);
+    setError('');
+    setMessage('Sending OTP again...');
+    const resendStatus = await resendOTP(phone);
+    if (resendStatus.status === true) {
+      setMessage('Sent OTP again');
+      setError('');
+    } else {
+      setError(resendStatus.message);
+      setMessage('');
+    }
+    setResendingOTP(false);
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -140,6 +132,11 @@ export default function OTP() {
           <span className='pl-1.5 text-sm text-red-500'>{error}</span>
         </div>
       )}
+      {message && (
+        <div>
+          <span className='pl-1.5 text-sm text-green-500'>{message}</span>
+        </div>
+      )}
       {isVerifying ? (
         <div className='send-otp-button flex animate-pulse items-center justify-center gap-3 pr-5 text-sm'>
           <img src={icons.loading} className='w-5 dark:invert' />
@@ -163,7 +160,10 @@ export default function OTP() {
       </div>
       <div>
         <p className='text-center text-sm'>
-          Didn't receive OTP? <br /> <TextButton onClick={resendOtp}>Resend OTP</TextButton>
+          Didn't receive OTP? <br />{' '}
+          <TextButton onClick={resendOtp} moreClasses={resendingOTP ? 'animate-pulse' : ''}>
+            Resend OTP
+          </TextButton>
         </p>
       </div>
       <ReadPrivacyPolicyTerms />
