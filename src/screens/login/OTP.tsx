@@ -73,7 +73,9 @@ export default function OTP() {
       const data = otpStatus.data;
       ls.set('token', data.token);
       ls.set('isLoggedIn', 'true');
-      navigate('/', { replace: true });
+      transitions(() => {
+        navigate('/', { replace: true });
+      })();
     } else {
       setError(otpStatus.message);
       inputs.forEach((r: InputRef) => {
