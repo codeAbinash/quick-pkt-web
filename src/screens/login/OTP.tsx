@@ -4,17 +4,41 @@ import images from '../../assets/images/images';
 import { TextButton } from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
 import transitions from '../../lib/transition';
+import API, { apiResponse } from '../../lib/api';
+import { defaultHeaders } from '../../../app';
+import icons from '../../assets/icons/icons';
 import ls from '../../lib/util';
-// import { delay } from '@reduxjs/toolkit/dist/utils';
 
 type InputRef = React.MutableRefObject<HTMLInputElement>;
+
+async function checkOTP(otp: string, phone: string): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.login, {
+      method: 'POST',
+      headers: defaultHeaders,
+      body: JSON.stringify({ otp: otp, phone: phone }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    if (data.status === false) {
+      console.log(data.message);
+      return { status: false, message: data.message };
+    } else {
+      return { status: true, message: data.message, data: data };
+    }
+  } catch {
+    return { status: false, message: 'Something went wrong' };
+  }
+}
 
 export default function OTP() {
   const navigate = useNavigate();
   const inputs: any = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const [isVerifying, setIsVerifying] = React.useState(false);
-  // Get phone number from navigate state
   const phone = useLocation().state?.phone;
+  const [error, setError] = React.useState('');
 
   function resendOtp() {}
 
@@ -40,16 +64,27 @@ export default function OTP() {
     // Disable all inputs
     inputs.forEach((r: InputRef) => (r.current.disabled = true));
 
-    // Get otp
     let otp = '';
     inputs.forEach((r: InputRef) => (otp += r.current.value));
-    console.log(otp);
-
-    setTimeout(() => {
-      alert('OTP verified');
+    setIsVerifying(true);
+    setError('');
+    const otpStatus = await checkOTP(otp, phone);
+    if (otpStatus.status) {
+      const data = otpStatus.data;
+      ls.set('token', data.token);
       ls.set('isLoggedIn', 'true');
       navigate('/', { replace: true });
-    }, 500);
+    } else {
+      setError(otpStatus.message);
+      inputs.forEach((r: InputRef) => {
+        r.current.disabled = false;
+        r.current.value = '';
+      });
+    }
+
+    // setTimeout(() => {
+    setIsVerifying(false);
+    // }, 500);
   }
 
   function handelKeydown(event: React.KeyboardEvent<HTMLInputElement>, i: number) {
@@ -95,7 +130,11 @@ export default function OTP() {
           OTP sent to <span>+91 {phone}</span>. <TextButton onClick={editnumber}>Edit</TextButton>
         </p>
       </div>
-
+      {error && (
+        <div>
+          <span className='pl-1.5 text-sm text-red-500'>{error}</span>
+        </div>
+      )}
       <div className='phone-number flex gap-2'>
         {inputs.map((r: any, i: number) => {
           return (
@@ -110,6 +149,13 @@ export default function OTP() {
           );
         })}
       </div>
+      {isVerifying ? (
+        <div className='send-otp-button flex animate-pulse items-center justify-center gap-3 pr-5'>
+          <img src={icons.loading} className='w-5 dark:invert' />
+          <p>Verifying OTP</p>
+        </div>
+      ) : null}
+
       <div>
         <p className='text-center text-sm'>
           Didn't receive OTP? <br /> <TextButton onClick={resendOtp}>Resend OTP</TextButton>

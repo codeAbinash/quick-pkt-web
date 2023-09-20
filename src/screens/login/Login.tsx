@@ -6,21 +6,17 @@ import transitions from '../../lib/transition';
 import { useState } from 'react';
 import { phoneNumberValidation } from '../../lib/util';
 import icons from '../../assets/icons/icons';
-import API from '../../lib/api';
+import API, { apiResponse } from '../../lib/api';
+import { defaultHeaders } from '../../../app';
 
-type apiResponse = {
-  status: boolean;
-  message: string;
-};
-async function sendOTP(phone: string) {
+async function sendOTP(phone: string): Promise<apiResponse> {
   try {
     const res = await fetch(API.send_otp, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      headers: defaultHeaders,
       body: JSON.stringify({ phone: phone }),
     });
     const data = await res.json();
-
     if (data.status === false) {
       console.log(data.message);
       return { status: false, message: data.message };
@@ -55,7 +51,7 @@ const Login = () => {
     if (validation.status) {
       setSending(true);
       const otpStatus = await sendOTP(phone);
-      if (otpStatus.status || true) {
+      if (otpStatus.status) {
         transitions(() => {
           navigate('/otp', { replace: true, state: { phone: phone } });
         })();
@@ -127,7 +123,7 @@ const Login = () => {
         </label> */}
 
         {sending ? (
-          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-5 p-[0.4rem] pr-5'>
+          <div className='send-otp-button mt-4 flex animate-pulse items-center justify-center gap-3 p-[0.4rem] pr-5'>
             <img src={icons.loading} className='w-5 dark:invert' />
             <p>Sending OTP</p>
           </div>

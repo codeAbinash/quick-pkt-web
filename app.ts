@@ -8,4 +8,6 @@ const app = {
   api: 'https://quickpkt.in/api',
 };
 
+export const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+
 export default app;
