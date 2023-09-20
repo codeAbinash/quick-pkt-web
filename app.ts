@@ -6,6 +6,7 @@ const app = {
   URL: 'https://quickpkt.in',
   backendURL: 'https://system.quickpkt.in',
   api: 'https://quickpkt.in/api',
+  secret: 'hellothisisocdexindia',
 };
 
 export default app;

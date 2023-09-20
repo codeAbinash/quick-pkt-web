@@ -7,5 +7,5 @@
 }
 
 .screen {
-  @apply dark:bg-bg dark:text-white min-h-[100dvh] bg-white p-5 text-text;
+  @apply dark:bg-bg dark:text-white min-h-[100dvh] bg-white p-5 text-text select-none;
 }

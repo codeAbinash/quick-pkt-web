@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import images from '../../assets/images/images';
 import { TextButton } from '../../components/Button';
@@ -10,13 +10,26 @@ import ls from '../../lib/util';
 
 type InputRef = React.MutableRefObject<HTMLInputElement>;
 
+function getNextOTPSentTimeLs() {
+  if (ls.get('NextOTPSentTime')) return Number(ls.get('NextOTPSentTime'));
+  else return setNextOTPSentTimeLs();
+}
+function setNextOTPSentTimeLs() {
+  const now = Date.now() + 2 * 60 * 1000;
+  // const now = Date.now() + 10 * 1000;
+  ls.set('NextOTPSentTime', now.toString());
+  return now;
+}
+
 export default function OTP() {
   const navigate = useNavigate();
+  const [nextOTPSentTime, setnextOTPSentTime] = useState(useMemo(() => getNextOTPSentTimeLs(), []));
   const inputs: any = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const [isVerifying, setIsVerifying] = React.useState(false);
   const phone = useLocation().state?.phone;
   const [error, setError] = React.useState('');
   const [message, setMessage] = React.useState('');
+  const [now, setNow] = useState(Date.now());
   const [resendingOTP, setResendingOTP] = useState(false);
 
   async function resendOtp() {
@@ -28,18 +41,24 @@ export default function OTP() {
     if (resendStatus.status === true) {
       setMessage('Sent OTP again');
       setError('');
+      // setOTPSentTime(setOTPSentTimeLs());
     } else {
       setError(resendStatus.message);
       setMessage('');
     }
+    setnextOTPSentTime(setNextOTPSentTimeLs());
     setResendingOTP(false);
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      inputs[0].current?.focus();
-    }, 500);
-  }, [inputs]);
+    const timer = setTimeout(() => inputs[0].current?.focus(), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // useEffect(() => {
   // Disable back button
@@ -86,11 +105,11 @@ export default function OTP() {
   }
 
   function handelKeydown(event: React.KeyboardEvent<HTMLInputElement>, i: number) {
-    // transitions(() => {
     event.preventDefault();
     const target = event.target as HTMLInputElement;
     if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
     else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
+    else if (event.key === 'Escape') inputs[i].current?.blur();
     else if (event.key === 'Backspace') {
       target.value = '';
       i > 0 && inputs[i - 1].current?.focus();
@@ -99,7 +118,6 @@ export default function OTP() {
       if (i == 5 && inputs.every((r: InputRef) => r.current.value)) verifyOtp();
       else i < 5 && inputs[i + 1].current?.focus();
     } else if (i == 5) if (event.key == 'Enter') verifyOtp();
-    // })();
   }
 
   const editnumber = useCallback(() => {
@@ -154,7 +172,7 @@ export default function OTP() {
               key={i}
               maxLength={1}
               onKeyDown={(event) => handelKeydown(event, i)}
-              className='no-input-arrow aspect-[0.9] w-[3rem] appearance-none rounded-xl border-none bg-inputBg text-center caret-transparent outline-none outline-offset-0 transition-[outline-color] focus:outline-accent dark:bg-white/10'
+              className='no-input-arrow aspect-[0.9] w-[2.6rem] appearance-none rounded-xl border-none bg-inputBg text-center caret-transparent outline-none outline-offset-0 transition-[outline-color] focus:outline-accent dark:bg-white/10'
             />
           );
         })}
@@ -162,12 +180,28 @@ export default function OTP() {
       <div>
         <p className='text-center text-sm'>
           Didn't receive OTP? <br />{' '}
-          <TextButton onClick={resendOtp} moreClasses={resendingOTP ? 'animate-pulse' : ''}>
-            Resend OTP
+          <TextButton
+            onClick={resendOtp}
+            moreClasses={resendingOTP ? 'animate-pulse' : ''}
+            disabled={!isAbaleToResendOTP(now, nextOTPSentTime)}
+          >
+            Resend OTP {getTimeRemaining(now, nextOTPSentTime)}
           </TextButton>
         </p>
       </div>
       <ReadPrivacyPolicyTerms />
     </div>
   );
+}
+
+function isAbaleToResendOTP(now: number, otpSentTime: number) {
+  return now + 1000 > otpSentTime;
+}
+
+function getTimeRemaining(d1: any, d2: any) {
+  if (isAbaleToResendOTP(d1, d2)) return;
+  const diff = d2 - d1;
+  const minutes = Math.floor(diff / 1000 / 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+  return `in ${minutes}:` + seconds.toString().padStart(2, '0');
 }

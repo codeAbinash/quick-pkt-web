@@ -46,16 +46,18 @@ type TextButtonProps = {
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   moreClasses?: string;
+  disabled?: boolean;
 };
 export function TextButton({
   children,
-  className = 'highlight-none rounded-md p-0.5 px-1 text-accent transition-colors active:bg-accent/10 dark:active:bg-accent/20',
+  className = 'highlight-none rounded-md p-0.5 px-1 text-accent transition-colors active:bg-accent/10 dark:active:bg-accent/20 disabled:grayscale',
   onClick = blank_fn,
   moreClasses = '',
+  disabled = false,
   ...rest
 }: TextButtonProps) {
   return (
-    <button onClick={onClick} className={className + ' ' + moreClasses} {...rest}>
+    <button onClick={onClick} className={className + ' ' + moreClasses} {...rest} disabled={disabled}>
       {children}
     </button>
   );

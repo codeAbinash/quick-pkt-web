@@ -1,6 +1,6 @@
 import app from '../../app';
 
-export const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+export const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json', secret: app.secret };
 
 const API_URL = app.api;
 
