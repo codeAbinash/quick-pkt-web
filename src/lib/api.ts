@@ -24,7 +24,6 @@ async function returnResponse(res: any): Promise<apiResponse> {
   if (data.status === true) {
     return { status: true, message: data.message, data: data };
   } else {
-    console.log(data.message);
     return { status: false, message: data.message };
   }
 }

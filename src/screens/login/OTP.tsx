@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import icons from '../../assets/icons/icons';
 import images from '../../assets/images/images';
 import { TextButton } from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
+import { checkOTP, resendOTP } from '../../lib/api';
 import transitions from '../../lib/transition';
-import API, { apiResponse, checkOTP, resendOTP } from '../../lib/api';
-import icons from '../../assets/icons/icons';
 import ls from '../../lib/util';
-
 type InputRef = React.MutableRefObject<HTMLInputElement>;
 
 function getNextOTPSentTimeLs() {
@@ -148,12 +147,12 @@ export default function OTP() {
       </div>
       {error && (
         <div>
-          <span className='pl-1.5 text-sm text-red-500'>{error}</span>
+          <p className='pl-1.5 text-center text-sm text-red-500'>{error}</p>
         </div>
       )}
       {message && (
         <div>
-          <span className='pl-1.5 text-sm text-green-500'>{message}</span>
+          <p className='pl-1.5 text-center text-sm text-green-500'>{message}</p>
         </div>
       )}
       {isVerifying ? (
