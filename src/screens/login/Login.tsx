@@ -47,6 +47,8 @@ const Login = () => {
     const target = event.target as HTMLInputElement;
     if (event.key === 'Enter') {
       handelOTPSend(target.value);
+      // Blur the input field
+      target.blur();
     }
   }
 
