@@ -29,87 +29,30 @@
       "src": "icons/favicon.ico",
       "type": "image/ico",
       "sizes": "256x256",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "screenshots": [
     {
-      "src": "images/screen/s1.webp",
+      "src": "images/screen/s1.jpg",
       "type": "image/webp",
-      "sizes": "1080x2300",
+      "sizes": "500x1082",
       "platform": "wide",
-      "label": "Home screen in Routine Application"
+      "label": "Login Light Mode"
     },
     {
-      "src": "images/screen/s2.webp",
+      "src": "images/screen/s2.jpg",
       "type": "image/webp",
-      "sizes": "1080x2299",
+      "sizes": "500x1082",
       "platform": "wide",
-      "label": "Routines List"
+      "label": "Login Dark Mode"
     },
     {
-      "src": "images/screen/s3.webp",
+      "src": "images/screen/s3.jpg",
       "type": "image/webp",
-      "sizes": "1080x2301",
+      "sizes": "500x1108",
       "platform": "wide",
-      "label": "Weekly Routine View"
-    },
-    {
-      "src": "images/screen/s4.webp",
-      "type": "image/webp",
-      "sizes": "1080x2300",
-      "platform": "wide",
-      "label": "Calendar and Holidays"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Home",
-      "short_name": "Home",
-      "description": "Home",
-      "url": "/routine/",
-      "icons": [
-        {
-          "src": "icons/icon96.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Routines",
-      "short_name": "Charts",
-      "description": "Charts",
-      "url": "/routine/routines/",
-      "icons": [
-        {
-          "src": "icons/icon96.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Calendar",
-      "short_name": "Settings",
-      "description": "Settings",
-      "url": "/routine/calendar/",
-      "icons": [
-        {
-          "src": "icons/icon96.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "More",
-      "short_name": "More",
-      "description": "More",
-      "url": "/routine/more/",
-      "icons": [
-        {
-          "src": "icons/icon96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "label": "Splash Screen"
     }
   ]
 }
