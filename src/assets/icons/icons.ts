@@ -17,9 +17,21 @@ import location from './src/location.svg';
 import sun from './src/sun.svg';
 import refer from './src/refer.svg';
 import loading from './src/loading.svg';
+import home from './src/home.svg';
+import home_filled from './src/home_filled.svg';
+import wallet from './src/wallet.svg';
+import wallet_filled from './src/wallet_filled.svg';
+import offers from './src/offers.svg';
+import offers_filled from './src/offers_filled.svg';
 
 const icons = {
   back,
+  offers,
+  offers_filled,
+  wallet,
+  wallet_filled,
+  home,
+  home_filled,
   loading,
   refer,
   sun,

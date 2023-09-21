@@ -25,6 +25,44 @@ const router = createBrowserRouter(
         </Suspense>
       ),
       errorElement: <Error />,
+      children: [
+        // Index Route
+        {
+          path: '/',
+          element: (
+            <Suspense fallback={<Loading />}>
+              <div>Home Screen</div>
+            </Suspense>
+          ),
+        },
+        {
+          path: '/wallet',
+          element: (
+            <Suspense fallback={<Loading />}>
+              <div>Wallet</div>
+            </Suspense>
+          ),
+          errorElement: <Error />,
+        },
+        {
+          path: '/offers',
+          element: (
+            <Suspense fallback={<Loading />}>
+              <div>Offers</div>
+            </Suspense>
+          ),
+          errorElement: <Error />,
+        },
+        {
+          path: '/refer',
+          element: (
+            <Suspense fallback={<Loading />}>
+              <div>Refer</div>
+            </Suspense>
+          ),
+          errorElement: <Error />,
+        },
+      ],
     },
     {
       path: '/login',
