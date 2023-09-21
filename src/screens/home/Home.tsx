@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import ls from '../../lib/util';
+import ls, { blank_fn } from '../../lib/util';
 import { useNavigate } from 'react-router-dom';
 import { TextButton } from '../../components/Button';
 
@@ -29,7 +29,7 @@ export default function Home() {
       <div>
         Home Screen <br /> Under Development
       </div>
-      <TextButton onClick={logout}>Log Out</TextButton>
+      <TextButton onClick={blank_fn}>Log Out</TextButton>
     </div>
   );
 }

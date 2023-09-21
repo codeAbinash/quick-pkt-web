@@ -15,11 +15,69 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/favicon.ico" />
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
+    <link rel="canonical" href="https://quickpkt.in/" />
+    <meta name="og:title" property="og:title" content="Quick PKT" />
+    <meta
+      name="description"
+      content="Quick Pkt is a simple and easy to use application that helps you to recharge your mobile, DTH, and pay bills. Get cashback on every recharge and bill payment. You can also earn rewards by completing tasks and redeem them for exciting rewards."
+    />
     <script src="/static.js"></script>
-    <title>Quick Pkt</title>
+    <title>Quick Pkt - Recharge, Relax, and Redeem Rewards!</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .while-loading {
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+    .coolLoading {
+      display: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        background-color: #00000000;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    }
+    .banner-image {
+      width: 100%;
+    }
+  </style>
   <body>
-    <div id="root" class="text-text">Not Rendered</div>
+    <div id="root">
+      <div class="while-loading">
+        <div>
+          <p>Quick PKT</p>
+          <h1 class="coolLoading">Quick PKT</h1>
+          <div class="coolLoading">
+            <h2>
+              Quick Pkt is a simple and easy to use application that helps you to recharge your mobile, DTH, and pay
+              bills. Get cashback on every recharge and bill payment. You can also earn rewards by completing tasks and
+              redeem them for exciting rewards.
+            </h2>
+            <img
+              src="/images/banner/banner.jpg"
+              class="banner-image"
+              alt="
+              Quik PKT banner image
+            "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
       // const root = document.getElementById('root');
