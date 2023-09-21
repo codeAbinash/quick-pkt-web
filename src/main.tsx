@@ -62,7 +62,7 @@ function Error() {
   return (
     <div className='screen flex items-center justify-center text-center'>
       <p>
-        Some Error Occured <br /> Please Go Back
+        Some Error Occurred <br /> Please Go Back
       </p>
     </div>
   );

@@ -21,7 +21,7 @@ function setNextOTPSentTimeLs() {
 
 export default function OTP() {
   const navigate = useNavigate();
-  const [nextOTPSentTime, setnextOTPSentTime] = useState(useMemo(() => getNextOTPSentTimeLs(), []));
+  const [nextOTPSentTime, setNextOTPSentTime] = useState(useMemo(() => getNextOTPSentTimeLs(), []));
   const inputs: any = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const [isVerifying, setIsVerifying] = React.useState(false);
   const phone = useLocation().state?.phone;
@@ -39,7 +39,7 @@ export default function OTP() {
     if (resendStatus.status === true) {
       setMessage('Sent OTP again');
       setError('');
-      setnextOTPSentTime(setNextOTPSentTimeLs());
+      setNextOTPSentTime(setNextOTPSentTimeLs());
     } else {
       setError(resendStatus.message);
       setMessage('');
@@ -98,7 +98,7 @@ export default function OTP() {
     [inputs, verifyOtp],
   );
 
-  const editnumber = useCallback(() => {
+  const editNumber = useCallback(() => {
     return transitions(() => {
       navigate('/login', {
         replace: true,
@@ -143,7 +143,7 @@ export default function OTP() {
       </div>
       <div>
         <p className='normal-text text-center text-sm text-gray-500 dark:text-gray-400 dark:text-white/60'>
-          OTP sent to <span>+91 {phone}</span>. <TextButton onClick={editnumber}>Edit</TextButton>
+          OTP sent to <span>+91 {phone}</span>. <TextButton onClick={editNumber}>Edit</TextButton>
         </p>
       </div>
       {error && (
@@ -183,7 +183,7 @@ export default function OTP() {
           <TextButton
             onClick={resendOtp}
             moreClasses={resendingOTP ? 'animate-pulse' : ''}
-            disabled={!isAbaleToResendOTP(now, nextOTPSentTime)}
+            disabled={!isAbleToResendOTP(now, nextOTPSentTime)}
           >
             Resend OTP {getTimeRemaining(now, nextOTPSentTime)}
           </TextButton>
@@ -194,12 +194,12 @@ export default function OTP() {
   );
 }
 
-function isAbaleToResendOTP(now: number, otpSentTime: number) {
+function isAbleToResendOTP(now: number, otpSentTime: number) {
   return now + 1000 > otpSentTime;
 }
 
 function getTimeRemaining(d1: any, d2: any) {
-  if (isAbaleToResendOTP(d1, d2)) return;
+  if (isAbleToResendOTP(d1, d2)) return;
   const diff = d2 - d1;
   const minutes = Math.floor(diff / 1000 / 60);
   const seconds = Math.floor((diff / 1000) % 60);
