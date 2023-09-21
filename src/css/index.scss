@@ -28,6 +28,10 @@
   // background-color: var(--bg);
 }
 
+body {
+  overscroll-behavior-y: none;
+}
+
 // View Transition Animations
 .logo-long {
   view-transition-name: logo-long;

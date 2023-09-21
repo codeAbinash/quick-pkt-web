@@ -15,7 +15,6 @@ function getNextOTPSentTimeLs() {
 }
 function setNextOTPSentTimeLs() {
   const now = Date.now() + 2 * 60 * 1000;
-  // const now = Date.now() + 10 * 1000;
   ls.set('NextOTPSentTime', now.toString());
   return now;
 }
@@ -31,7 +30,7 @@ export default function OTP() {
   const [now, setNow] = useState(Date.now());
   const [resendingOTP, setResendingOTP] = useState(false);
 
-  async function resendOtp() {
+  const resendOtp = useCallback(async () => {
     if (resendingOTP) return;
     setResendingOTP(true);
     setError('');
@@ -40,38 +39,15 @@ export default function OTP() {
     if (resendStatus.status === true) {
       setMessage('Sent OTP again');
       setError('');
-      // setOTPSentTime(setOTPSentTimeLs());
+      setnextOTPSentTime(setNextOTPSentTimeLs());
     } else {
       setError(resendStatus.message);
       setMessage('');
     }
-    setnextOTPSentTime(setNextOTPSentTimeLs());
     setResendingOTP(false);
-  }
+  }, [phone, resendingOTP]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => inputs[0].current?.focus(), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // useEffect(() => {
-  // Disable back button
-  // window.history.pushState(null, '', window.location.href);
-  // window.onpopstate = () => {
-  //   window.history.go(1);
-  // };
-  // console.log(window.history);
-  // return () => {
-  //   window.onpopstate = null;
-  // };
-  // }, []);
-
-  async function verifyOtp() {
+  const verifyOtp = useCallback(async () => {
     if (isVerifying) return;
     // Disable all inputs
     inputs.forEach((r: InputRef) => (r.current.disabled = true));
@@ -101,23 +77,26 @@ export default function OTP() {
     // setTimeout(() => {
     setIsVerifying(false);
     // }, 500);
-  }
+  }, [inputs, isVerifying, phone]);
 
-  function handelKeydown(event: React.KeyboardEvent<HTMLInputElement>, i: number) {
-    event.preventDefault();
-    const target = event.target as HTMLInputElement;
-    if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
-    else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
-    else if (event.key === 'Escape') inputs[i].current?.blur();
-    else if (event.key === 'Backspace') {
-      target.value = '';
-      i > 0 && inputs[i - 1].current?.focus();
-    } else if (!isNaN(Number(event.key))) {
-      target.value = event.key;
-      if (i == 5 && inputs.every((r: InputRef) => r.current.value)) verifyOtp();
-      else i < 5 && inputs[i + 1].current?.focus();
-    } else if (i == 5) if (event.key == 'Enter') verifyOtp();
-  }
+  const handelKeydown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>, i: number) => {
+      event.preventDefault();
+      const target = event.target as HTMLInputElement;
+      if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
+      else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
+      else if (event.key === 'Escape') inputs[i].current?.blur();
+      else if (event.key === 'Backspace') {
+        target.value = '';
+        i > 0 && inputs[i - 1].current?.focus();
+      } else if (!isNaN(Number(event.key))) {
+        target.value = event.key;
+        if (i == 5 && inputs.every((r: InputRef) => r.current.value)) verifyOtp();
+        else i < 5 && inputs[i + 1].current?.focus();
+      } else if (i == 5) if (event.key == 'Enter') verifyOtp();
+    },
+    [inputs, verifyOtp],
+  );
 
   const editnumber = useCallback(() => {
     return transitions(() => {
@@ -129,6 +108,28 @@ export default function OTP() {
       });
     })();
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => inputs[0].current?.focus(), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // useEffect(() => {
+  // Disable back button
+  // window.history.pushState(null, '', window.location.href);
+  // window.onpopstate = () => {
+  //   window.history.go(1);
+  // };
+  // console.log(window.history);
+  // return () => {
+  //   window.onpopstate = null;
+  // };
+  // }, []);
 
   return (
     <div className='screen flex flex-col items-center justify-between'>

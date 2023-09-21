@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import images from '../../assets/images/images';
@@ -25,22 +25,25 @@ const Login = () => {
     handelOTPSend(phone);
   };
 
-  async function handelOTPSend(phone: string) {
-    if (sending) return;
-    const validation = phoneNumberValidation(phone);
-    delayFn(async () => {
-      if (validation.status) {
-        setSending(true);
-        const otpStatus = await sendOTP(phone);
-        if (otpStatus.status) {
-          transitions(() => {
-            navigate('/otp', { replace: true, state: { phone: phone } });
-          })();
-        } else setError(otpStatus.message);
-      } else setError(validation.message);
-      setSending(false);
-    })();
-  }
+  const handelOTPSend = useCallback(
+    async (phone: string) => {
+      if (sending) return;
+      const validation = phoneNumberValidation(phone);
+      delayFn(async () => {
+        if (validation.status) {
+          setSending(true);
+          const otpStatus = await sendOTP(phone);
+          if (otpStatus.status) {
+            transitions(() => {
+              navigate('/otp', { replace: true, state: { phone: phone } });
+            })();
+          } else setError(otpStatus.message);
+        } else setError(validation.message);
+        setSending(false);
+      })();
+    },
+    [sending, navigate],
+  );
 
   function handelKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     setError('');
@@ -111,7 +114,7 @@ const Login = () => {
             <p>Sending OTP</p>
           </div>
         ) : (
-          <Button className='send-otp-button btn w-full' onClick={handleClick}>
+          <Button className='send-otp-button shine btn w-full' onClick={handleClick}>
             Send OTP
           </Button>
         )}
