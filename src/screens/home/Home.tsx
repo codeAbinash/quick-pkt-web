@@ -1,8 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import ls from '../../lib/util';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
-import transitions from '../../lib/transition';
+import ls from '../../lib/util';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -19,24 +18,32 @@ const navItems = [
     path: '/',
     icon: icons.home,
     icon_filled: icons.home_filled,
-  },
-  {
-    name: 'Wallet',
-    path: '/wallet',
-    icon: icons.wallet,
-    icon_filled: icons.wallet_filled,
+    className: 'w-[21px]',
+    className_filled: 'w-[19.5px]',
   },
   {
     name: 'Offers',
     path: '/offers',
     icon: icons.offers,
     icon_filled: icons.offers_filled,
+    className: 'w-[23.5px]',
+    className_filled: 'w-[23.5px]',
   },
   {
     name: 'Refer',
     path: '/refer',
-    icon: icons.home,
-    icon_filled: icons.home_filled,
+    icon: icons.send,
+    icon_filled: icons.send_filled,
+    className: 'w-[23px]',
+    className_filled: 'w-[23px]',
+  },
+  {
+    name: 'Wallet',
+    path: '/wallet',
+    icon: icons.wallet,
+    icon_filled: icons.wallet_filled,
+    className: 'w-[22.5px]',
+    className_filled: 'w-[23.5px]',
   },
 ];
 
@@ -56,30 +63,25 @@ export default function Home() {
   useEffect(() => {}, []);
 
   return (
-    <div className='screen text-center'>
+    <div className='select-none'>
       <Outlet />
-      <div className='fixed bottom-0 left-0 right-0 flex items-center justify-between border border-transparent border-t-gray-100  px-6 dark:border-t-gray-900'>
+      <div className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent border-t-[#77777744] bg-white/70 px-5 align-middle backdrop-blur-md dark:bg-black/60'>
         {navItems.map((item, index) => (
           <div
             key={index}
-            className={`tap99 flex flex-col items-center justify-center gap-1 px-5 pb-2 pt-3 transition ${
-              path === item.path ? 'text-accent' : 'opacity-60'
+            className={`tap95 flex flex-grow flex-col items-center justify-center gap-[0.15rem] pb-2.5 pt-3.5 ${
+              path === item.path ? 'text-accent' : 'text-black opacity-40 dark:text-white'
             }`}
-            onClick={
-              // transitions(() =>
-              () =>
-                navigate(item.path, {
-                  replace: true,
-                })
-              // )
-            }
+            onClick={() => navigate(item.path, { replace: true })}
           >
-            <img
-              src={path === item.path ? item.icon_filled : item.icon}
-              alt={item.name}
-              className={`h-6 w-6 ${path === item.path ? '' : 'dark:invert'}`}
-            />
-            <span className='text-[0.7rem] font-normMid'>{item.name}</span>
+            <div className='flex aspect-square h-[25px] items-start justify-center'>
+              <img
+                alt={item.name}
+                className={`${path === item.path ? item.className_filled : ' dark:invert ' + item.className}`}
+                src={path === item.path ? item.icon_filled : item.icon}
+              />
+            </div>
+            <span className='text-center text-[0.65rem] font-normMid'>{item.name}</span>
           </div>
         ))}
       </div>

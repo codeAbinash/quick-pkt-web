@@ -120,3 +120,34 @@ body {
     cursor: pointer;
   }
 }
+
+.tap,
+.tap99,
+.tap97,
+.tap95 {
+  transition-duration: 100ms;
+}
+
+.tap {
+  &:active {
+    scale: 0.95;
+  }
+}
+
+.tap99 {
+  &:active {
+    scale: 0.99;
+  }
+}
+
+.tap97 {
+  &:active {
+    scale: 0.97;
+  }
+}
+
+.tap95 {
+  &:active {
+    scale: 0.95;
+  }
+}

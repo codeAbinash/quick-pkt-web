@@ -23,9 +23,13 @@ import wallet from './src/wallet.svg';
 import wallet_filled from './src/wallet_filled.svg';
 import offers from './src/offers.svg';
 import offers_filled from './src/offers_filled.svg';
+import send from './src/send.svg';
+import send_filled from './src/send_filled.svg';
 
 const icons = {
   back,
+  send,
+  send_filled,
   offers,
   offers_filled,
   wallet,
