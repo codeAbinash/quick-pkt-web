@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import store from './Redux/sample';
 import './css/index.scss';
 import { loadTheme } from './lib/util';
-import Home from './screens/home/Home';
+import Home, { HomeScreen } from './screens/home/Home';
 import app from '../app';
 import icons from './assets/icons/icons';
 
@@ -26,14 +26,9 @@ const router = createBrowserRouter(
       ),
       errorElement: <Error />,
       children: [
-        // Index Route
         {
           path: '/',
-          element: (
-            <Suspense fallback={<Loading />}>
-              <div>Home Screen</div>
-            </Suspense>
-          ),
+          element: <HomeScreen />,
         },
         {
           path: '/wallet',

@@ -2,6 +2,8 @@ import { useEffect, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import ls from '../../lib/util';
+import transitions from '../../lib/transition';
+import images from '../../assets/images/images';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -65,25 +67,44 @@ export default function Home() {
   return (
     <div className='select-none'>
       <Outlet />
-      <div className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent border-t-[#77777744] bg-white/70 px-5 align-middle backdrop-blur-md dark:bg-black/60'>
+      <div
+        className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
+        border-t-[#77777744] bg-white/70 px-5 align-middle backdrop-blur-md dark:bg-black/60
+        md:bottom-4 md:mx-auto md:max-w-sm md:rounded-full md:border-[#77777744] md:px-0 md:shadow-lg'
+      >
         {navItems.map((item, index) => (
           <div
             key={index}
-            className={`tap95 flex flex-grow flex-col items-center justify-center gap-[0.15rem] pb-2.5 pt-3.5 ${
-              path === item.path ? 'text-accent' : 'text-black opacity-40 dark:text-white'
+            className={`tap95 highlight-none flex flex-grow cursor-pointer flex-col items-center justify-center gap-[0.15rem] pb-2.5 pt-3.5 ${
+              path === item.path ? 'text-accent' : 'text-black opacity-50 dark:text-white dark:opacity-30'
             }`}
-            onClick={() => navigate(item.path, { replace: true })}
+            onClick={transitions(() => navigate(item.path, { replace: true }), 0)}
           >
             <div className='flex aspect-square h-[25px] items-start justify-center'>
               <img
-                alt={item.name}
-                className={`${path === item.path ? item.className_filled : ' dark:invert ' + item.className}`}
+                className={path === item.path ? item.className_filled : ' dark:invert ' + item.className}
                 src={path === item.path ? item.icon_filled : item.icon}
+                alt={item.name}
               />
             </div>
             <span className='text-center text-[0.65rem] font-normMid'>{item.name}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+export function HomeScreen() {
+  return (
+    <div className=''>
+      <div className='fixed top-0 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744]  p-3'>
+        <img src={images.logo_long} alt='Logo' className='h-9' />
+
+        <div className='flex items-center justify-center gap-5'>
+          <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
+          <img src={icons.user} className='tap95 w-[2.1rem] rounded-full' alt='User Icon' />
+        </div>
       </div>
     </div>
   );

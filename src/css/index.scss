@@ -126,6 +126,8 @@ body {
 .tap97,
 .tap95 {
   transition-duration: 100ms;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .tap {

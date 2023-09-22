@@ -25,9 +25,18 @@ import offers from './src/offers.svg';
 import offers_filled from './src/offers_filled.svg';
 import send from './src/send.svg';
 import send_filled from './src/send_filled.svg';
+import thunder from './src/thunder.svg';
+import notification from './src/notification.svg';
+import grad from './src/grad.svg';
+import user from './src/user.png';
+// import user from './src/user.svg';
 
 const icons = {
+  grad,
+  user,
   back,
+  notification,
+  thunder,
   send,
   send_filled,
   offers,
