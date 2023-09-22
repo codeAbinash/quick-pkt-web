@@ -30,9 +30,24 @@ import notification from './src/notification.svg';
 import grad from './src/grad.svg';
 import user from './src/user.png';
 // import user from './src/user.svg';
+import dth from './src/dth.svg';
+import mobile from './src/mobile.svg';
+import electricity from './src/electricity.svg';
+import gas from './src/gas.svg';
+import postpaid from './src/postpaid.svg';
+import landline from './src/landline.svg';
+import broadband from './src/broadband.svg';
+import rent from './src/rent.svg';
 
 const icons = {
-  grad,
+  grad, rent,
+  postpaid,
+  landline,
+  broadband,
+  gas,
+  electricity,
+  mobile,
+  dth,
   user,
   back,
   notification,

@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
-import ls from '../../lib/util';
-import transitions from '../../lib/transition';
 import images from '../../assets/images/images';
+import transitions from '../../lib/transition';
+import ls from '../../lib/util';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -65,7 +65,14 @@ export default function Home() {
   useEffect(() => {}, []);
 
   return (
-    <div className='select-none'>
+    <div className='w-full select-none'>
+      <div className='sticky top-0 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744] px-4 py-3'>
+        <img src={images.logo_long} alt='Logo' className='h-9' />
+        <div className='flex items-center justify-center gap-5'>
+          <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
+          <img src={icons.user} className='tap95 w-[2.1rem] rounded-full' alt='User Icon' />
+        </div>
+      </div>
       <Outlet />
       <div
         className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
@@ -76,7 +83,7 @@ export default function Home() {
           <div
             key={index}
             className={`tap95 highlight-none flex flex-grow cursor-pointer flex-col items-center justify-center gap-[0.15rem] pb-2.5 pt-3.5 ${
-              path === item.path ? 'text-accent' : 'text-black opacity-50 dark:text-white dark:opacity-30'
+              path === item.path ? 'text-accent' : 'text-black opacity-50 dark:text-white dark:opacity-40'
             }`}
             onClick={transitions(() => navigate(item.path, { replace: true }), 0)}
           >
@@ -95,15 +102,73 @@ export default function Home() {
   );
 }
 
+const bannerImages = [
+  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
+  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
+  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
+  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
+  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
+];
+
+const rechargeOptions = [
+  {
+    name: 'Mobile',
+    icon: icons.postpaid,
+  },
+  {
+    name: 'DTH',
+    icon: icons.dth,
+  },
+  {
+    name: 'Electricity',
+    icon: icons.electricity,
+  },
+  {
+    name: 'Landline',
+    icon: icons.landline,
+  },
+  {
+    name: 'Broadband',
+    icon: icons.broadband,
+  },
+  {
+    name: 'Gas Bill',
+    icon: icons.gas,
+  },
+  {
+    name: 'Rent',
+    icon: icons.rent,
+  },
+  {
+    name: 'Postpaid',
+    icon: icons.postpaid,
+  },
+];
+
 export function HomeScreen() {
   return (
-    <div className=''>
-      <div className='fixed top-0 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744]  p-3'>
-        <img src={images.logo_long} alt='Logo' className='h-9' />
-
-        <div className='flex items-center justify-center gap-5'>
-          <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
-          <img src={icons.user} className='tap95 w-[2.1rem] rounded-full' alt='User Icon' />
+    <div className='w-full pt-5'>
+      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+        {bannerImages.map((item, index) => (
+          <div
+            key={index}
+            className='tap97 flex w-[80%] shrink-0 snap-center items-center justify-center first:ml-5 last:mr-5'
+          >
+            <img className='w-full shrink-0 rounded-2xl bg-white shadow-lg' src='/images/banner.webp' />
+          </div>
+        ))}
+      </div>
+      <div className='p-4 pt-2'>
+        <p className='pl-1.5 text-sm font-normMid'>Recharge and Bill Payments</p>{' '}
+        <div className='mt-4 grid grid-cols-4 justify-center gap-y-6 rounded-2xl border border-[#77777744] p-3 pb-7 pt-7 shadow-md shadow-[#00000011]'>
+          {rechargeOptions.map((item, index) => (
+            <div key={index} className='tap95 flex flex-col items-center justify-center'>
+              <div className='aspect-square'>
+                <img className='w-[1.7rem]' src={item.icon} alt={item.name} />
+              </div>
+              <p className='text-gray mt-2 text-[0.7rem] font-normal text-gray-700 dark:text-gray-300'>{item.name}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
