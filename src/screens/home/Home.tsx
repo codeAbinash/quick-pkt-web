@@ -155,7 +155,7 @@ export default function Home() {
       <Outlet />
       <div
         className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
-        border-t-[#77777744] bg-white/70 px-5 align-middle backdrop-blur-md dark:bg-black/60
+        border-t-[#77777744] bg-white/90 px-5 align-middle backdrop-blur-md dark:bg-black/80
         md:bottom-4 md:mx-auto md:max-w-sm md:rounded-full md:border-[#77777744] md:px-0 md:shadow-lg'
       >
         {navItems.map((item, index) => (
@@ -236,7 +236,7 @@ function SpotLight() {
         {spotLightImages.map((_, index) => (
           <div
             key={index}
-            className='tap97 flex aspect-[4/4] w-[40%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+            className='tap97 flex aspect-[4/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
             <img className='w-full shrink-0 rounded-2xl shadow-black' src={images.spotlight3} />
           </div>
