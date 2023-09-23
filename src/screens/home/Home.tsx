@@ -5,6 +5,7 @@ import images from '../../assets/images/images';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
 import headerIntersect from '../../lib/headerIntersect';
+import TextEmoji from '../../components/TextEmoji';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -203,15 +204,42 @@ const spotLightImages = [1, 2, 3, 4, 5, 6];
 
 function Banner() {
   return (
-    <div className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+    <div className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-4'>
       {bannerImages.map((_, index) => (
         <div
           key={index}
-          className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
+          className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
         >
-          <img className='w-full shrink-0 rounded-2xl' src={images.banner} />
+          <img className='w-full shrink-0 rounded-3xl' src={images.banner} />
         </div>
       ))}
+    </div>
+  );
+}
+
+function SpecialOffers() {
+  return (
+    <div className='p-5'>
+      <div className='flex gap-4 rounded-3xl p-2.5 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
+        <img src={images.spotlight2} className='aspect-square h-24 rounded-2xl' />
+        <div>
+          <p className='text-[0.8rem] font-medium'>
+            Upto ₹10 <span className='text-accent'>Cashback</span> on every Recharge <TextEmoji emoji='🤩' />
+          </p>
+          <p className='pt-1 text-[0.75rem] text-gray-500'>
+            Special offer! <TextEmoji emoji='😳' /> Just for you <TextEmoji emoji='😍' />
+          </p>
+          <div className='mt-2 flex items-center gap-4 text-center'>
+            <button className='no-highlight tap95 rounded-full bg-accent px-4 py-1.5 text-[0.6rem] font-medium text-white'>
+              Recharge Now!
+            </button>
+            <button className='no-highlight tap95 flex items-center justify-center gap-1 pl-3 text-[0.7rem] font-medium text-accent'>
+              Details
+              {/* <img src={icons.arrow_right} className='inline-block w-2' /> */}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -221,7 +249,7 @@ function RechargeOptions() {
     <div className='mx-auto mt-3 max-w-4xl'>
       <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Recharge and Bill Payments</p>
       <div className='p-5 pt-2'>
-        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
+        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
               <div className='aspect-square'>
@@ -246,9 +274,9 @@ function SpotLight() {
         {spotLightImages.map((_, index) => (
           <div
             key={index}
-            className='tap97 flex aspect-[4/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+            className='tap97 flex aspect-[4/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
-            <img className='w-full shrink-0 rounded-2xl' src={images.spotlight3} />
+            <img className='w-full shrink-0 rounded-3xl' src={images.spotlight3} />
           </div>
         ))}
       </div>
@@ -264,9 +292,9 @@ function Featured() {
         {spotLightImages.map((_, index) => (
           <div
             key={index}
-            className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+            className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
-            <img className='w-full shrink-0 rounded-2xl' src={images.banner2} />
+            <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
           </div>
         ))}
       </div>
@@ -277,7 +305,7 @@ function Featured() {
 function Bottom() {
   return (
     <div className='mt-14 w-full opacity-10'>
-      <p className='text-center text-lg font-bold'>Quick PKT</p>
+      <p className='text-center text-lg font-bold'>QUICK PKT</p>
     </div>
   );
 }
@@ -286,6 +314,7 @@ export function HomeScreen() {
   return (
     <div className='w-full pb-32 pt-5'>
       <Banner />
+      <SpecialOffers />
       <RechargeOptions />
       <SpotLight />
       <Featured />
