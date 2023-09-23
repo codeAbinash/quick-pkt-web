@@ -7,6 +7,7 @@ import ls from '../../lib/util';
 import headerIntersect from '../../lib/headerIntersect';
 import TextEmoji from '../../components/TextEmoji';
 import { Bottom } from '../../components/Extras';
+import { getCurrentUser } from '../../lib/api';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -140,14 +141,27 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
-  useEffect(() => {
-    if (!isLoggedIn)
-      navigate('/login', {
-        replace: true,
-      });
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn)
+  //     navigate('/login', {
+  //       replace: true,
+  //     });
+  // }, []);
+
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
+  }, []);
+
+  async function getUserData() {
+    const userData = await getCurrentUser();
+    if (userData.status) {
+      ls.set('userData', JSON.stringify(userData.data));
+    }
+    // console.log(userData.data);
+  }
+
+  useEffect(() => {
+    // getUserData();
   }, []);
 
   return (
@@ -208,7 +222,7 @@ const bannerImages = [
   'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
 ];
 
-const spotLightImages = [1, 2, 3, 4, 5, 6];
+const spotLightImages = [1, 2, 3];
 
 function Banner() {
   return (
@@ -229,24 +243,27 @@ function SpecialOffers() {
   return (
     <div className='p-5'>
       <div className='mx-auto flex max-w-sm gap-4 rounded-3xl p-3 shadow-[0_0_5px_0_rgba(0,0,0,0.13)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0)]'>
-        <img src={images.spotlight2} className='aspect-square h-[6.3rem] rounded-2xl' />
-        <div className='flex flex-col justify-between'>
+        <img src={images.spotlight2} className='aspect-square h-[6.5rem] rounded-2xl' />
+        <div className='flex flex-col justify-center'>
           <div>
-            <p className='text-[0.85rem] font-medium leading-5'>
-              Upto ₹10 <span className='text-accent'>Cashback</span> on every Recharge <TextEmoji emoji='🤩' />
+            <p className='text-[1rem] font-medium leading-5'>
+              Guaranteed <span className='text-accent'>Cashback</span> <TextEmoji emoji='🤑' /> on every Recharge{' '}
+              <TextEmoji emoji='🤩' />
             </p>
-            <p className='mt-1 text-[0.75rem] text-gray-500'>
-              Special offer! <TextEmoji emoji='😳' /> Just for you <TextEmoji emoji='😍' />
+            <p className='mt-1.5 text-xs text-gray-500'>
+              Special offer! <TextEmoji emoji='😳' /> Just for you! <TextEmoji emoji='😍' /> Get Cashback upto ₹10{' '}
+              <TextEmoji emoji='🤑' /> Select any one option from bellow.
+              <TextEmoji emoji='👇' />
             </p>
           </div>
-          <div className='mb-1 flex items-center text-center'>
+          {/* <div className='mb-1 flex items-center text-center'>
             <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
               Recharge Now!
             </button>
             <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
               View Details
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -283,9 +300,9 @@ function SpotLight() {
         {spotLightImages.map((_, index) => (
           <div
             key={index}
-            className='tap97 flex aspect-[4/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+            className='tap97 flex aspect-[3/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
-            <img className='w-full shrink-0 rounded-3xl' src={images.spotlight3} />
+            <img className='aspect-[3/4] w-full shrink-0 rounded-3xl' src={images.spotlight3} />
           </div>
         ))}
       </div>
@@ -297,13 +314,20 @@ function Featured() {
   return (
     <div className='mx-auto max-w-4xl'>
       <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Featured</p>
-      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+      {/* <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
         {spotLightImages.map((_, index) => (
           <div
             key={index}
             className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
             <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
+          </div>
+        ))}
+      </div> */}
+      <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3'>
+        {spotLightImages.map((_, index) => (
+          <div className='aspect-[2/1] w-full overflow-hidden rounded-3xl'>
+            <img src={images.banner2} className='w-full' />
           </div>
         ))}
       </div>

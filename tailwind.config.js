@@ -16,6 +16,7 @@ export default {
       },
       fontWeight: {
         normMid: '450',
+        420: '420',
       },
       fontSize: {
         xxs: '0.65rem',

@@ -38,10 +38,34 @@ import google_play from './src/google_play.png';
 import at from './src/at.svg';
 import mobile_solid from './src/mobile_solid.svg';
 import user_solid from './src/user_solid.svg';
-import pen_solid from './src/pen_solid.svg';
+// import pen_solid from './src/pen_solid.svg';
+import log_out from './more options/log_out.svg';
+import edit from './more options/edit.svg';
+import dark_mode from './more options/dark_mode.svg';
+import language from './more options/language.svg';
+import help from './more options/help.svg';
+import rate from './more options/rate.svg';
+import report from './more options/report.svg';
+import about_us from './more options/about.svg';
+import privacy_policy from './more options/privacy_policy.svg';
+import faq from './more options/faq.svg';
+import contact_us from './more options/contact_us.svg';
+import terms from './more options/terms.svg';
 
 const icons = {
-  pen_solid,
+  terms,
+  contact_us,
+  privacy_policy,
+  faq,
+  about_us,
+  rate,
+  report,
+  language,
+  help,
+  dark_mode,
+  edit,
+  log_out,
+  // pen_solid,
   user_solid,
   mobile_solid,
   at,

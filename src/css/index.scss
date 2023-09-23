@@ -48,6 +48,15 @@ body {
 .profile-picture {
   view-transition-name: profile-picture;
 }
+.anim-user-name {
+  view-transition-name: anim-user-name;
+}
+.anim-user-phone {
+  view-transition-name: anim-user-phone;
+}
+.anim-edit-icon {
+  view-transition-name: anim-edit-icon;
+}
 
 // Search Cancel button
 .searchCancel::-webkit-search-cancel-button {

@@ -12,9 +12,11 @@ import icons from './assets/icons/icons';
 
 loadTheme();
 const OTP = lazyWithPreload(() => import('./screens/login/OTP'));
-const Profile = lazyWithPreload(() => import('./screens/Profile'));
+const EditProfile = lazyWithPreload(() => import('./screens/Profile/EditProfile'));
 const Login = lazy(() => import('./screens/login/Login'));
+const Profile = lazyWithPreload(() => import('./screens/Profile/Profile'));
 OTP.preload();
+EditProfile.preload();
 Profile.preload();
 
 const router = createBrowserRouter(
@@ -62,15 +64,6 @@ const router = createBrowserRouter(
       ],
     },
     {
-      path: '/profile',
-      element: (
-        <Suspense fallback={<Loading />}>
-          <Profile />
-        </Suspense>
-      ),
-      errorElement: <Error />,
-    },
-    {
       path: '/login',
       element: (
         <Suspense fallback={<Loading />}>
@@ -87,6 +80,22 @@ const router = createBrowserRouter(
         </Suspense>
       ),
       errorElement: <Error />,
+    },
+    {
+      path: '/profile',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Profile />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'profile/edit',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <EditProfile />
+        </Suspense>
+      ),
     },
   ],
   {

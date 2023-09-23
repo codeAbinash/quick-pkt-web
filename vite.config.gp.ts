@@ -16,8 +16,8 @@ export default ({ mode }) => {
       },
     },
     esbuild: {
-      drop: ['debugger'],
-      pure: ['console.log'],
+      // drop: ['debugger'],
+      // pure: ['console.log'],
     },
   });
 };
