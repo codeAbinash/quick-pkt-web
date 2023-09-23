@@ -153,7 +153,7 @@ export default function Home() {
       <p ref={intersect}></p>
       <div
         className={`${
-          isIntersecting ? '' : 'shadow-sm dark:shadow-[#77777715]'
+          isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
         } sticky top-0 z-40 flex w-full items-center justify-between border-b-[0.5px] border-transparent bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
       >
         <img src={images.logo_long} alt='Logo' className='h-9' />
@@ -221,7 +221,7 @@ function RechargeOptions() {
     <div className='mx-auto mt-3 max-w-4xl'>
       <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Recharge and Bill Payments</p>
       <div className='p-5 pt-2'>
-        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
+        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
               <div className='aspect-square'>
@@ -276,7 +276,7 @@ function Featured() {
 
 function Bottom() {
   return (
-    <div className='mt-16 w-full opacity-10'>
+    <div className='mt-14 w-full opacity-10'>
       <p className='text-center text-lg font-bold'>Quick PKT</p>
     </div>
   );
