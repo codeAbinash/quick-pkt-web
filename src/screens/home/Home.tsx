@@ -165,8 +165,8 @@ export default function Home() {
       </div>
       <Outlet />
       <div
-        className='fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
-        border-t-[#77777744] bg-white/90 px-5 align-middle backdrop-blur-md dark:bg-black/80
+        className='fixed bottom-[-1px] left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
+        border-t-[#77777744] bg-[#ffffffee] px-5 align-middle backdrop-blur-md dark:bg-black/90
         md:bottom-4 md:mx-auto md:max-w-sm md:rounded-full md:border-[#77777744] md:px-0 md:shadow-lg'
       >
         {navItems.map((item, index) => (
@@ -220,22 +220,23 @@ function Banner() {
 function SpecialOffers() {
   return (
     <div className='p-5'>
-      <div className='flex gap-4 rounded-3xl p-2.5 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
-        <img src={images.spotlight2} className='aspect-square h-24 rounded-2xl' />
-        <div>
-          <p className='text-[0.8rem] font-medium'>
-            Upto ₹10 <span className='text-accent'>Cashback</span> on every Recharge <TextEmoji emoji='🤩' />
-          </p>
-          <p className='pt-1 text-[0.75rem] text-gray-500'>
-            Special offer! <TextEmoji emoji='😳' /> Just for you <TextEmoji emoji='😍' />
-          </p>
-          <div className='mt-2 flex items-center gap-4 text-center'>
-            <button className='no-highlight tap95 rounded-full bg-accent px-4 py-1.5 text-[0.6rem] font-medium text-white'>
+      <div className='mx-auto flex max-w-sm gap-4 rounded-3xl p-3 shadow-[0_0_5px_0_rgba(0,0,0,0.13)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0)]'>
+        <img src={images.spotlight2} className='aspect-square h-[6.3rem] rounded-2xl' />
+        <div className='flex flex-col justify-between'>
+          <div>
+            <p className='text-[0.85rem] font-medium leading-5'>
+              Upto ₹10 <span className='text-accent'>Cashback</span> on every Recharge <TextEmoji emoji='🤩' />
+            </p>
+            <p className='mt-1 text-[0.75rem] text-gray-500'>
+              Special offer! <TextEmoji emoji='😳' /> Just for you <TextEmoji emoji='😍' />
+            </p>
+          </div>
+          <div className='mb-1 flex items-center text-center'>
+            <button className='no-highlight tap95 bg-accentBright flex-grow rounded-full py-1.5 text-[0.6rem] font-medium text-white'>
               Recharge Now!
             </button>
-            <button className='no-highlight tap95 flex items-center justify-center gap-1 pl-3 text-[0.7rem] font-medium text-accent'>
-              Details
-              {/* <img src={icons.arrow_right} className='inline-block w-2' /> */}
+            <button className='no-highlight tap95 text-accentBright flex-grow items-center justify-center  gap-1 pl-3 text-[0.7rem] font-medium'>
+              View Details
             </button>
           </div>
         </div>
@@ -246,16 +247,16 @@ function SpecialOffers() {
 
 function RechargeOptions() {
   return (
-    <div className='mx-auto mt-3 max-w-4xl'>
-      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Recharge and Bill Payments</p>
+    <div className='mx-auto mt-2 max-w-4xl'>
+      <p className='mb-3 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p>
       <div className='p-5 pt-2'>
-        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
+        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
               <div className='aspect-square'>
                 <img className='w-8' src={item.icon} alt={item.name} />
               </div>
-              <p className='mt-2  text-[0.6rem] font-normal leading-3 text-gray-700 dark:text-gray-300'>
+              <p className='mt-2 text-[0.6rem] font-normal leading-3 text-gray-700 dark:text-gray-300'>
                 {item.element}
               </p>
             </div>
@@ -304,15 +305,16 @@ function Featured() {
 
 function Bottom() {
   return (
-    <div className='mt-14 w-full opacity-10'>
-      <p className='text-center text-lg font-bold'>QUICK PKT</p>
+    <div className='mt-10 w-full text-center opacity-[0.15]'>
+      <p className='text-xl font-bold'>QUICK PKT</p>
+      <p className='text-[0.6rem] font-bold leading-3'>A Quick way to Recharge</p>
     </div>
   );
 }
 
 export function HomeScreen() {
   return (
-    <div className='w-full pb-32 pt-5'>
+    <div className='w-full pb-32 pt-2'>
       <Banner />
       <SpecialOffers />
       <RechargeOptions />

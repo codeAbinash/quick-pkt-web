@@ -6,6 +6,8 @@ export default {
       colors: {
         bg: '#000000',
         accent: '#ed4525',
+        accentBright: '#ff4310',
+        // accent : '#ff4310',
         text: '#333',
         inputBg: '#f2f2f2',
       },
