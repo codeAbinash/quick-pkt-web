@@ -48,6 +48,85 @@ const navItems = [
     className_filled: 'w-[23.5px]',
   },
 ];
+const rechargeOptions = [
+  {
+    element: (
+      <span>
+        Mobile <br /> Recharge
+      </span>
+    ),
+    icon: icons.mobile,
+    name: 'Mobile Recharge',
+  },
+  {
+    element: (
+      <span>
+        DTH <br /> Recharge
+      </span>
+    ),
+    icon: icons.dth,
+    name: 'DTH Recharge',
+  },
+  {
+    element: (
+      <span>
+        Electricity <br /> Bill Pay
+      </span>
+    ),
+    icon: icons.electricity,
+    name: 'Electricity Bill Pay',
+  },
+  {
+    element: (
+      <span>
+        Landline <br /> Bill Pay
+      </span>
+    ),
+    icon: icons.landline,
+    name: 'Landline Bill Pay',
+  },
+  {
+    element: (
+      <span>
+        Broadband <br /> Recharge
+      </span>
+    ),
+    icon: icons.broadband,
+    name: 'Broadband Recharge',
+  },
+  {
+    element: (
+      <span>
+        Gas Cylinder <br />
+        Booking
+      </span>
+    ),
+    icon: icons.gas,
+    name: 'Gas Cylinder Booking',
+  },
+  {
+    element: (
+      <span>
+        Rent <br /> Payment
+      </span>
+    ),
+    icon: icons.rent,
+    name: 'Rent Payment',
+  },
+  // {
+  //   element: 'Postpaid',
+  //   icon: icons.postpaid,
+  // }
+  {
+    element: (
+      <span>
+        Google Play <br /> Recharge
+      </span>
+    ),
+    icon: icons.google_play,
+    name: 'Google Play Recharge',
+  },
+];
 
 export default function Home() {
   // Check If it is logged in
@@ -66,7 +145,7 @@ export default function Home() {
 
   return (
     <div className='w-full select-none'>
-      <div className='sticky top-0 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744] px-4 py-3'>
+      <div className='sticky top-0 z-40 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744] bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80'>
         <img src={images.logo_long} alt='Logo' className='h-9' />
         <div className='flex items-center justify-center gap-5'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
@@ -110,67 +189,88 @@ const bannerImages = [
   'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
 ];
 
-const rechargeOptions = [
-  {
-    name: 'Mobile',
-    icon: icons.postpaid,
-  },
-  {
-    name: 'DTH',
-    icon: icons.dth,
-  },
-  {
-    name: 'Electricity',
-    icon: icons.electricity,
-  },
-  {
-    name: 'Landline',
-    icon: icons.landline,
-  },
-  {
-    name: 'Broadband',
-    icon: icons.broadband,
-  },
-  {
-    name: 'Gas Bill',
-    icon: icons.gas,
-  },
-  {
-    name: 'Rent',
-    icon: icons.rent,
-  },
-  {
-    name: 'Postpaid',
-    icon: icons.postpaid,
-  },
-];
+const spotLightImages = [1, 2, 3, 4, 5, 6];
 
-export function HomeScreen() {
+function Banner() {
   return (
-    <div className='w-full pt-5'>
-      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
-        {bannerImages.map((item, index) => (
-          <div
-            key={index}
-            className='tap97 flex w-[80%] shrink-0 snap-center items-center justify-center first:ml-5 last:mr-5'
-          >
-            <img className='w-full shrink-0 rounded-2xl bg-white shadow-lg' src='/images/banner.webp' />
-          </div>
-        ))}
-      </div>
-      <div className='p-4 pt-2'>
-        <p className='pl-1.5 text-sm font-normMid'>Recharge and Bill Payments</p>{' '}
-        <div className='mt-4 grid grid-cols-4 justify-center gap-y-6 rounded-2xl border border-[#77777744] p-3 pb-7 pt-7 shadow-md shadow-[#00000011]'>
+    <div className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+      {bannerImages.map((_, index) => (
+        <div
+          key={index}
+          className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
+        >
+          <img className='w-full shrink-0 rounded-2xl' src={images.banner} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RechargeOptions() {
+  return (
+    <div className='mx-auto mb-2 max-w-4xl'>
+      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Recharge and Bill Payments</p>
+      <div className='p-5 pt-2'>
+        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl border border-[#77777744] p-3 pb-7 pt-7 text-center shadow-md shadow-[#00000011]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center'>
               <div className='aspect-square'>
                 <img className='w-[1.7rem]' src={item.icon} alt={item.name} />
               </div>
-              <p className='text-gray mt-2 text-[0.7rem] font-normal text-gray-700 dark:text-gray-300'>{item.name}</p>
+              <p className='text-gray mt-2 text-[0.6rem] font-normal text-gray-700 dark:text-gray-300'>
+                {item.element}
+              </p>
             </div>
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function SpotLight() {
+  return (
+    <div className='mx-auto max-w-4xl'>
+      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Spotlight</p>
+      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+        {spotLightImages.map((_, index) => (
+          <div
+            key={index}
+            className='tap97 flex aspect-[4/4] w-[40%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+          >
+            <img className='w-full shrink-0 rounded-2xl shadow-black' src={images.spotlight3} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Featured() {
+  return (
+    <div className='mx-auto max-w-4xl'>
+      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Featured</p>
+      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+        {spotLightImages.map((_, index) => (
+          <div
+            key={index}
+            className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+          >
+            <img className='w-full shrink-0 rounded-2xl shadow-black' src={images.banner2} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function HomeScreen() {
+  return (
+    <div className='w-full pb-32 pt-5'>
+      <Banner />
+      <RechargeOptions />
+      <SpotLight />
+      <Featured />
     </div>
   );
 }

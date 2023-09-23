@@ -30,18 +30,29 @@ import notification from './src/notification.svg';
 import grad from './src/grad.svg';
 import user from './src/user.png';
 // import user from './src/user.svg';
-import dth from './src/dth.svg';
-import mobile from './src/mobile.svg';
-import electricity from './src/electricity.svg';
-import gas from './src/gas.svg';
-import postpaid from './src/postpaid.svg';
-import landline from './src/landline.svg';
-import broadband from './src/broadband.svg';
-import rent from './src/rent.svg';
+// import dth from './src/dth.svg';
+import dth from './src/dth.png';
+// import mobile from './src/mobile.svg';
+import mobile from './src/mobile.png';
+// import electricity from './src/electricity.svg';
+import electricity from './src/electricity.png';
+// import gas from './src/gas.svg';
+import gas from './src/gas.png';
+// import postpaid from './src/postpaid.svg';
+import postpaid from './src/postpaid.png';
+// import landline from './src/landline.svg';
+import landline from './src/landline.png';
+// import broadband from './src/broadband.svg';
+import broadband from './src/broadband.png';
+// import rent from './src/rent.svg';
+import rent from './src/rent.png';
+import google_play from './src/google_play.png';
 
 const icons = {
-  grad, rent,
-  postpaid,
+  google_play,
+  grad,
+  rent,
+  // postpaid,
   landline,
   broadband,
   gas,
