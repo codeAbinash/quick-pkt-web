@@ -1,9 +1,10 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import images from '../../assets/images/images';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
+import headerIntersect from '../../lib/headerIntersect';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -134,6 +135,8 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const intersect = useRef<HTMLParagraphElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
   // useEffect(() => {
   //   if (!isLoggedIn)
@@ -141,11 +144,18 @@ export default function Home() {
   //       replace: true,
   //     });
   // }, []);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    headerIntersect(intersect.current as Element, setIsIntersecting);
+  }, []);
 
   return (
     <div className='w-full select-none'>
-      <div className='sticky top-0 z-40 flex w-full items-center justify-between border-b-[0.5px] border-transparent border-b-[#77777744] bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80'>
+      <p ref={intersect}></p>
+      <div
+        className={`${
+          isIntersecting ? '' : 'shadow-sm dark:shadow-[#77777715]'
+        } sticky top-0 z-40 flex w-full items-center justify-between border-b-[0.5px] border-transparent bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
+      >
         <img src={images.logo_long} alt='Logo' className='h-9' />
         <div className='flex items-center justify-center gap-5'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
@@ -208,16 +218,16 @@ function Banner() {
 
 function RechargeOptions() {
   return (
-    <div className='mx-auto mb-2 max-w-4xl'>
+    <div className='mx-auto mt-3 max-w-4xl'>
       <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Recharge and Bill Payments</p>
       <div className='p-5 pt-2'>
-        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl border border-[#77777744] p-3 pb-7 pt-7 text-center shadow-md shadow-[#00000011]'>
+        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-2xl p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
-            <div key={index} className='tap95 flex flex-col items-center justify-center'>
+            <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
               <div className='aspect-square'>
-                <img className='w-[1.7rem]' src={item.icon} alt={item.name} />
+                <img className='w-8' src={item.icon} alt={item.name} />
               </div>
-              <p className='text-gray mt-2 text-[0.6rem] font-normal text-gray-700 dark:text-gray-300'>
+              <p className='mt-2  text-[0.6rem] font-normal leading-3 text-gray-700 dark:text-gray-300'>
                 {item.element}
               </p>
             </div>
@@ -238,7 +248,7 @@ function SpotLight() {
             key={index}
             className='tap97 flex aspect-[4/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
-            <img className='w-full shrink-0 rounded-2xl shadow-black' src={images.spotlight3} />
+            <img className='w-full shrink-0 rounded-2xl' src={images.spotlight3} />
           </div>
         ))}
       </div>
@@ -256,10 +266,18 @@ function Featured() {
             key={index}
             className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-2xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
           >
-            <img className='w-full shrink-0 rounded-2xl shadow-black' src={images.banner2} />
+            <img className='w-full shrink-0 rounded-2xl' src={images.banner2} />
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function Bottom() {
+  return (
+    <div className='mt-16 w-full opacity-10'>
+      <p className='text-center text-lg font-bold'>Quick PKT</p>
     </div>
   );
 }
@@ -271,6 +289,7 @@ export function HomeScreen() {
       <RechargeOptions />
       <SpotLight />
       <Featured />
+      <Bottom />
     </div>
   );
 }
