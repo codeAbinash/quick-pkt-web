@@ -1,4 +1,5 @@
 import app from '../../app';
+import ls from './util';
 
 export const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json', secret: app.secret };
 
@@ -8,6 +9,7 @@ const API = {
   login: `${API_URL}/auth/login_or_signup`,
   send_otp: `${API_URL}/auth/send_otp`,
   resend_otp: `${API_URL}/auth/resend_otp`,
+  get_current_user: `${API_URL}/user/get_current_user`,
 };
 
 export type apiResponse = {
@@ -48,11 +50,13 @@ export async function sendOTP(phone: string): Promise<apiResponse> {
 
 export async function checkOTP(otp: string, phone: string): Promise<apiResponse> {
   // return { status: true, message: 'OK' };
+  const Data = JSON.stringify({ otp: otp, phone: phone });
+  console.log(Data);
   try {
     const res = await fetch(API.login, {
       method: 'POST',
       headers: defaultHeaders,
-      body: JSON.stringify({ otp: otp, phone: phone }),
+      body: Data,
     });
     return await returnResponse(res);
   } catch (err) {
@@ -68,6 +72,19 @@ export async function resendOTP(phone: string): Promise<apiResponse> {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({ phone: phone }),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function getCurrentUser(): Promise<apiResponse> {
+  const headers = { ...defaultHeaders, Authorization: `Bearer ${ls.get('token')}` };
+  try {
+    const res = await fetch(API.get_current_user, {
+      method: 'POST',
+      headers: headers,
     });
     return await returnResponse(res);
   } catch (err) {

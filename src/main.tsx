@@ -12,8 +12,10 @@ import icons from './assets/icons/icons';
 
 loadTheme();
 const OTP = lazyWithPreload(() => import('./screens/login/OTP'));
+const Profile = lazyWithPreload(() => import('./screens/Profile'));
 const Login = lazy(() => import('./screens/login/Login'));
 OTP.preload();
+Profile.preload();
 
 const router = createBrowserRouter(
   [
@@ -58,6 +60,15 @@ const router = createBrowserRouter(
           errorElement: <Error />,
         },
       ],
+    },
+    {
+      path: '/profile',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Profile />
+        </Suspense>
+      ),
+      errorElement: <Error />,
     },
     {
       path: '/login',

@@ -21,6 +21,9 @@ export default {
         xxs: '0.65rem',
         btn: '0.95rem',
       },
+      padding: {
+        4.5: '1.125rem',
+      },
     },
   },
   plugins: [],

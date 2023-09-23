@@ -6,6 +6,7 @@ import transitions from '../../lib/transition';
 import ls from '../../lib/util';
 import headerIntersect from '../../lib/headerIntersect';
 import TextEmoji from '../../components/TextEmoji';
+import { Bottom } from '../../components/Extras';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -139,12 +140,12 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
-  // useEffect(() => {
-  //   if (!isLoggedIn)
-  //     navigate('/login', {
-  //       replace: true,
-  //     });
-  // }, []);
+  useEffect(() => {
+    if (!isLoggedIn)
+      navigate('/login', {
+        replace: true,
+      });
+  }, []);
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
   }, []);
@@ -155,12 +156,19 @@ export default function Home() {
       <div
         className={`${
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
-        } sticky top-0 z-40 flex w-full items-center justify-between border-b-[0.5px] border-transparent bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
+        } sticky top-0 z-40 flex w-full items-center justify-between bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
       >
         <img src={images.logo_long} alt='Logo' className='h-9' />
         <div className='flex items-center justify-center gap-5'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
-          <img src={icons.user} className='tap95 w-[2.1rem] rounded-full' alt='User Icon' />
+          <img
+            src={icons.user}
+            className='tap95 profile-picture w-[2.2rem] rounded-full'
+            alt='User Icon'
+            onClick={transitions(() => {
+              navigate('/profile');
+            })}
+          />
         </div>
       </div>
       <Outlet />
@@ -232,10 +240,10 @@ function SpecialOffers() {
             </p>
           </div>
           <div className='mb-1 flex items-center text-center'>
-            <button className='no-highlight tap95 bg-accentBright flex-grow rounded-full py-1.5 text-[0.6rem] font-medium text-white'>
+            <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
               Recharge Now!
             </button>
-            <button className='no-highlight tap95 text-accentBright flex-grow items-center justify-center  gap-1 pl-3 text-[0.7rem] font-medium'>
+            <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
               View Details
             </button>
           </div>
@@ -299,15 +307,6 @@ function Featured() {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function Bottom() {
-  return (
-    <div className='mt-10 w-full text-center opacity-[0.15]'>
-      <p className='text-xl font-bold'>QUICK PKT</p>
-      <p className='text-[0.6rem] font-bold leading-3'>A Quick way to Recharge</p>
     </div>
   );
 }

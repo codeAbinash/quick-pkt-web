@@ -35,8 +35,16 @@ import broadband from './src/broadband.png';
 // import rent from './src/rent.svg';
 import rent from './src/rent.png';
 import google_play from './src/google_play.png';
+import at from './src/at.svg';
+import mobile_solid from './src/mobile_solid.svg';
+import user_solid from './src/user_solid.svg';
+import pen_solid from './src/pen_solid.svg';
 
 const icons = {
+  pen_solid,
+  user_solid,
+  mobile_solid,
+  at,
   arrow_right,
   google_play,
   grad,
