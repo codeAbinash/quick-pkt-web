@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { MouseEventHandler, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import images from '../../assets/images/images';
 import transitions from '../../lib/transition';
-import ls from '../../lib/util';
+import ls, { blank_fn } from '../../lib/util';
 import headerIntersect from '../../lib/headerIntersect';
 import TextEmoji from '../../components/TextEmoji';
 import { Bottom } from '../../components/Extras';
@@ -171,11 +171,11 @@ export default function Home() {
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
         } sticky top-0 z-40 flex w-full items-center justify-between bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
       >
-        <div className='flex items-center justify-between gap-2'>
+        <div className='flex items-center justify-between gap-3'>
           <img src={icons.thunder} alt='Logo' className='h-6' />
           <p className='text-xl font-semibold text-accent'>Quick PKT</p>
         </div>
-        <div className='flex items-center justify-center gap-5'>
+        <div className='flex items-center justify-center gap-6'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <img
             src={icons.user}
@@ -224,7 +224,8 @@ const bannerImages = [
   'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
 ];
 
-const spotLightImages = [1, 2, 3, 4, 5, 6];
+const spotLightImages = [1, 2, 3, 4];
+const featuredImages = [1, 2];
 
 function Banner() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -245,44 +246,57 @@ function Banner() {
   //     clearInterval(scrollInterval);
   //   };
   // }, []);
-  useEffect(() => {
-    // Scroll only 1 item
-    const container = containerRef.current;
-    if (container) {
-      container.scrollLeft = container.clientWidth;
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Scroll only 1 item
+  //   const container = containerRef.current;
+  //   if (container) {
+  //     container.scrollLeft = container.clientWidth;
+  //   }
+  // }, []);
   return (
     <div
-      className='no-scrollbar relative mx-auto mb-4 flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'
+      className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-3 overflow-x-auto px-5 lg:rounded-3xl'
       ref={containerRef}
     >
       {bannerImages.map((_, index) => (
         <div
           key={index}
-          className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
+          className='tap97 flex aspect-[11/5] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
         >
           <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
         </div>
       ))}
     </div>
+    // <div
+    //   className='no-scrollbar relative mx-auto mb-4 flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'
+    //   ref={containerRef}
+    // >
+    //   {bannerImages.map((_, index) => (
+    //     <div
+    //       key={index}
+    //       className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
+    //     >
+    //       <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
+    //     </div>
+    //   ))}
+    // </div>
   );
 }
 
 function SpecialOffers() {
   return (
-    <div className='p-5'>
-      <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl p-3.5 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] dark:bg-white/10 dark:shadow-[0_0_0px_0_rgba(255,255,255,0)]'>
-        <img src={images.spotlight2} className='aspect-square h-[5.6rem] rounded-2xl' />
+    <div className='px-5'>
+      <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 shadow-[0_0_4px_0_rgba(0,0,0,0.0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
+        <img src={images.spotlight3} className='aspect-square h-[5.3rem] rounded-2xl' />
         <div className='flex flex-col'>
-          <div className='flex grow flex-col justify-between pb-1 pt-1'>
-            <p className='flex items-center pl-2 text-base font-[470] leading-5'>
+          <div className='flex grow flex-col justify-between py-0.5'>
+            <p className='flex items-center pl-2 text-[0.9rem] font-normMid'>
               Special Offer for You
               <span className='flex items-start pl-1 text-[1rem]'>
                 <TextEmoji emoji='😍' />
               </span>
             </p>
-            <p className='text-balance pl-2 text-xs  text-gray-500'>
+            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-gray-500'>
               Cashback on every recharge or bill payment. Select option from bellow.
             </p>
             <div className='flex'>
@@ -291,25 +305,27 @@ function SpecialOffers() {
               </p>
             </div>
           </div>
-          {/* <div className='mb-1 flex items-center text-center'>
-            <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
-              Recharge Now!
-            </button>
-            <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
-            View Details
-            </button>
-          </div> */}
         </div>
       </div>
     </div>
   );
 }
+{
+  /* <div className='mb-1 flex items-center text-center'>
+  <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
+    Recharge Now!
+  </button>
+  <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
+  View Details
+  </button>
+</div> */
+}
 
 function RechargeOptions() {
   return (
-    <div className='mx-auto mt-2 max-w-4xl'>
-      <p className='mb-3 ml-6 mt-3 text-sm font-normMid'>Recharge and Bill Payments</p>
-      <div className='p-5 pb-0 pt-2'>
+    <div className='mx-auto w-full max-w-4xl'>
+      <p className='mb-2 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p>
+      <div className='px-5 pt-2'>
         <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
@@ -327,9 +343,9 @@ function RechargeOptions() {
 
 function SpotLight() {
   return (
-    <div className='mx-auto mt-7 max-w-4xl'>
-      <p className='mb-4 ml-6 text-sm font-normMid'>Spotlight</p>
-      <div className='no-scrollbar relative mb-5 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'>
+    <div className='mx-auto max-w-4xl'>
+      <p className='mb-3 ml-6 text-sm font-normMid'>Spotlight</p>
+      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'>
         {spotLightImages.map((_, index) => (
           <div
             key={index}
@@ -345,8 +361,8 @@ function SpotLight() {
 
 function Featured() {
   return (
-    <div className='mx-auto mt-4 max-w-4xl'>
-      <p className='mb-1 ml-6 text-sm font-normMid'>Featured</p>
+    <div className='mx-auto max-w-4xl'>
+      <p className='ml-6 text-sm font-normMid'>Featured</p>
       {/* <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
         {spotLightImages.map((_, index) => (
           <div
@@ -358,8 +374,8 @@ function Featured() {
         ))}
       </div> */}
       <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3'>
-        {spotLightImages.map((_, index) => (
-          <div className='aspect-[2/1] w-full overflow-hidden rounded-3xl' key={index}>
+        {featuredImages.map((_, index) => (
+          <div className='aspect-[11/5] w-full overflow-hidden rounded-3xl' key={index}>
             <img src={images.banner2} className='w-full' />
           </div>
         ))}
@@ -370,13 +386,52 @@ function Featured() {
 
 export function HomeScreen() {
   return (
-    <div className='w-full pb-32 pt-2'>
+    <div className='flex w-full flex-col gap-5 pb-32 pt-2'>
       <Banner />
       <SpecialOffers />
       <RechargeOptions />
+      <Options />
       <SpotLight />
       <Featured />
       <Bottom />
     </div>
   );
 }
+
+function Options() {
+  const navigate = useNavigate();
+  return (
+    <div className='mx-auto flex w-full max-w-4xl gap-6 px-7 py-3 pt-0'>
+      {options.map((option, index) => (
+        <div
+          className='tap95 flex flex-col items-center justify-center gap-1.5'
+          key={index}
+          onClick={transitions(() => navigate(option.link))}
+        >
+          <div className='rounded-full bg-accent p-4.5'>
+            <img src={option.icon} className='w-5.5 ' />
+          </div>
+          <span className='text-xs font-normMid'>{option.name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const options = [
+  {
+    name: 'Rewards',
+    icon: icons.options.reward,
+    link: '/offers',
+  },
+  {
+    name: 'Wallet',
+    icon: icons.options.wallet,
+    link: '/wallet',
+  },
+  {
+    name: 'Referrals',
+    icon: icons.options.referrals,
+    link: '/refer',
+  },
+];

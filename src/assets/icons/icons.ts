@@ -54,8 +54,16 @@ import terms from './more options/terms.svg';
 import user_circle from './src/user_circle.svg';
 import message from './src/message.svg';
 import account_circle from './src/account_circle.svg';
+import options_reward from './options/reward.svg';
+import option_wallet from './options/wallet.svg';
+import option_referrals from './options/referrals.svg';
 
 const icons = {
+  options: {
+    reward: options_reward,
+    wallet: option_wallet,
+    referrals: option_referrals,
+  },
   account_circle,
   message,
   user_circle,
