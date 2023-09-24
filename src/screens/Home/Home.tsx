@@ -261,7 +261,7 @@ function Banner() {
       {bannerImages.map((_, index) => (
         <div
           key={index}
-          className='tap97 flex aspect-[11/5] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
+          className='tap97 bg- flex aspect-[11/5] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl shadow-md first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
         >
           <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
         </div>
@@ -349,7 +349,7 @@ function SpotLight() {
         {spotLightImages.map((_, index) => (
           <div
             key={index}
-            className='tap97 flex aspect-[3/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
+            className='tap97 flex aspect-[3/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5 dark:bg-white/10'
           >
             <img className='aspect-[3/4] w-full shrink-0 rounded-3xl' src={images.spotlight3} />
           </div>
@@ -375,7 +375,7 @@ function Featured() {
       </div> */}
       <div className='grid grid-cols-1 gap-4 p-5 md:grid-cols-2 lg:grid-cols-3'>
         {featuredImages.map((_, index) => (
-          <div className='aspect-[11/5] w-full overflow-hidden rounded-3xl' key={index}>
+          <div className='aspect-[11/5] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10' key={index}>
             <img src={images.banner2} className='w-full' />
           </div>
         ))}
