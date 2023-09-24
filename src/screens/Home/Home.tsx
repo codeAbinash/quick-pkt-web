@@ -324,8 +324,8 @@ function SpecialOffers() {
 function RechargeOptions() {
   return (
     <div className='mx-auto w-full max-w-4xl'>
-      <p className='mb-2 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p>
-      <div className='px-5 pt-2'>
+      {/* <p className='mb-2 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p> */}
+      <div className='px-5'>
         <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
@@ -373,7 +373,7 @@ function Featured() {
           </div>
         ))}
       </div> */}
-      <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid grid-cols-1 gap-4 p-5 md:grid-cols-2 lg:grid-cols-3'>
         {featuredImages.map((_, index) => (
           <div className='aspect-[11/5] w-full overflow-hidden rounded-3xl' key={index}>
             <img src={images.banner2} className='w-full' />
@@ -411,7 +411,7 @@ function Options() {
           <div className='rounded-full bg-accent p-4.5'>
             <img src={option.icon} className='w-5.5 ' />
           </div>
-          <span className='text-xs font-normMid'>{option.name}</span>
+          <span className='text-xs font-normMid opacity-80'>{option.name}</span>
         </div>
       ))}
     </div>

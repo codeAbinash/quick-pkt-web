@@ -78,20 +78,20 @@ export default function EditProfile() {
         <p className='font-normMid'>Edit Profile</p>
       </Header>
       <div className='relative mx-auto mb-4 max-w-lg'>
-        <img src={icons.user} className='profile-picture mx-auto w-1/2 rounded-full' />
+        <img src={icons.user} className='profile-picture mx-auto w-[45%] rounded-full' />
         <div
-          className='tap95 anim-edit-icon absolute left-[60%] top-[80%] aspect-square h-12 rounded-full bg-white p-3 shadow-lg'
+          className='tap95 anim-edit-icon absolute left-[60%] top-[80%] aspect-square h-11 rounded-full bg-white p-3 shadow-lg'
           onClick={blank_fn}
         >
           <img src={icons.edit} className='editIcon' />
         </div>
       </div>
       <div>
-        <p className='anim-user-name text-center text-2xl font-semibold'>
+        <p className='anim-user-name text-center text-xl font-semibold'>
           {firstName || lastName ? firstName + ' ' + lastName : 'Update Name'}
         </p>
         <div className='mt-1 flex items-center justify-center gap-2'>
-          <p className='anim-user-phone text-base font-normMid text-gray-500'>+91 {mobile}</p>
+          <p className='anim-user-phone text-sm font-normMid text-gray-500'>+91 {mobile}</p>
         </div>
       </div>
       {userMessage.message && (
