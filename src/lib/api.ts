@@ -1,7 +1,7 @@
 import app from '../../app';
 import ls from './util';
 
-export const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json', secret: app.secret };
+export const defaultHeaders = { 'Content-Type': 'Application/json', Accept: 'application/json', secret: app.secret };
 
 const API_URL = app.api;
 
@@ -10,6 +10,7 @@ const API = {
   send_otp: `${API_URL}/auth/send_otp`,
   resend_otp: `${API_URL}/auth/resend_otp`,
   get_current_user: `${API_URL}/user/get_current_user`,
+  update_user: `${API_URL}/user/update_user`,
 };
 
 export type apiResponse = {

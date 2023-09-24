@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom, Header } from '../../components/Extras';
-import { blank_fn } from '../../lib/util';
-import { useState } from 'react';
+import ls, { blank_fn } from '../../lib/util';
+import { useMemo, useState } from 'react';
 import transitions from '../../lib/transition';
+import { getProfileInfo } from './utils';
 
 type Option = {
   name: string;
@@ -41,6 +42,7 @@ const options = [
       {
         name: 'Dark Mode',
         icon: icons.dark_mode,
+        link: '/dark_mode',
       },
       {
         name: 'Language',
@@ -54,18 +56,22 @@ const options = [
       {
         name: 'Help',
         icon: icons.help,
+        link: '/help',
       },
       {
         name: 'Report a Problem',
         icon: icons.report,
+        link: '/report_a_problem',
       },
       {
         name: 'Rate Us',
         icon: icons.rate,
+        // link : 'https'
       },
       {
         name: 'FAQs',
         icon: icons.help,
+        link: '/faqs',
       },
     ],
   },
@@ -75,10 +81,12 @@ const options = [
       {
         name: 'Terms and Conditions',
         icon: icons.terms,
+        link: '/terms_and_conditions',
       },
       {
         name: 'Privacy Policy',
         icon: icons.privacy_policy,
+        link: '/privacy_policy',
       },
     ],
   },
@@ -88,19 +96,48 @@ const options = [
       {
         name: 'About Us',
         icon: icons.about_us,
+        link: '/about_us',
       },
       {
         name: 'Contact Us',
         icon: icons.contact_us,
+        link: '/contact_us',
       },
     ],
   },
 ];
 
+// {
+//   "status": true,
+//   "data": {
+//     "id": 1,
+//     "first_name": null,
+//     "last_name": null,
+//     "mobile_number": "9547400680",
+//     "email": null,
+//     "created_at": "2023-09-20T06:55:58.000000Z",
+//     "updated_at": "2023-09-20T06:55:58.000000Z"
+//   },
+//   "filled_required": true,
+//   "message": "User Retrived"
+// }
+
 export default function Profile() {
-  const [firstName, setFirstName] = useState('John');
-  const [lastName, setLastName] = useState('Doe');
-  const [mobile, setMobile] = useState('+91 9876543210');
+  const profile = useMemo(getProfileInfo, []);
+  // const profile = {
+  //   status: true,
+  //   data: {
+  //     id: 1,
+  //     first_name: 'John',
+  //     last_name: 'Doe',
+  //     mobile_number: '9547400680',
+  //     email: 'cod',
+  //   },
+  // };
+  console.log(profile);
+  const [firstName, setFirstName] = useState(profile.data.first_name || 'Your');
+  const [lastName, setLastName] = useState(profile.data.last_name || 'Name');
+  const [mobile, setMobile] = useState('+91 ' + profile.data.mobile_number);
   const navigate = useNavigate();
   return (
     <div className='select-none'>
@@ -121,7 +158,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className='p-5'>
+      <div className='mx-auto max-w-lg p-5'>
         {options.map((optionGroup: OptionGroup, i: number) => (
           <div className='mt-5' key={i}>
             <p className='pl-2 text-sm font-normMid text-zinc-500'>{optionGroup.groupName}</p>
@@ -143,14 +180,12 @@ export default function Profile() {
                       <img
                         src={option.icon}
                         alt=''
-                        className={`w-5.5 opacity-70 dark:opacity-90 dark:invert ${
+                        className={`w-5.5 opacity-80 dark:opacity-90 dark:invert ${
                           option.classNameIcon ? option.classNameIcon : ''
                         }`}
                       />
                       <span
-                        className={`text-[0.85rem] font-420 opacity-80 dark:opacity-90 ${
-                          option.className ? option.className : ''
-                        }`}
+                        className={`text-[0.85rem] font-420 opacity-90 ${option.className ? option.className : ''}`}
                       >
                         {option.name}
                       </span>

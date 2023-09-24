@@ -6,15 +6,24 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import store from './Redux/sample';
 import './css/index.scss';
 import { loadTheme } from './lib/util';
-import Home, { HomeScreen } from './screens/home/Home';
+import Home, { HomeScreen } from './screens/Home/Home';
 import app from '../app';
 import icons from './assets/icons/icons';
 
 loadTheme();
-const OTP = lazyWithPreload(() => import('./screens/login/OTP'));
+const OTP = lazyWithPreload(() => import('./screens/Login/OTP'));
 const EditProfile = lazyWithPreload(() => import('./screens/Profile/EditProfile'));
-const Login = lazy(() => import('./screens/login/Login'));
 const Profile = lazyWithPreload(() => import('./screens/Profile/Profile'));
+const Login = lazy(() => import('./screens/Login/Login'));
+const AboutUs = lazy(() => import('./screens/About/AboutUs'));
+const ContactUs = lazy(() => import('./screens/About/ContactUs'));
+const Privacy = lazy(() => import('./screens/Legal/Privacy'));
+const Terms = lazy(() => import('./screens/Legal/Terms'));
+const FAQ = lazy(() => import('./screens/Support/FAQ'));
+const Report = lazy(() => import('./screens/Support/Report'));
+const Help = lazy(() => import('./screens/Support/Help'));
+const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
+
 OTP.preload();
 EditProfile.preload();
 Profile.preload();
@@ -94,6 +103,70 @@ const router = createBrowserRouter(
       element: (
         <Suspense fallback={<Loading />}>
           <EditProfile />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/about_us',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <AboutUs />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/contact_us',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <ContactUs />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/privacy_policy',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Privacy />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/terms_and_conditions',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Terms />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/faqs',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <FAQ />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/report_a_problem',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Report />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/help',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Help />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/dark_mode',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <DarkMode />
         </Suspense>
       ),
     },

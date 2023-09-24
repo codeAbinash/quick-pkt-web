@@ -51,8 +51,14 @@ import privacy_policy from './more options/privacy_policy.svg';
 import faq from './more options/faq.svg';
 import contact_us from './more options/contact_us.svg';
 import terms from './more options/terms.svg';
+import user_circle from './src/user_circle.svg';
+import message from './src/message.svg';
+import account_circle from './src/account_circle.svg';
 
 const icons = {
+  account_circle,
+  message,
+  user_circle,
   terms,
   contact_us,
   privacy_policy,

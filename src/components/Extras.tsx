@@ -29,6 +29,7 @@ type InputProps = {
   onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   label?: string;
+  value?: string;
 };
 
 export function Input(
@@ -38,19 +39,21 @@ export function Input(
     onInput: blank_fn,
     type: 'text',
     label: 'Input Label',
+    value: '',
   },
 ) {
-  const { placeholder, icon, type, onInput, label } = props;
+  const { placeholder, icon, type, onInput, label, value } = props;
   return (
     <div>
       <p className='pb-2 pl-1 text-xs font-normMid text-gray-500'>{label}</p>
-      <div className='flex items-center justify-center rounded-btn bg-inputBg pl-5 dark:bg-white/10'>
-        <img src={icon} alt='Input Icon' className='flex w-4 opacity-20 dark:invert' />
+      <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
+        <img src={icon} alt='Input Icon' className='flex w-5.5 opacity-30 dark:invert' />
         <input
           type={type}
           placeholder={placeholder}
           className='grow border-none bg-transparent px-3 py-4.5 text-sm font-normMid outline-none'
           onInput={onInput}
+          value={value}
         />
       </div>
     </div>
@@ -75,6 +78,7 @@ export function Header({ children, onclick = blank_fn }: { children?: React.Reac
         <div
           className='tap95 rounded-full p-2.5 active:bg-inputBg active:dark:bg-white/20'
           onClick={() => {
+            if (onclick == blank_fn) navigate(-1);
             onclick();
           }}
         >

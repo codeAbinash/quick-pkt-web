@@ -141,12 +141,12 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
-  // useEffect(() => {
-  //   if (!isLoggedIn)
-  //     navigate('/login', {
-  //       replace: true,
-  //     });
-  // }, []);
+  useEffect(() => {
+    if (!isLoggedIn)
+      navigate('/login', {
+        replace: true,
+      });
+  }, []);
 
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
@@ -155,13 +155,12 @@ export default function Home() {
   async function getUserData() {
     const userData = await getCurrentUser();
     if (userData.status) {
-      ls.set('userData', JSON.stringify(userData.data));
+      ls.set('userProfile', JSON.stringify(userData.data));
     }
-    // console.log(userData.data);
   }
 
   useEffect(() => {
-    // getUserData();
+    getUserData();
   }, []);
 
   return (
@@ -225,7 +224,7 @@ const bannerImages = [
   'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
 ];
 
-const spotLightImages = [1, 2, 3];
+const spotLightImages = [1, 2, 3, 4, 5, 6];
 
 function Banner() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -252,10 +251,10 @@ function Banner() {
     if (container) {
       container.scrollLeft = container.clientWidth;
     }
-  });
+  }, []);
   return (
     <div
-      className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-4'
+      className='no-scrollbar relative mx-auto mb-4 flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'
       ref={containerRef}
     >
       {bannerImages.map((_, index) => (
@@ -263,7 +262,7 @@ function Banner() {
           key={index}
           className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
         >
-          <img className='w-full shrink-0 rounded-3xl' src={images.banner} />
+          <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
         </div>
       ))}
     </div>
@@ -277,7 +276,7 @@ function SpecialOffers() {
         <img src={images.spotlight2} className='aspect-square h-[5.6rem] rounded-2xl' />
         <div className='flex flex-col'>
           <div className='flex grow flex-col justify-between pb-1 pt-1'>
-            <p className='flex items-center pl-2 text-base font-medium leading-5'>
+            <p className='flex items-center pl-2 text-base font-[470] leading-5'>
               Special Offer for You
               <span className='flex items-start pl-1 text-[1rem]'>
                 <TextEmoji emoji='😍' />
@@ -330,7 +329,7 @@ function SpotLight() {
   return (
     <div className='mx-auto mt-7 max-w-4xl'>
       <p className='mb-4 ml-6 text-sm font-normMid'>Spotlight</p>
-      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
+      <div className='no-scrollbar relative mb-5 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'>
         {spotLightImages.map((_, index) => (
           <div
             key={index}
