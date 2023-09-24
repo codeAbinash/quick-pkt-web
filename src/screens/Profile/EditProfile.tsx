@@ -99,7 +99,7 @@ export default function EditProfile() {
           {userMessage.message}
         </p>
       )}
-      <div className='mx-auto mt-5 flex max-w-lg flex-col gap-3 p-5 pt-2'>
+      <div className='mx-auto mt-5 flex max-w-lg flex-col gap-3 p-5 pt-0'>
         <Input
           placeholder='e.g. John'
           label='First Name'

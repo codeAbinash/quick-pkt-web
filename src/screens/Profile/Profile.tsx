@@ -162,7 +162,7 @@ export default function Profile() {
         {options.map((optionGroup: OptionGroup, i: number) => (
           <div className='mt-5' key={i}>
             <p className='pl-2 text-sm font-normMid text-zinc-500'>{optionGroup.groupName}</p>
-            <div className='mt-3 flex flex-col gap-2 rounded-2xl bg-inputBg p-4 dark:bg-white/10'>
+            <div className='mt-3 flex flex-col gap-2 rounded-2xl bg-inputBg/60 p-4 dark:bg-[rgb(255,255,255,0.06)]'>
               {optionGroup.options.map((option: Option, i: number) => (
                 <div
                   className='tap99 flex items-center justify-between p-2 pl-2 pr-0'
