@@ -23,13 +23,16 @@
 }
 
 :root {
-  --accent: #ed4525;
+  --accent: #ff4310;
   // --bg: #090a1a;
   // background-color: var(--bg);
 }
 
 body {
   overscroll-behavior-y: none;
+}
+.text-balance {
+  text-wrap: balance;
 }
 
 // View Transition Animations

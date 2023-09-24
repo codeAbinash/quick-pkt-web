@@ -103,7 +103,7 @@ export default function Profile() {
   const [mobile, setMobile] = useState('+91 9876543210');
   const navigate = useNavigate();
   return (
-    <div>
+    <div className='select-none'>
       <Header onclick={transitions(() => navigate('/', { replace: true }))}>
         <p className='font-normMid'>More Options</p>
       </Header>
@@ -143,9 +143,15 @@ export default function Profile() {
                       <img
                         src={option.icon}
                         alt=''
-                        className={`w-6 opacity-80 dark:invert ${option.classNameIcon ? option.classNameIcon : ''}`}
+                        className={`w-5.5 opacity-70 dark:opacity-90 dark:invert ${
+                          option.classNameIcon ? option.classNameIcon : ''
+                        }`}
                       />
-                      <span className={`font-420 text-sm ${option.className ? option.className : ''}`}>
+                      <span
+                        className={`text-[0.85rem] font-420 opacity-80 dark:opacity-90 ${
+                          option.className ? option.className : ''
+                        }`}
+                      >
                         {option.name}
                       </span>
                     </div>

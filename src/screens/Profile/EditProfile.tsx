@@ -15,9 +15,9 @@ export default function EditProfile() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   return (
-    <div className='w-full'>
+    <div className='w-full select-none'>
       <Header onclick={transitions(() => navigate('/profile', { replace: true }))}>
-        <p className='font-normMid'>Profile</p>
+        <p className='font-normMid'>Edit Profile</p>
       </Header>
       <div className='relative mx-auto mb-4 max-w-lg'>
         <img src={icons.user} className='profile-picture mx-auto w-1/2 rounded-full' />

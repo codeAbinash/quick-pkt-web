@@ -73,7 +73,7 @@ export function Header({ children, onclick = blank_fn }: { children?: React.Reac
         }`}
       >
         <div
-          className='tap95 rounded-full p-2.5 active:bg-[#77777722]'
+          className='tap95 rounded-full p-2.5 active:bg-inputBg active:dark:bg-white/20'
           onClick={() => {
             onclick();
           }}

@@ -172,7 +172,10 @@ export default function Home() {
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
         } sticky top-0 z-40 flex w-full items-center justify-between bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
       >
-        <img src={images.logo_long} alt='Logo' className='h-9' />
+        <div className='flex items-center justify-between gap-2'>
+          <img src={icons.thunder} alt='Logo' className='h-6' />
+          <p className='text-xl font-semibold text-accent'>Quick PKT</p>
+        </div>
         <div className='flex items-center justify-center gap-5'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <img
@@ -225,8 +228,36 @@ const bannerImages = [
 const spotLightImages = [1, 2, 3];
 
 function Banner() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  // useEffect(() => {
+  //   const container = containerRef.current;
+
+  //   const scrollInterval = setInterval(() => {
+  //     if (container) {
+  //       container.scrollLeft += container.clientWidth;
+  //       if (container.scrollLeft === container.scrollWidth - container.clientWidth) {
+  //         // Scroll back to the beginning when reaching the end
+  //         container.scrollLeft = 0;
+  //       }
+  //     }
+  //   }, 3000); // Adjust the interval (in milliseconds) to control the scrolling speed
+  //   // Clear the interval when the component unmounts
+  //   return () => {
+  //     clearInterval(scrollInterval);
+  //   };
+  // }, []);
+  useEffect(() => {
+    // Scroll only 1 item
+    const container = containerRef.current;
+    if (container) {
+      container.scrollLeft = container.clientWidth;
+    }
+  });
   return (
-    <div className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-4'>
+    <div
+      className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto pb-4'
+      ref={containerRef}
+    >
       {bannerImages.map((_, index) => (
         <div
           key={index}
@@ -242,26 +273,31 @@ function Banner() {
 function SpecialOffers() {
   return (
     <div className='p-5'>
-      <div className='mx-auto flex max-w-sm gap-4 rounded-3xl p-3 shadow-[0_0_5px_0_rgba(0,0,0,0.13)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0)]'>
-        <img src={images.spotlight2} className='aspect-square h-[6.5rem] rounded-2xl' />
-        <div className='flex flex-col justify-center'>
-          <div>
-            <p className='text-[1rem] font-medium leading-5'>
-              Guaranteed <span className='text-accent'>Cashback</span> <TextEmoji emoji='🤑' /> on every Recharge{' '}
-              <TextEmoji emoji='🤩' />
+      <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl p-3.5 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] dark:bg-white/10 dark:shadow-[0_0_0px_0_rgba(255,255,255,0)]'>
+        <img src={images.spotlight2} className='aspect-square h-[5.6rem] rounded-2xl' />
+        <div className='flex flex-col'>
+          <div className='flex grow flex-col justify-between pb-1 pt-1'>
+            <p className='flex items-center pl-2 text-base font-medium leading-5'>
+              Special Offer for You
+              <span className='flex items-start pl-1 text-[1rem]'>
+                <TextEmoji emoji='😍' />
+              </span>
             </p>
-            <p className='mt-1.5 text-xs text-gray-500'>
-              Special offer! <TextEmoji emoji='😳' /> Just for you! <TextEmoji emoji='😍' /> Get Cashback upto ₹10{' '}
-              <TextEmoji emoji='🤑' /> Select any one option from bellow.
-              <TextEmoji emoji='👇' />
+            <p className='text-balance pl-2 text-xs  text-gray-500'>
+              Cashback on every recharge or bill payment. Select option from bellow.
             </p>
+            <div className='flex'>
+              <p className='rounded-md px-2 py-0.5 text-xs font-420 text-accent active:bg-accent/10 active:dark:bg-accent/10'>
+                More Details
+              </p>
+            </div>
           </div>
           {/* <div className='mb-1 flex items-center text-center'>
             <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
               Recharge Now!
             </button>
             <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
-              View Details
+            View Details
             </button>
           </div> */}
         </div>
@@ -273,17 +309,15 @@ function SpecialOffers() {
 function RechargeOptions() {
   return (
     <div className='mx-auto mt-2 max-w-4xl'>
-      <p className='mb-3 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p>
-      <div className='p-5 pt-2'>
+      <p className='mb-3 ml-6 mt-3 text-sm font-normMid'>Recharge and Bill Payments</p>
+      <div className='p-5 pb-0 pt-2'>
         <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
           {rechargeOptions.map((item, index) => (
             <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
               <div className='aspect-square'>
                 <img className='w-8' src={item.icon} alt={item.name} />
               </div>
-              <p className='mt-2 text-[0.6rem] font-normal leading-3 text-gray-700 dark:text-gray-300'>
-                {item.element}
-              </p>
+              <p className='mt-2 text-[0.6rem] font-420 leading-3 text-gray-700 dark:text-gray-300'>{item.element}</p>
             </div>
           ))}
         </div>
@@ -294,8 +328,8 @@ function RechargeOptions() {
 
 function SpotLight() {
   return (
-    <div className='mx-auto max-w-4xl'>
-      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Spotlight</p>
+    <div className='mx-auto mt-7 max-w-4xl'>
+      <p className='mb-4 ml-6 text-sm font-normMid'>Spotlight</p>
       <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
         {spotLightImages.map((_, index) => (
           <div
@@ -312,8 +346,8 @@ function SpotLight() {
 
 function Featured() {
   return (
-    <div className='mx-auto max-w-4xl'>
-      <p className='mb-4 ml-6 mt-1 text-sm font-normMid'>Featured</p>
+    <div className='mx-auto mt-4 max-w-4xl'>
+      <p className='mb-1 ml-6 text-sm font-normMid'>Featured</p>
       {/* <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
         {spotLightImages.map((_, index) => (
           <div
@@ -326,7 +360,7 @@ function Featured() {
       </div> */}
       <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3'>
         {spotLightImages.map((_, index) => (
-          <div className='aspect-[2/1] w-full overflow-hidden rounded-3xl'>
+          <div className='aspect-[2/1] w-full overflow-hidden rounded-3xl' key={index}>
             <img src={images.banner2} className='w-full' />
           </div>
         ))}

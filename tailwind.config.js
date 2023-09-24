@@ -5,9 +5,9 @@ export default {
     extend: {
       colors: {
         bg: '#000000',
-        accent: '#ed4525',
+        // accent: '#ff4310',
+        accent: '#ff4310',
         accentBright: '#ff4310',
-        // accent : '#ff4310',
         text: '#333',
         inputBg: '#f2f2f2',
       },
@@ -24,6 +24,9 @@ export default {
       },
       padding: {
         4.5: '1.125rem',
+      },
+      width: {
+        5.5: '1.375rem',
       },
     },
   },
