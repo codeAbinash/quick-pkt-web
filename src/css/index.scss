@@ -36,6 +36,13 @@ body {
   text-wrap: balance;
 }
 
+.d {
+  outline: 1px solid red;
+}
+.debug * {
+  outline: 1px solid red;
+}
+
 // Search Cancel button
 .searchCancel::-webkit-search-cancel-button {
   -webkit-appearance: none;

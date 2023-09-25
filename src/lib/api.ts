@@ -1,6 +1,17 @@
 import app from '../../app';
 import ls from './util';
 
+const API_URL = app.api;
+
+const API = {
+  login: `${API_URL}/auth/login_or_signup`,
+  logout: `${API_URL}/auth/logout`,
+  send_otp: `${API_URL}/auth/send_otp`,
+  resend_otp: `${API_URL}/auth/resend_otp`,
+  get_current_user: `${API_URL}/user/get_current_user`,
+  update_user: `${API_URL}/user/update_user`,
+};
+
 type defaultHeaders = {
   'Content-Type': 'application/json';
   Accept: 'application/json';
@@ -26,16 +37,6 @@ export const formDataHeaders: formDataHeaders = {
 export function authorizedHeader(header: formDataHeaders | defaultHeaders) {
   return { ...header, Authorization: `Bearer ${ls.get('token')}` };
 }
-
-const API_URL = app.api;
-
-const API = {
-  login: `${API_URL}/auth/login_or_signup`,
-  send_otp: `${API_URL}/auth/send_otp`,
-  resend_otp: `${API_URL}/auth/resend_otp`,
-  get_current_user: `${API_URL}/user/get_current_user`,
-  update_user: `${API_URL}/user/update_user`,
-};
 
 export type apiResponse = {
   status: boolean;
@@ -117,6 +118,19 @@ export async function getCurrentUser(): Promise<apiResponse> {
   const headers = authorizedHeader(defaultHeaders);
   try {
     const res = await fetch(API.get_current_user, {
+      method: 'POST',
+      headers: headers,
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function logOutUser(): Promise<apiResponse> {
+  const headers = authorizedHeader(defaultHeaders);
+  try {
+    const res = await fetch(API.logout, {
       method: 'POST',
       headers: headers,
     });

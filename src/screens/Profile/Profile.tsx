@@ -43,6 +43,7 @@ const options: OptionGroup[] = [
         className: 'text-red-600',
         classNameIcon: '',
         small: 'Log out',
+        // link: '/log_out',
       },
     ],
   },
