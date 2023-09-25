@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import app from '../../../app';
 import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
-import { Bottom, Header, Input } from '../../components/Extras';
+import { Bottom, Input } from '../../components/Extras';
 import API, { authorizedHeader, formDataHeaders, getCurrentUser } from '../../lib/api';
 import transitions from '../../lib/transition';
 import ls, { blank_fn } from '../../lib/util';
 import { getProfileInfo, setProfileInfo } from './utils';
+import { Header } from '../../components/Header/Header';
 
 async function updateLocalUserData() {
   const userProfileData = await getCurrentUser();
@@ -32,6 +33,7 @@ export default function EditProfile() {
   const [lastName, setLastName] = useState(profile.data.last_name || '');
   const [mobile, setMobile] = useState(profile.data.mobile_number || '');
   const [email, setEmail] = useState(profile.data.email || '');
+  const [profilePicture, setProfilePicture] = useState(profile.data.profile_pic || icons.user);
   const [isUpdating, setIsUpdating] = useState(false);
   const [userMessage, setUserMessage] = useState({
     message: '',
@@ -76,7 +78,10 @@ export default function EditProfile() {
         <p className='font-normMid'>Edit Profile</p>
       </Header>
       <div className='relative mx-auto mb-4 max-w-lg'>
-        <img src={icons.user} className='profile-picture mx-auto w-[45%] rounded-full' />
+        <img
+          src={profilePicture}
+          className='profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg dark:bg-white/10'
+        />
         <div
           className='tap95 anim-edit-icon absolute left-[60%] top-[80%] aspect-square h-11 rounded-full bg-white p-3 shadow-lg'
           onClick={blank_fn}

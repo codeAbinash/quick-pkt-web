@@ -23,7 +23,7 @@ const options = [
 export default function Options() {
   const navigate = useNavigate();
   return (
-    <div className='mx-auto flex w-full max-w-4xl gap-5 px-7 py-3 pt-0'>
+    <div className='mx-auto flex w-full max-w-4xl gap-5 px-7 py-3 pb-1 pt-0'>
       {options.map((option, index) => (
         <div
           className='tap95 flex flex-col items-center justify-center gap-1'
@@ -31,7 +31,7 @@ export default function Options() {
           onClick={transitions(() => navigate(option.link))}
         >
           <div className='rounded-full bg-accent/[0.15] p-4.5'>
-            <img src={option.icon} className='w-5.5 ' />
+            <img src={option.icon} className='aspect-square w-5.5' alt={option.name} />
           </div>
           <span className='text-[0.7rem] font-normMid opacity-80'>{option.name}</span>
         </div>

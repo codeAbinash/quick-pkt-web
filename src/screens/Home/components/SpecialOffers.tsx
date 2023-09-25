@@ -5,7 +5,7 @@ export default function SpecialOffers() {
   return (
     <div className='px-5'>
       <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 shadow-[0_0_4px_0_rgba(0,0,0,0.0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
-        <img src={images.spotlight3} className='aspect-square h-[5.3rem] rounded-2xl' />
+        <img src={images.spotlight3} className='aspect-square h-[5.3rem] rounded-2xl' alt='Special Offer' />
         <div className='flex flex-col'>
           <div className='flex grow flex-col justify-between py-0.5'>
             <p className='flex items-center pl-2 text-[0.9rem] font-normMid'>
@@ -14,7 +14,7 @@ export default function SpecialOffers() {
                 <TextEmoji emoji='😍' />
               </span>
             </p>
-            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-gray-500'>
+            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-gray-500 dark:text-gray-400'>
               Cashback on every recharge or bill payment. Select option from bellow.
             </p>
             <div className='flex'>

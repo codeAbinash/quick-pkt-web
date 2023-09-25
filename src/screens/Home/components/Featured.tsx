@@ -4,7 +4,7 @@ const featuredImages = [1, 2];
 
 export default function Featured() {
   return (
-    <div className='mx-auto max-w-4xl'>
+    <div className='mx-auto w-full max-w-4xl'>
       <p className='ml-6 text-sm font-normMid'>Featured</p>
       {/* <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
          {spotLightImages.map((_, index) => (
@@ -22,7 +22,7 @@ export default function Featured() {
             className='tap99 aspect-[2/1] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10'
             key={index}
           >
-            <img src={images.banner} className='w-full' />
+            <img src={images.banner} className='w-full' alt={'Featured' + index} />
           </div>
         ))}
       </div>

@@ -7,6 +7,7 @@ export type userProfile = {
     last_name: string;
     mobile_number: string;
     email: string;
+    profile_pic: string;
   };
 };
 

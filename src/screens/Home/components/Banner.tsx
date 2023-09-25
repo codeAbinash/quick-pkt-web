@@ -45,7 +45,7 @@ export default function Banner() {
           key={index}
           className='tap99 bg- flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl shadow-md first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
         >
-          <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
+          <img className='w-full shrink-0 rounded-3xl' src={images.banner2} alt={'Banner' + index} />
         </div>
       ))}
     </div>

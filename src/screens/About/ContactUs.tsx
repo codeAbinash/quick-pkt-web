@@ -1,4 +1,4 @@
-import { Header } from '../../components/Extras';
+import { Header } from '../../components/Header/Header';
 
 export default function ContactUs() {
   return (

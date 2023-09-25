@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
-import { Bottom, Header } from '../../components/Extras';
+import { Bottom } from '../../components/Extras';
 import ls, { blank_fn } from '../../lib/util';
 import { useMemo, useState } from 'react';
 import transitions from '../../lib/transition';
 import { getProfileInfo } from './utils';
+import { Header } from '../../components/Header/Header';
 
 type Option = {
   name: string;
@@ -138,6 +139,7 @@ export default function Profile() {
   const [firstName, setFirstName] = useState(profile.data.first_name || 'Your');
   const [lastName, setLastName] = useState(profile.data.last_name || 'Name');
   const [mobile, setMobile] = useState('+91 ' + profile.data.mobile_number);
+  const [profilePicture, setProfilePicture] = useState(profile.data.profile_pic || icons.user);
   const navigate = useNavigate();
   return (
     <div className='select-none'>
@@ -146,7 +148,10 @@ export default function Profile() {
       </Header>
       <div className='mt-5'>
         <div className='relative mx-auto mb-4 max-w-lg'>
-          <img src={icons.user} className='profile-picture mx-auto w-1/3 rounded-full' />
+          <img
+            src={profilePicture}
+            className='profile-picture mx-auto aspect-square w-1/3 rounded-full bg-inputBg dark:bg-white/10'
+          />
         </div>
       </div>
       <div>
@@ -180,7 +185,7 @@ export default function Profile() {
                       <img
                         src={option.icon}
                         alt=''
-                        className={`w-5.5 opacity-80 dark:opacity-90 dark:invert ${
+                        className={`aspect-square w-5.5 opacity-80 dark:opacity-90 dark:invert ${
                           option.classNameIcon ? option.classNameIcon : ''
                         }`}
                       />

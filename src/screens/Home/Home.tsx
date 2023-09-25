@@ -105,7 +105,7 @@ export default function Home() {
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <img
             src={icons.user}
-            className='tap95 profile-picture w-[2.2rem] rounded-full'
+            className='tap95 profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg dark:bg-white/10'
             alt='User Icon'
             onClick={transitions(() => {
               navigate('/profile');
