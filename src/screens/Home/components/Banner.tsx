@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import images from '../../../assets/images/images';
 
 const bannerImages = [
@@ -28,13 +28,13 @@ export default function Banner() {
   //     clearInterval(scrollInterval);
   //   };
   // }, []);
-  // useEffect(() => {
-  //   // Scroll only 1 item
-  //   const container = containerRef.current;
-  //   if (container) {
-  //     container.scrollLeft = container.clientWidth;
-  //   }
-  // }, []);
+  useEffect(() => {
+    // Scroll only 1 item
+    const container = containerRef.current;
+    if (container) {
+      container.scrollLeft = container.clientWidth;
+    }
+  }, []);
   return (
     <div
       className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1.5 lg:rounded-3xl'

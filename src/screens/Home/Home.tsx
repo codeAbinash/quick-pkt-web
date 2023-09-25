@@ -1,15 +1,17 @@
-import { MouseEventHandler, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
-import images from '../../assets/images/images';
-import transitions from '../../lib/transition';
-import ls, { blank_fn } from '../../lib/util';
-import headerIntersect from '../../lib/headerIntersect';
-import TextEmoji from '../../components/TextEmoji';
 import { Bottom } from '../../components/Extras';
 import { getCurrentUser } from '../../lib/api';
-import Options from './components/Options';
+import headerIntersect from '../../lib/headerIntersect';
+import transitions from '../../lib/transition';
+import ls from '../../lib/util';
 import Banner from './components/Banner';
+import Featured from './components/Featured';
+import Options from './components/Options';
+import RechargeOptions from './components/RechargeOptions';
+import SpecialOffers from './components/SpecialOffers';
+import SpotLight from './components/SpotLight';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -54,85 +56,6 @@ const navItems = [
     className_filled: 'w-[23.5px]',
   },
 ];
-const rechargeOptions = [
-  {
-    element: (
-      <span>
-        Mobile <br /> Recharge
-      </span>
-    ),
-    icon: icons.mobile,
-    name: 'Mobile Recharge',
-  },
-  {
-    element: (
-      <span>
-        DTH <br /> Recharge
-      </span>
-    ),
-    icon: icons.dth,
-    name: 'DTH Recharge',
-  },
-  {
-    element: (
-      <span>
-        Electricity <br /> Bill Pay
-      </span>
-    ),
-    icon: icons.electricity,
-    name: 'Electricity Bill Pay',
-  },
-  {
-    element: (
-      <span>
-        Landline <br /> Bill Pay
-      </span>
-    ),
-    icon: icons.landline,
-    name: 'Landline Bill Pay',
-  },
-  {
-    element: (
-      <span>
-        Broadband <br /> Recharge
-      </span>
-    ),
-    icon: icons.broadband,
-    name: 'Broadband Recharge',
-  },
-  {
-    element: (
-      <span>
-        Gas Cylinder <br />
-        Booking
-      </span>
-    ),
-    icon: icons.gas,
-    name: 'Gas Cylinder Booking',
-  },
-  {
-    element: (
-      <span>
-        Rent <br /> Payment
-      </span>
-    ),
-    icon: icons.rent,
-    name: 'Rent Payment',
-  },
-  // {
-  //   element: 'Postpaid',
-  //   icon: icons.postpaid,
-  // }
-  {
-    element: (
-      <span>
-        Google Play <br /> Recharge
-      </span>
-    ),
-    icon: icons.google_play,
-    name: 'Google Play Recharge',
-  },
-];
 
 export default function Home() {
   // Check If it is logged in
@@ -171,8 +94,9 @@ export default function Home() {
       <div
         className={`${
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
-        } sticky top-0 z-40 flex w-full items-center justify-between bg-white/90 px-4 py-3 backdrop-blur-md dark:bg-black dark:bg-black/80`}
+        } sticky top-0 z-40 flex w-full items-center justify-between bg-white px-4 py-3 dark:bg-black`}
       >
+        {/* bg-white/90 backdrop-blur-md dark:bg-black/80*/}
         <div className='flex items-center justify-between gap-3'>
           <img src={icons.thunder} alt='Logo' className='h-6' />
           <p className='text-xl font-semibold text-accent'>Quick PKT</p>
@@ -212,113 +136,6 @@ export default function Home() {
               />
             </div>
             <span className='text-center text-[0.65rem] font-normMid'>{item.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const spotLightImages = [1, 2, 3, 4];
-const featuredImages = [1, 2];
-
-function SpecialOffers() {
-  return (
-    <div className='px-5'>
-      <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 shadow-[0_0_4px_0_rgba(0,0,0,0.0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
-        <img src={images.spotlight3} className='aspect-square h-[5.3rem] rounded-2xl' />
-        <div className='flex flex-col'>
-          <div className='flex grow flex-col justify-between py-0.5'>
-            <p className='flex items-center pl-2 text-[0.9rem] font-normMid'>
-              Special Offer for You
-              <span className='flex items-start pl-1 text-[1rem]'>
-                <TextEmoji emoji='😍' />
-              </span>
-            </p>
-            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-gray-500'>
-              Cashback on every recharge or bill payment. Select option from bellow.
-            </p>
-            <div className='flex'>
-              <p className='rounded-md px-2 py-0.5 text-xs font-420 text-accent active:bg-accent/10 active:dark:bg-accent/10'>
-                More Details
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-{
-  /* <div className='mb-1 flex items-center text-center'>
-  <button className='no-highlight tap95 flex-grow rounded-full bg-accentBright py-1.5 text-[0.6rem] font-medium text-white'>
-    Recharge Now!
-  </button>
-  <button className='no-highlight tap95 flex-grow items-center justify-center gap-1  pl-3 text-[0.7rem] font-medium text-accentBright'>
-  View Details
-  </button>
-</div> */
-}
-
-function RechargeOptions() {
-  return (
-    <div className='mx-auto w-full max-w-4xl'>
-      {/* <p className='mb-2 ml-6 text-sm font-normMid'>Recharge and Bill Payments</p> */}
-      <div className='px-5'>
-        <div className='grid grid-cols-4 justify-center gap-y-6 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 pb-7 pt-7 text-center shadow-[0_0_10px_0_rgba(0,0,0,0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
-          {rechargeOptions.map((item, index) => (
-            <div key={index} className='tap95 flex flex-col items-center justify-center gap-1'>
-              <div className='aspect-square'>
-                <img className='w-8' src={item.icon} alt={item.name} />
-              </div>
-              <p className='mt-2 text-[0.6rem] font-420 leading-3 text-gray-700 dark:text-gray-300'>{item.element}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SpotLight() {
-  return (
-    <div className='mx-auto max-w-4xl'>
-      <p className='mb-3 ml-6 text-sm font-normMid'>Spotlight</p>
-      <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'>
-        {spotLightImages.map((_, index) => (
-          <div
-            key={index}
-            className='tap99 flex aspect-[3/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5 dark:bg-white/10'
-          >
-            <img className='aspect-[3/4] w-full shrink-0 rounded-3xl' src={images.spotlight3} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Featured() {
-  return (
-    <div className='mx-auto max-w-4xl'>
-      <p className='ml-6 text-sm font-normMid'>Featured</p>
-      {/* <div className='no-scrollbar relative flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-5'>
-        {spotLightImages.map((_, index) => (
-          <div
-            key={index}
-            className='tap97 flex aspect-[2/1] w-[90%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5'
-          >
-            <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
-          </div>
-        ))}
-      </div> */}
-      <div className='grid grid-cols-1 gap-4 p-5 md:grid-cols-2 lg:grid-cols-3'>
-        {featuredImages.map((_, index) => (
-          <div
-            className='tap99 aspect-[2/1] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10'
-            key={index}
-          >
-            <img src={images.banner} className='w-full' />
           </div>
         ))}
       </div>
