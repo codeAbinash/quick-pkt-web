@@ -136,10 +136,10 @@ export default function Profile() {
   //   },
   // };
   console.log(profile);
-  const [firstName, setFirstName] = useState(profile.data.first_name || 'Your');
-  const [lastName, setLastName] = useState(profile.data.last_name || 'Name');
-  const [mobile, setMobile] = useState('+91 ' + profile.data.mobile_number);
-  const [profilePicture, setProfilePicture] = useState(profile.data.profile_pic || icons.user);
+  const [firstName, setFirstName] = useState(profile?.data.first_name || 'Your');
+  const [lastName, setLastName] = useState(profile?.data.last_name || 'Name');
+  const [mobile, setMobile] = useState('+91 ' + profile?.data.mobile_number);
+  const [profilePicture, setProfilePicture] = useState(profile?.data.profile_pic || icons.user);
   const navigate = useNavigate();
   return (
     <div className='select-none'>
