@@ -96,11 +96,11 @@ export default function Home() {
       <div
         className={`${
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
-        } sticky top-0 z-40 flex w-full items-center justify-between bg-white px-4 py-3 dark:bg-black`}
+        } sticky top-0 z-40 flex w-full items-center justify-between bg-white px-5 py-3.5 dark:bg-black`}
       >
         {/* bg-white/90 backdrop-blur-md dark:bg-black/80*/}
-        <div className='flex items-center justify-between gap-3'>
-          <img src={icons.thunder} alt='Logo' className='h-6' />
+        <div className='flex items-center justify-between gap-2'>
+          <img src={icons.thunder} alt='Logo' className='h-5.5 pl-1.5' />
           <p className='text-xl font-semibold text-accent'>Quick PKT</p>
         </div>
         <div className='flex items-center justify-center gap-6'>

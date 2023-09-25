@@ -1,10 +1,14 @@
+/**
+ * This component should not rerender on profile update
+ */
+
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
 import ls, { blank_fn } from '../../lib/util';
 import { useMemo, useState } from 'react';
 import transitions from '../../lib/transition';
-import { getProfileInfo } from './utils';
+import { getProfileInfo, userProfile } from './utils';
 import { Header } from '../../components/Header/Header';
 
 type Option = {
@@ -14,12 +18,13 @@ type Option = {
   className?: string;
   classNameIcon?: string;
   link?: string;
+  small?: string | Function;
 };
 type OptionGroup = {
   groupName: string;
   options: Option[];
 };
-const options = [
+const options: OptionGroup[] = [
   {
     groupName: 'Account',
     options: [
@@ -28,12 +33,16 @@ const options = [
         icon: icons.edit,
         link: '/profile/edit',
         classNameIcon: 'anim-edit-icon',
+        small: (profile: userProfile) => {
+          return profile?.data.first_name;
+        },
       },
       {
         name: 'Log Out',
         icon: icons.log_out,
-        className: 'text-red-500',
+        className: 'text-red-600',
         classNameIcon: '',
+        small: 'Log out',
       },
     ],
   },
@@ -44,10 +53,12 @@ const options = [
         name: 'Dark Mode',
         icon: icons.dark_mode,
         link: '/dark_mode',
+        small: 'Auto',
       },
       {
         name: 'Language',
         icon: icons.language,
+        small: 'English',
       },
     ],
   },
@@ -150,7 +161,8 @@ export default function Profile() {
         <div className='relative mx-auto mb-4 max-w-lg'>
           <img
             src={profilePicture}
-            className='profile-picture mx-auto aspect-square w-1/3 rounded-full bg-inputBg dark:bg-white/10'
+            onClick={transitions(() => navigate('/profile/edit'), 0)}
+            className='profile-picture tap97 mx-auto aspect-square w-[40%] rounded-full bg-inputBg dark:bg-white/10'
           />
         </div>
       </div>
@@ -195,7 +207,12 @@ export default function Profile() {
                         {option.name}
                       </span>
                     </div>
-                    <img src={icons.arrow_right} className='w-5 opacity-50 dark:invert' />
+                    <div className='flex items-center gap-1.5'>
+                      <span className='text-xs font-420 opacity-50'>
+                        {typeof option.small === 'function' ? option.small(profile) : option.small}
+                      </span>
+                      <img src={icons.arrow_right} className='w-5 opacity-50 dark:invert' />
+                    </div>
                   </div>
                 </div>
               ))}

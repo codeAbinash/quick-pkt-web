@@ -23,15 +23,15 @@ function ProfilePicture({
   onImageClick?: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
 }) {
   return (
-    <div className='tap99 relative mx-auto mb-4 max-w-lg'>
+    <div className='relative mx-auto mb-4 max-w-lg'>
       <img
         src={imageUrl}
         onClick={onImageClick}
-        className='profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg dark:bg-white/10'
+        className='tap97 profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg dark:bg-white/10'
       />
       <div
         onClick={onImageClick}
-        className='tap95 anim-edit-icon absolute left-[60%] top-[75%] aspect-square h-11 rounded-full bg-white p-3 shadow-lg'
+        className='tap95 anim-edit-icon absolute left-[60%] top-[75%] aspect-square h-12 rounded-full bg-white p-3 shadow-lg'
       >
         <img src={icons.edit} className='editIcon' />
       </div>
@@ -201,7 +201,7 @@ export default function EditProfile() {
           </div>
         ) : (
           <Button className='btn shine mt-4' onClick={updateProfile}>
-            <p className='text-sm'>Update Profile</p>
+            Update Profile
           </Button>
         )}
       </div>

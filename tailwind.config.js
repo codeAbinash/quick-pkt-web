@@ -12,7 +12,7 @@ export default {
         inputBg: '#f2f2f2',
       },
       borderRadius: {
-        btn: '0.7rem',
+        btn: '0.75rem',
       },
       fontWeight: {
         normMid: '450',
@@ -26,6 +26,9 @@ export default {
         4.5: '1.125rem',
       },
       width: {
+        5.5: '1.375rem',
+      },
+      height: {
         5.5: '1.375rem',
       },
     },
