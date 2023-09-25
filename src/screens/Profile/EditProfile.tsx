@@ -4,7 +4,7 @@ import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
 import { Bottom, Input } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
-import API, { authorizedHeader, formDataHeaders, getCurrentUser } from '../../lib/api';
+import API, { authorizedHeader, formDataHeaders, getCurrentUser, getError } from '../../lib/api';
 import transitions from '../../lib/transition';
 import { getProfileInfo, setProfileInfo } from './utils';
 
@@ -129,7 +129,7 @@ export default function EditProfile() {
     } else {
       setIsUpdating(false);
       setUserMessage({
-        message: data.message,
+        message: getError(data.errors),
         error: true,
       });
     }

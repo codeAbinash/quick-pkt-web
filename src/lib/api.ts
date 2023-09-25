@@ -45,13 +45,22 @@ export type apiResponse = {
 
 export default API;
 
+type errors = {
+  [key: string]: string[];
+};
+export function getError(errors: errors) {
+  const key = Object.keys(errors)[0];
+  const value = errors[key][0];
+  return value;
+}
+
 async function returnResponse(res: any): Promise<apiResponse> {
   const data = await res.json();
   console.log(data);
   if (data.status === true) {
     return { status: true, message: data.message, data: data };
   } else {
-    return { status: false, message: data.message };
+    return { status: false, message: getError(data.errors) || data.message || 'Network Error' };
   }
 }
 
