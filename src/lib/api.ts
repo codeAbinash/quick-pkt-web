@@ -10,6 +10,8 @@ const API = {
   resend_otp: `${API_URL}/auth/resend_otp`,
   get_current_user: `${API_URL}/user/get_current_user`,
   update_user: `${API_URL}/user/update_user`,
+  privacy_policy: `${API_URL}/pages/privacy_policy`,
+  terms_and_conditions: `${API_URL}/pages/terms_and_conditions`,
 };
 
 type defaultHeaders = {
@@ -133,6 +135,44 @@ export async function logOutUser(): Promise<apiResponse> {
     const res = await fetch(API.logout, {
       method: 'POST',
       headers: headers,
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+async function updateUser(data: any): Promise<apiResponse> {
+  const headers = authorizedHeader(defaultHeaders);
+  try {
+    const res = await fetch(API.update_user, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function privacy_policy(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.privacy_policy, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function terms_and_conditions(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.terms_and_conditions, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
     });
     return await returnResponse(res);
   } catch (err) {
