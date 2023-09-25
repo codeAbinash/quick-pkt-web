@@ -29,7 +29,7 @@
       "src": "icons/favicon.ico",
       "type": "image/ico",
       "sizes": "256x256",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
