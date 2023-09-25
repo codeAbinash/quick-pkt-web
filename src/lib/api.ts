@@ -2,12 +2,12 @@ import app from '../../app';
 import ls from './util';
 
 type defaultHeaders = {
-  ContentType: 'multipart/form-data';
+  'Content-Type': 'application/json';
   Accept: 'application/json';
   secret: string;
 };
 export const defaultHeaders: defaultHeaders = {
-  ContentType: 'multipart/form-data',
+  'Content-Type': 'application/json',
   Accept: 'application/json',
   secret: app.secret,
 };

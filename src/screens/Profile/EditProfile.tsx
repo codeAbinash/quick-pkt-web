@@ -1,14 +1,12 @@
-import { useMemo, useState, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import app from '../../../app';
 import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
 import { Bottom, Input } from '../../components/Extras';
+import { Header } from '../../components/Header/Header';
 import API, { authorizedHeader, formDataHeaders, getCurrentUser } from '../../lib/api';
 import transitions from '../../lib/transition';
-import ls, { blank_fn } from '../../lib/util';
 import { getProfileInfo, setProfileInfo } from './utils';
-import { Header } from '../../components/Header/Header';
 
 async function updateLocalUserData() {
   const userProfileData = await getCurrentUser();
@@ -45,21 +43,40 @@ function getFullName(firstName: string, lastName: string) {
   return firstName || lastName ? `${firstName} ${lastName}` : 'Update Name';
 }
 
+function profilePicFileValidation(file: File): userMessage {
+  const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+  const maxSize = 2 * 1024 * 1024;
+  console.log(file);
+  if (!allowedTypes.includes(file.type))
+    return {
+      message: 'Invalid file type (only .png, .jpeg, .jpg)',
+      error: true,
+    };
+  if (file.size > maxSize)
+    return {
+      message: 'Max File Size is 2MB',
+      error: true,
+    };
+  return { message: '', error: false };
+}
+
+type userMessage = {
+  message: string;
+  error: boolean;
+};
+const blank_user_message: userMessage = { message: '', error: false };
+
 export default function EditProfile() {
   const profile = useMemo(getProfileInfo, []);
-  const [firstName, setFirstName] = useState(profile.data.first_name || '');
-  const [lastName, setLastName] = useState(profile.data.last_name || '');
-  const mobile = profile.data.mobile_number;
-  const [email, setEmail] = useState(profile.data.email || '');
-  const [profilePicture, setProfilePicture] = useState(profile.data.profile_pic || icons.user);
+  const [firstName, setFirstName] = useState(profile?.data?.first_name || '');
+  const [lastName, setLastName] = useState(profile?.data.last_name || '');
+  const mobile = profile?.data.mobile_number;
+  const [email, setEmail] = useState(profile?.data.email || '');
+  const [profilePicture, setProfilePicture] = useState(profile?.data.profile_pic || icons.user);
   const [isUpdating, setIsUpdating] = useState(false);
   const pp = useRef<HTMLInputElement>(null);
   const fullName = useMemo(() => getFullName(firstName, lastName), [firstName, lastName]);
-
-  const [userMessage, setUserMessage] = useState({
-    message: '',
-    error: false,
-  });
+  const [userMessage, setUserMessage] = useState(blank_user_message);
   const navigate = useNavigate();
 
   type userUpdate = {
@@ -71,16 +88,27 @@ export default function EditProfile() {
 
   const updateProfile = useCallback(async () => {
     setIsUpdating(true);
-
     const body: any = {} as userUpdate;
-
     if (firstName) body.first_name = firstName.trim();
     if (lastName) body.last_name = lastName.trim();
     if (email) body.email = email.trim();
-    if (pp.current?.files?.length) body.profile_pic = pp.current.files[0];
-    const formData = new FormData();
 
+    // If user selected a new profile picture
+
+    let ppValidation: userMessage | null = null;
+    if (profilePicture !== profile?.data?.profile_pic) {
+      ppValidation = profilePicFileValidation(pp.current!.files![0]);
+      if (ppValidation.error) {
+        setUserMessage(ppValidation);
+        setIsUpdating(false);
+        return;
+      }
+      body.profile_pic = pp.current!.files![0];
+    }
+
+    const formData = new FormData();
     for (const key in body) formData.append(key, body[key]!);
+
     const res = await fetch(API.update_user, {
       method: 'POST',
       headers: authorizedHeader(formDataHeaders),
@@ -90,28 +118,45 @@ export default function EditProfile() {
     console.log(body);
     const data = await res.json();
     console.log(data);
-
     if (data.status) {
       await updateLocalUserData();
-      setUserMessage({ message: data.message, error: false });
       setIsUpdating(false);
+      setUserMessage({
+        message: 'Profile Updated Successfully',
+        error: false,
+      });
     } else {
       setIsUpdating(false);
-      setUserMessage({ message: data.message, error: true });
+      setUserMessage({
+        message: data.message,
+        error: true,
+      });
     }
-  }, [firstName, lastName, email, profilePicture]);
+  }, [firstName, lastName, email, profilePicture, isUpdating]);
 
   const onChangeFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target.files;
+    const ppValidation = profilePicFileValidation(fileInput![0]);
+    if (ppValidation.error) return setUserMessage(ppValidation);
     setProfilePicture(URL.createObjectURL(fileInput![0]));
   }, []);
+
+  // useEffect(() => {
+  //   setUserMessage(blank_user_message);
+  // }, [firstName, lastName, email, profilePicture, isUpdating]);
 
   return (
     <div className='w-full select-none'>
       <Header onclick={transitions(() => navigate('/profile', { replace: true }))}>
         <p className='font-normMid'>Edit Profile</p>
       </Header>
-      <input type='file' className='hidden' ref={pp} onChange={onChangeFileSelect} />
+      <input
+        type='file'
+        className='hidden'
+        ref={pp}
+        onChange={onChangeFileSelect}
+        accept='image/png, image/jpeg, image/jpg'
+      />
       <ProfilePicture imageUrl={profilePicture} onImageClick={() => pp.current?.click()} />
       <div>
         <p className='anim-user-name text-center text-xl font-semibold'>{fullName}</p>

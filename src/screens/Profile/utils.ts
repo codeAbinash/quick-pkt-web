@@ -9,11 +9,11 @@ export type userProfile = {
     email: string;
     profile_pic: string;
   };
-};
+} | null;
 
 export function getProfileInfo(): userProfile {
   // console.log('Getting profile info');
-  return JSON.parse(ls.get('userProfile') || '{}');
+  return JSON.parse(ls.get('userProfile') || 'null');
 }
 
 export function setProfileInfo(data: userProfile): void {

@@ -6,7 +6,7 @@ import { getCurrentUser } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
-import { getProfileInfo } from '../Profile/utils';
+import { getProfileInfo, userProfile } from '../Profile/utils';
 import Banner from './components/Banner';
 import Featured from './components/Featured';
 import Options from './components/Options';
@@ -67,12 +67,13 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const profile = useMemo(getProfileInfo, []);
-  const [profile_pic, setProfile_pic] = useState(profile.data.profile_pic || icons.user);
+  const [profile_pic, setProfile_pic] = useState(profile?.data?.profile_pic || icons.user);
 
   const getUserData = useCallback(async function getUserData() {
     const userData = await getCurrentUser();
-    setProfile_pic(userData.data.data.profile_pic || icons.user);
     if (userData.status) {
+      const profile = (userData?.data as userProfile) || null;
+      setProfile_pic(profile?.data?.profile_pic || icons.user);
       ls.set('userProfile', JSON.stringify(userData.data));
     }
   }, []);

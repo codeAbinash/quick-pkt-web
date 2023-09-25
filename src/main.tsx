@@ -37,7 +37,7 @@ const router = createBrowserRouter(
           <Home />
         </Suspense>
       ),
-      errorElement: <Error />,
+      // errorElement: <Error />,
       children: [
         {
           path: '/',
