@@ -37,7 +37,6 @@ const router = createBrowserRouter(
           <Home />
         </Suspense>
       ),
-      // errorElement: <Error />,
       children: [
         {
           path: '/',
@@ -50,7 +49,6 @@ const router = createBrowserRouter(
               <div>Wallet</div>
             </Suspense>
           ),
-          errorElement: <Error />,
         },
         {
           path: '/offers',
@@ -59,7 +57,6 @@ const router = createBrowserRouter(
               <div>Offers</div>
             </Suspense>
           ),
-          errorElement: <Error />,
         },
         {
           path: '/refer',
@@ -68,7 +65,6 @@ const router = createBrowserRouter(
               <div>Refer</div>
             </Suspense>
           ),
-          errorElement: <Error />,
         },
       ],
     },
@@ -79,7 +75,6 @@ const router = createBrowserRouter(
           <Login />
         </Suspense>
       ),
-      errorElement: <Error />,
     },
     {
       path: '/otp',
@@ -88,7 +83,6 @@ const router = createBrowserRouter(
           <OTP />
         </Suspense>
       ),
-      errorElement: <Error />,
     },
     {
       path: '/profile',

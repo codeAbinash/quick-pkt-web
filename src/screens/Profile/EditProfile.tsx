@@ -86,6 +86,10 @@ export default function EditProfile() {
     profile_pic?: File;
   };
 
+  const clearUserMessage = useCallback(() => {
+    setUserMessage(blank_user_message);
+  }, []);
+
   const updateProfile = useCallback(async () => {
     setIsUpdating(true);
     const body: any = {} as userUpdate;
@@ -93,11 +97,8 @@ export default function EditProfile() {
     if (lastName) body.last_name = lastName.trim();
     if (email) body.email = email.trim();
 
-    // If user selected a new profile picture
-
-    let ppValidation: userMessage | null = null;
     if (profilePicture !== profile?.data?.profile_pic) {
-      ppValidation = profilePicFileValidation(pp.current!.files![0]);
+      const ppValidation = profilePicFileValidation(pp.current!.files![0]);
       if (ppValidation.error) {
         setUserMessage(ppValidation);
         setIsUpdating(false);
@@ -135,6 +136,7 @@ export default function EditProfile() {
   }, [firstName, lastName, email, profilePicture, isUpdating]);
 
   const onChangeFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    clearUserMessage();
     const fileInput = e.target.files;
     const ppValidation = profilePicFileValidation(fileInput![0]);
     if (ppValidation.error) return setUserMessage(ppValidation);
@@ -175,14 +177,14 @@ export default function EditProfile() {
           label='First Name'
           icon={icons.account_circle}
           value={firstName}
-          onInput={(e) => setFirstName(e.target.value)}
+          onInput={(e) => (setFirstName(e.target.value), clearUserMessage())}
         />
         <Input
           placeholder='e.g. Doe'
           label='Last Name'
           icon={icons.user_circle}
           value={lastName}
-          onInput={(e) => setLastName(e.target.value)}
+          onInput={(e) => (setLastName(e.target.value), clearUserMessage())}
         />
         <Input
           placeholder='e.g. abc@gmail.com'
