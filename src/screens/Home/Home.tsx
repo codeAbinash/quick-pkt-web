@@ -8,6 +8,8 @@ import headerIntersect from '../../lib/headerIntersect';
 import TextEmoji from '../../components/TextEmoji';
 import { Bottom } from '../../components/Extras';
 import { getCurrentUser } from '../../lib/api';
+import Options from './components/Options';
+import Banner from './components/Banner';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -190,9 +192,10 @@ export default function Home() {
       <Outlet />
       <div
         className='fixed bottom-[-1px] left-0 right-0 z-40 flex items-center justify-between border border-t-[0.5px] border-transparent
-        border-t-[#77777744] bg-[#ffffffee] px-5 align-middle backdrop-blur-md dark:bg-black/90
-        md:bottom-4 md:mx-auto md:max-w-sm md:rounded-full md:border-[#77777744] md:px-0 md:shadow-lg'
+        border-t-[#77777744] bg-white  px-5 align-middle dark:bg-black md:bottom-4 md:mx-auto md:max-w-sm md:rounded-full md:border-[#77777744]
+        md:px-0 md:shadow-lg'
       >
+        {/* bg-[#ffffffee] backdrop-blur-md dark:bg-black/90  */}
         {navItems.map((item, index) => (
           <div
             key={index}
@@ -216,72 +219,8 @@ export default function Home() {
   );
 }
 
-const bannerImages = [
-  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
-  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
-  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
-  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
-  'https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80',
-];
-
 const spotLightImages = [1, 2, 3, 4];
 const featuredImages = [1, 2];
-
-function Banner() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   const container = containerRef.current;
-
-  //   const scrollInterval = setInterval(() => {
-  //     if (container) {
-  //       container.scrollLeft += container.clientWidth;
-  //       if (container.scrollLeft === container.scrollWidth - container.clientWidth) {
-  //         // Scroll back to the beginning when reaching the end
-  //         container.scrollLeft = 0;
-  //       }
-  //     }
-  //   }, 3000); // Adjust the interval (in milliseconds) to control the scrolling speed
-  //   // Clear the interval when the component unmounts
-  //   return () => {
-  //     clearInterval(scrollInterval);
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   // Scroll only 1 item
-  //   const container = containerRef.current;
-  //   if (container) {
-  //     container.scrollLeft = container.clientWidth;
-  //   }
-  // }, []);
-  return (
-    <div
-      className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1.5 lg:rounded-3xl'
-      ref={containerRef}
-    >
-      {bannerImages.map((_, index) => (
-        <div
-          key={index}
-          className='tap99 bg- flex aspect-[11/5] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl shadow-md first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
-        >
-          <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
-        </div>
-      ))}
-    </div>
-    // <div
-    //   className='no-scrollbar relative mx-auto mb-4 flex w-full max-w-4xl snap-x snap-mandatory gap-4 overflow-x-auto lg:rounded-3xl'
-    //   ref={containerRef}
-    // >
-    //   {bannerImages.map((_, index) => (
-    //     <div
-    //       key={index}
-    //       className='tap97 flex aspect-[2/1] w-[80%] max-w-xs shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 md:aspect-auto'
-    //     >
-    //       <img className='w-full shrink-0 rounded-3xl' src={images.banner2} />
-    //     </div>
-    //   ))}
-    // </div>
-  );
-}
 
 function SpecialOffers() {
   return (
@@ -376,10 +315,10 @@ function Featured() {
       <div className='grid grid-cols-1 gap-4 p-5 md:grid-cols-2 lg:grid-cols-3'>
         {featuredImages.map((_, index) => (
           <div
-            className='tap99 aspect-[11/5] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10'
+            className='tap99 aspect-[2/1] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10'
             key={index}
           >
-            <img src={images.banner2} className='w-full' />
+            <img src={images.banner} className='w-full' />
           </div>
         ))}
       </div>
@@ -400,41 +339,3 @@ export function HomeScreen() {
     </div>
   );
 }
-
-function Options() {
-  const navigate = useNavigate();
-  return (
-    <div className='mx-auto flex w-full max-w-4xl gap-6 px-7 py-3 pt-0'>
-      {options.map((option, index) => (
-        <div
-          className='tap95 flex flex-col items-center justify-center gap-1.5'
-          key={index}
-          onClick={transitions(() => navigate(option.link))}
-        >
-          <div className='rounded-full bg-accent p-4.5'>
-            <img src={option.icon} className='w-5.5 ' />
-          </div>
-          <span className='text-xs font-normMid opacity-80'>{option.name}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const options = [
-  {
-    name: 'Rewards',
-    icon: icons.options.reward,
-    link: '/offers',
-  },
-  {
-    name: 'Wallet',
-    icon: icons.options.wallet,
-    link: '/wallet',
-  },
-  {
-    name: 'Referrals',
-    icon: icons.options.referrals,
-    link: '/refer',
-  },
-];

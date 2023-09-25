@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import app from '../../../app';
 import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
 import { Bottom, Header, Input } from '../../components/Extras';
-import API, { defaultHeaders, getCurrentUser } from '../../lib/api';
+import API, { authorizedHeader, formDataHeaders, getCurrentUser } from '../../lib/api';
 import transitions from '../../lib/transition';
 import ls, { blank_fn } from '../../lib/util';
 import { getProfileInfo, setProfileInfo } from './utils';
@@ -53,18 +54,15 @@ export default function EditProfile() {
     for (const key in body) formData.append(key, body[key]!);
     const res = await fetch(API.update_user, {
       method: 'POST',
-      headers: { ...defaultHeaders, Authorization: `Bearer ${ls.get('token')}` },
-      body: JSON.stringify(body),
+      headers: authorizedHeader(formDataHeaders),
+      body: formData,
     });
     console.log(body);
     const data = await res.json();
     console.log(data);
     if (data.status) {
       await updateLocalUserData();
-      // transitions(() => navigate('/profile', { replace: true }))();
-      // navigate('/profile', { replace: true });
       setUserMessage({ message: data.message, error: false });
-      // transitions(() => navigate(-1))();
       setIsUpdating(false);
     } else {
       setIsUpdating(false);

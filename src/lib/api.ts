@@ -1,7 +1,31 @@
 import app from '../../app';
 import ls from './util';
 
-export const defaultHeaders = { 'Content-Type': 'Application/json', Accept: 'application/json', secret: app.secret };
+type defaultHeaders = {
+  ContentType: 'multipart/form-data';
+  Accept: 'application/json';
+  secret: string;
+};
+export const defaultHeaders: defaultHeaders = {
+  ContentType: 'multipart/form-data',
+  Accept: 'application/json',
+  secret: app.secret,
+};
+
+type formDataHeaders = {
+  ContentType: 'multipart/form-data';
+  Accept: 'application/json';
+  secret: string;
+};
+export const formDataHeaders: formDataHeaders = {
+  secret: app.secret,
+  Accept: 'application/json',
+  ContentType: 'multipart/form-data',
+};
+
+export function authorizedHeader(header: formDataHeaders | defaultHeaders) {
+  return { ...header, Authorization: `Bearer ${ls.get('token')}` };
+}
 
 const API_URL = app.api;
 
@@ -81,7 +105,7 @@ export async function resendOTP(phone: string): Promise<apiResponse> {
 }
 
 export async function getCurrentUser(): Promise<apiResponse> {
-  const headers = { ...defaultHeaders, Authorization: `Bearer ${ls.get('token')}` };
+  const headers = authorizedHeader(defaultHeaders);
   try {
     const res = await fetch(API.get_current_user, {
       method: 'POST',
