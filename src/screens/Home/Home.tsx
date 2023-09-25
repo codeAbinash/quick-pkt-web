@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
@@ -6,6 +6,7 @@ import { getCurrentUser } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
+import { getProfileInfo } from '../Profile/utils';
 import Banner from './components/Banner';
 import Featured from './components/Featured';
 import Options from './components/Options';
@@ -65,24 +66,24 @@ export default function Home() {
   const path = location.pathname;
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const profile = useMemo(getProfileInfo, []);
+  const [profile_pic, setProfile_pic] = useState(profile.data.profile_pic || icons.user);
+
+  const getUserData = useCallback(async function getUserData() {
+    const userData = await getCurrentUser();
+    setProfile_pic(userData.data.data.profile_pic || icons.user);
+    if (userData.status) {
+      ls.set('userProfile', JSON.stringify(userData.data));
+    }
+  }, []);
 
   useEffect(() => {
-    if (!isLoggedIn)
-      navigate('/login', {
-        replace: true,
-      });
+    if (!isLoggedIn) navigate('/login', { replace: true });
   }, []);
 
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
   }, []);
-
-  async function getUserData() {
-    const userData = await getCurrentUser();
-    if (userData.status) {
-      ls.set('userProfile', JSON.stringify(userData.data));
-    }
-  }
 
   useEffect(() => {
     getUserData();
@@ -104,7 +105,7 @@ export default function Home() {
         <div className='flex items-center justify-center gap-6'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <img
-            src={icons.user}
+            src={profile_pic}
             className='tap95 profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg dark:bg-white/10'
             alt='User Icon'
             onClick={transitions(() => {
