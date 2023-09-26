@@ -15,7 +15,7 @@ export function Header({ children, onclick = blank_fn }: { children?: React.Reac
     <>
       <p ref={intersect}></p>
       <div
-        className={`sticky top-0 z-40 flex w-full items-center gap-2 bg-white/80 px-3 py-1.5 backdrop-blur-md dark:bg-black dark:bg-black/70 ${
+        className={`sticky top-0 z-40 flex w-full items-center gap-2 bg-white px-3 py-1.5 dark:bg-black ${
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
         }`}
       >

@@ -1,0 +1,85 @@
+.terms_and_conditions {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  ul,
+  ol,
+  li {
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li {
+    margin-bottom: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    margin-top: 1.2rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  h4 {
+    font-size: 0.875rem;
+  }
+  h5 {
+    font-size: 0.75rem;
+  }
+  h6 {
+    font-size: 0.625rem;
+  }
+
+  p,
+  a {
+    font-weight: 400;
+    // font-size: 0.875rem;
+  }
+
+  p {
+    font-weight: 400;
+  }
+  a {
+    font-weight: 400;
+    color: dodgerblue;
+  }
+  ul,
+  ol {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  li {
+    font-weight: 400;
+  }
+}

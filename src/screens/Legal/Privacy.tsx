@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { Header } from '../../components/Header/Header';
 // import sample from './sample.txt';
-import { privacy_policy } from '../../lib/api';
 import { Bottom } from '../../components/Extras';
-import icons from '../../assets/icons/icons';
+import { privacy_policy } from '../../lib/api';
+import LoadingHtmlPage from './components/LoadingHtmlPage';
 
 async function getPrivacy() {
   const response = await privacy_policy();
@@ -12,13 +12,6 @@ async function getPrivacy() {
   return response.data.data;
 }
 
-function Loading() {
-  return (
-    <div className='flex min-h-[70dvh] items-center justify-center'>
-      <img src={icons.loading} alt='Loading' className='w-10 dark:invert' />
-    </div>
-  );
-}
 export default function Privacy() {
   const [htmlData, setHtmlData] = useState<null | string>(null);
   useEffect(() => {
@@ -44,14 +37,16 @@ export default function Privacy() {
       </Header>
       <p className='text-2xl'></p>
       {htmlData === null ? (
-        <Loading />
+        <LoadingHtmlPage />
       ) : (
-        <div
-          className='flex flex-col justify-center gap-4 p-5 pt-2 text-sm font-normal'
-          dangerouslySetInnerHTML={{ __html: htmlData }}
-        />
+        <>
+          <div
+            className='terms_and_conditions flex flex-col justify-center p-5 pt-2 text-sm font-normal'
+            dangerouslySetInnerHTML={{ __html: htmlData }}
+          />
+          <Bottom />
+        </>
       )}
-      <Bottom />
     </div>
   );
 }
