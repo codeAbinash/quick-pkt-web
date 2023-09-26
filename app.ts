@@ -1,7 +1,8 @@
 const app = {
   name: 'Quick Pkt',
   version: '1.0.0',
-  description: 'Recharge, Relax, and Redeem Rewards!',
+  description: 'A quick way to Recharge',
+  loginDescription: 'A quick way to Recharge',
   base: '/quick-pkt',
   URL: 'https://quickpkt.in',
   backendURL: 'https://system.quickpkt.in',

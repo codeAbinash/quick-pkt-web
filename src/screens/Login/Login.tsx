@@ -7,6 +7,7 @@ import ReadPrivacyPolicyTerms from '../../components/Extras';
 import { sendOTP } from '../../lib/api';
 import transitions from '../../lib/transition';
 import { delayFn, phoneNumberValidation } from '../../lib/util';
+import app from '../../../app';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Login = () => {
           <p>Welcome to</p>
           <img src={images.logo_long} className='mx-auto w-60 pb-5 pt-5' />
         </div>
-        <p className='text-center'>Recharge, Relax, and Redeem Rewards!</p>
+        <p className='text-center'>{app.loginDescription}</p>
       </div>
 
       <div className='mx-auto flex w-full max-w-lg flex-col gap-5'>
