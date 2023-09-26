@@ -163,7 +163,7 @@ export default function Profile() {
           <img
             src={profilePicture}
             onClick={transitions(() => navigate('/profile/edit'), 0)}
-            className='profile-picture tap97 mx-auto aspect-square w-[40%] rounded-full bg-inputBg dark:bg-white/10'
+            className='profile-picture tap97 mx-auto aspect-square w-[40%] rounded-full bg-inputBg object-cover dark:bg-white/10'
           />
         </div>
       </div>

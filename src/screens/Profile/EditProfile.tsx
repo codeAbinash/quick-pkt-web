@@ -27,7 +27,7 @@ function ProfilePicture({
       <img
         src={imageUrl}
         onClick={onImageClick}
-        className='tap97 profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg dark:bg-white/10'
+        className='tap97 profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg object-cover dark:bg-white/10'
       />
       <div
         onClick={onImageClick}
