@@ -10,49 +10,22 @@
     {
       "src": "icons/icon192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon384.png",
+      "sizes": "384x384",
+      "type": "image/png"
     },
     {
       "src": "icons/icon512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon196.png",
-      "sizes": "196x196",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/favicon.ico",
-      "type": "image/ico",
-      "sizes": "256x256",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "images/screen/s1.jpg",
-      "type": "image/webp",
-      "sizes": "500x1082",
-      "platform": "wide",
-      "label": "Login Light Mode"
-    },
-    {
-      "src": "images/screen/s2.jpg",
-      "type": "image/webp",
-      "sizes": "500x1082",
-      "platform": "wide",
-      "label": "Login Dark Mode"
-    },
-    {
-      "src": "images/screen/s3.jpg",
-      "type": "image/webp",
-      "sizes": "500x1108",
-      "platform": "wide",
-      "label": "Splash Screen"
+      "type": "image/png"
     }
   ]
 }
