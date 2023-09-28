@@ -12,6 +12,7 @@ const API = {
   update_user: `${API_URL}/user/update_user`,
   privacy_policy: `${API_URL}/pages/privacy_policy`,
   terms_and_conditions: `${API_URL}/pages/terms_and_conditions`,
+  banners: `${API_URL}/banner/get_banners/main`,
 };
 
 type defaultHeaders = {
@@ -171,6 +172,18 @@ export async function privacy_policy(): Promise<apiResponse> {
 export async function terms_and_conditions(): Promise<apiResponse> {
   try {
     const res = await fetch(API.terms_and_conditions, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function getBanners(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.banners, {
       method: 'POST',
       headers: authorizedHeader(defaultHeaders),
     });
