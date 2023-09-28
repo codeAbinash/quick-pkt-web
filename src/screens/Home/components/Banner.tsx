@@ -1,50 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getBanners } from '../../../lib/api';
-
-type BannerType = {
-  id: number;
-  name: string;
-  path: string;
-  action: string;
-  link: string;
-  status: string;
-  type: string;
-};
+import { BannerType, getBannersLs, setBannersLs } from './utils';
 
 export default function Banner() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [banners, setBanners] = useState<BannerType[] | null>(null);
-  // useEffect(() => {
-  //   const container = containerRef.current;
+  const bannersData = useMemo(getBannersLs, []);
+  const [banners, setBanners] = useState<BannerType[] | null>(bannersData);
 
-  //   const scrollInterval = setInterval(() => {
-  //     if (container) {
-  //       container.scrollLeft += container.clientWidth;
-  //       if (container.scrollLeft === container.scrollWidth - container.clientWidth) {
-  //         // Scroll back to the beginning when reaching the end
-  //         container.scrollLeft = 0;
-  //       }
-  //     }
-  //   }, 3000); // Adjust the interval (in milliseconds) to control the scrolling speed
-  //   // Clear the interval when the component unmounts
-  //   return () => {
-  //     clearInterval(scrollInterval);
-  //   };
-  // }, []);
-  useEffect(() => {
-    // Scroll only 1 item
-    const container = containerRef.current;
-    if (container) {
-      container.scrollLeft = container.clientWidth;
-    }
-  }, []);
-
-  async function loadBanners() {
+  const loadBanners = useCallback(async () => {
     const bannersStatus = await getBanners();
     if (bannersStatus.status) {
       setBanners(bannersStatus.data.data as BannerType[]);
+      setBannersLs(bannersStatus.data.data as BannerType[]);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadBanners();
@@ -71,3 +40,28 @@ export default function Banner() {
     </div>
   );
 }
+
+// useEffect(() => {
+//   const container = containerRef.current;
+
+//   const scrollInterval = setInterval(() => {
+//     if (container) {
+//       container.scrollLeft += container.clientWidth;
+//       if (container.scrollLeft === container.scrollWidth - container.clientWidth) {
+//         // Scroll back to the beginning when reaching the end
+//         container.scrollLeft = 0;
+//       }
+//     }
+//   }, 3000); // Adjust the interval (in milliseconds) to control the scrolling speed
+//   // Clear the interval when the component unmounts
+//   return () => {
+//     clearInterval(scrollInterval);
+//   };
+// }, []);
+// useEffect(() => {
+//   // Scroll only 1 item
+//   const container = containerRef.current;
+//   if (container) {
+//     container.scrollLeft = container.clientWidth;
+//   }
+// }, []);
