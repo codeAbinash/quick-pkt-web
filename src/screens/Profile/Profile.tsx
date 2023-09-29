@@ -2,14 +2,14 @@
  * This component should not rerender on profile update
  */
 
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
-import ls, { blank_fn } from '../../lib/util';
-import { useMemo, useState } from 'react';
-import transitions from '../../lib/transition';
-import { getProfileInfo, userProfile } from './utils';
 import { Header } from '../../components/Header/Header';
+import transitions from '../../lib/transition';
+import { blank_fn } from '../../lib/util';
+import { getProfileInfo, userProfile } from './utils';
 
 type Option = {
   name: string;
@@ -120,37 +120,11 @@ const options: OptionGroup[] = [
   },
 ];
 
-// {
-//   "status": true,
-//   "data": {
-//     "id": 1,
-//     "first_name": null,
-//     "last_name": null,
-//     "mobile_number": "9547400680",
-//     "email": null,
-//     "created_at": "2023-09-20T06:55:58.000000Z",
-//     "updated_at": "2023-09-20T06:55:58.000000Z"
-//   },
-//   "filled_required": true,
-//   "message": "User Retrived"
-// }
-
 export default function Profile() {
   const profile = useMemo(getProfileInfo, []);
-  // const profile = {
-  //   status: true,
-  //   data: {
-  //     id: 1,
-  //     first_name: 'John',
-  //     last_name: 'Doe',
-  //     mobile_number: '9547400680',
-  //     email: 'cod',
-  //   },
-  // };
-  console.log(profile);
   const [firstName, setFirstName] = useState(profile?.data.first_name || 'Your');
   const [lastName, setLastName] = useState(profile?.data.last_name || 'Name');
-  const [mobile, setMobile] = useState('+91 ' + profile?.data.mobile_number);
+  const [mobile, setMobile] = useState('+91 ' + profile?.data.mobile_number || '');
   const [profilePicture, setProfilePicture] = useState(profile?.data.profile_pic || icons.user);
   const navigate = useNavigate();
   return (
@@ -221,7 +195,6 @@ export default function Profile() {
           </div>
         ))}
       </div>
-
       <Bottom />
     </div>
   );

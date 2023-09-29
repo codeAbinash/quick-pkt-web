@@ -3,7 +3,7 @@ import { getBanners } from '../../../lib/api';
 import { BannerType, getBannersLs, setBannersLs } from './utils';
 
 export default function Banner() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
   const bannersData = useMemo(getBannersLs, []);
   const [banners, setBanners] = useState<BannerType[] | null>(bannersData);
 
@@ -22,18 +22,20 @@ export default function Banner() {
   return (
     <div
       className='no-scrollbar relative mx-auto flex w-full max-w-4xl snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1.5 lg:rounded-3xl'
-      ref={containerRef}
+      // ref={containerRef}
     >
       {banners == null ? (
-        <div className='tap99 flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'></div>
+        <div className='shimmer tap99 flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl  first:ml-5 last:mr-5  md:aspect-auto'></div>
       ) : (
-        banners.map((banner, index) => (
+        banners.map((banner) => (
           <div
             key={banner.id}
-            onClick={() => window.open(banner.link, '_blank')}
-            className='tap99 flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-md first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
+            onClick={() => {
+              if (banner.link) window.open(banner.link, '_blank');
+            }}
+            className='tap99 flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg  first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
           >
-            <img className='w-full shrink-0 rounded-3xl' src={banner.path} alt={'Banner' + index} />
+            <img className='w-full shrink-0 rounded-3xl' src={banner.path} alt={banner.name} />
           </div>
         ))
       )}

@@ -13,6 +13,8 @@ const API = {
   privacy_policy: `${API_URL}/pages/privacy_policy`,
   terms_and_conditions: `${API_URL}/pages/terms_and_conditions`,
   banners: `${API_URL}/banner/get_banners/main`,
+  spotlights: `${API_URL}/banner/get_banners/spotlight`,
+  featured: `${API_URL}/banner/get_banners/featured`,
 };
 
 type defaultHeaders = {
@@ -60,7 +62,6 @@ export function getError(errors: errors) {
 
 async function returnResponse(res: any): Promise<apiResponse> {
   const data = await res.json();
-  console.log(data);
   if (data.status === true) {
     return { status: true, message: data.message, data: data };
   } else {
@@ -184,6 +185,30 @@ export async function terms_and_conditions(): Promise<apiResponse> {
 export async function getBanners(): Promise<apiResponse> {
   try {
     const res = await fetch(API.banners, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function getSpotlights(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.spotlights, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function getFeatured(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.featured, {
       method: 'POST',
       headers: authorizedHeader(defaultHeaders),
     });

@@ -1,14 +1,13 @@
 $anim-duration: 3; // in seconds
 $anim-speed: 0.65; // in seconds
 
-
 .shine {
   position: relative;
   overflow: hidden; // debug
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     height: 100%;
@@ -59,5 +58,26 @@ $anim-speed: 0.65; // in seconds
     opacity: 1;
     transform: translateX(100vw) skewX(-15deg);
     transition-property: opacity, transform;
+  }
+}
+
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    #77777725 0%,
+    #77777725 40%,
+    #77777735 50%,
+    #77777735 55%,
+    #77777725 65%,
+    #77777725 100%
+  );
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: loadSkeleton 1.3s infinite;
+}
+
+@keyframes loadSkeleton {
+  to {
+    background-position-x: -20%;
   }
 }

@@ -101,7 +101,7 @@ export default function Home() {
         {/* bg-white/90 backdrop-blur-md dark:bg-black/80*/}
         <div className='flex items-center justify-between gap-2'>
           <img src={icons.thunder} alt='Logo' className='h-5.5 pl-1.5' />
-          <p className='text-xl font-semibold text-accent'>Quick PKT</p>
+          <p className='text-xl font-semibold uppercase text-accent'>Quick PKT</p>
         </div>
         <div className='flex items-center justify-center gap-6'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
