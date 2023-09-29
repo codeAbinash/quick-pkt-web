@@ -4,6 +4,7 @@ import namesSlice from './names';
 import bannerSlice from './banners';
 import spotlightsSlice from './spotlights';
 import featuredSlice from './featured';
+import profileSlice from './profile';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     banners: bannerSlice,
     spotlights: spotlightsSlice,
     featured: featuredSlice,
+    profile: profileSlice,
   },
 });
 

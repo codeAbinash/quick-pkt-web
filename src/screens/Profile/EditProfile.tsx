@@ -1,17 +1,21 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setProfile } from '../../Redux/profile';
+import store from '../../Redux/store';
 import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
 import { Bottom, Input } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
 import API, { authorizedHeader, formDataHeaders, getCurrentUser, getError } from '../../lib/api';
 import transitions from '../../lib/transition';
-import { getProfileInfo, setProfileInfo } from './utils';
+import { UserProfile, setProfileInfoLs } from './utils';
 
 async function updateLocalUserData() {
   const userProfileData = await getCurrentUser();
   if (userProfileData.status) {
-    setProfileInfo(userProfileData.data);
+    setProfileInfoLs(userProfileData.data);
+    store.dispatch(setProfile(userProfileData.data as UserProfile));
   }
 }
 
@@ -67,7 +71,7 @@ type userMessage = {
 const blank_user_message: userMessage = { message: '', error: false };
 
 export default function EditProfile() {
-  const profile = useMemo(getProfileInfo, []);
+  const profile: UserProfile = useSelector((state: any) => state.profile);
   const [firstName, setFirstName] = useState(profile?.data?.first_name || '');
   const [lastName, setLastName] = useState(profile?.data.last_name || '');
   const mobile = profile?.data.mobile_number;

@@ -1,6 +1,6 @@
 import ls from '../../lib/util';
 
-export type userProfile = {
+export type UserProfile = {
   data: {
     id: number;
     first_name: string;
@@ -11,10 +11,10 @@ export type userProfile = {
   };
 } | null;
 
-export function getProfileInfo(): userProfile {
+export function getProfileInfoLs(): UserProfile {
   return JSON.parse(ls.get('userProfile') || 'null');
 }
 
-export function setProfileInfo(data: userProfile): void {
+export function setProfileInfoLs(data: UserProfile): void {
   ls.set('userProfile', JSON.stringify(data));
 }

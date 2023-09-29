@@ -2,14 +2,14 @@
  * This component should not rerender on profile update
  */
 
-import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
 import transitions from '../../lib/transition';
 import { blank_fn } from '../../lib/util';
-import { getProfileInfo, userProfile } from './utils';
+import { UserProfile } from './utils';
 
 type Option = {
   name: string;
@@ -33,7 +33,7 @@ const options: OptionGroup[] = [
         icon: icons.edit,
         link: '/profile/edit',
         classNameIcon: 'anim-edit-icon',
-        small: (profile: userProfile) => {
+        small: (profile: UserProfile) => {
           return profile?.data.first_name;
         },
       },
@@ -121,7 +121,7 @@ const options: OptionGroup[] = [
 ];
 
 export default function Profile() {
-  const profile = useMemo(getProfileInfo, []);
+  const profile = useSelector((state: any) => state.profile);
   const firstName = profile?.data.first_name || 'Your';
   const lastName = profile?.data.last_name || 'Name';
   const mobile = '+91 ' + (profile?.data.mobile_number || '');

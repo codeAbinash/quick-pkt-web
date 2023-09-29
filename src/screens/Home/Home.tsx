@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
@@ -6,13 +7,15 @@ import { getCurrentUser } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
-import { getProfileInfo, userProfile } from '../Profile/utils';
+import { UserProfile, setProfileInfoLs } from '../Profile/utils';
 import Banner from './components/Banner';
 import Featured from './components/Featured';
 import Options from './components/Options';
 import RechargeOptions from './components/RechargeOptions';
 import SpecialOffers from './components/SpecialOffers';
 import SpotLight from './components/SpotLight';
+import store from '../../Redux/store';
+import { setProfile } from '../../Redux/profile';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -66,15 +69,14 @@ export default function Home() {
   const path = location.pathname;
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const profile = useMemo(getProfileInfo, []);
-  const [profile_pic, setProfile_pic] = useState(profile?.data?.profile_pic || icons.user);
+  const profile: UserProfile = useSelector((state: any) => state.profile);
 
   const getUserData = useCallback(async function getUserData() {
     const userData = await getCurrentUser();
     if (userData.status) {
-      const profile = (userData?.data as userProfile) || null;
-      setProfile_pic(profile?.data?.profile_pic || icons.user);
-      ls.set('userProfile', JSON.stringify(userData.data));
+      const profile = userData?.data as UserProfile;
+      store.dispatch(setProfile(profile));
+      setProfileInfoLs(profile);
     }
   }, []);
 
@@ -106,7 +108,7 @@ export default function Home() {
         <div className='flex items-center justify-center gap-6'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <img
-            src={profile_pic}
+            src={profile?.data?.profile_pic || icons.user}
             className='tap95 profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg object-cover dark:bg-white/10'
             alt='User Icon'
             onClick={transitions(() => {
