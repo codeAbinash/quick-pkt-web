@@ -15,7 +15,7 @@ export default function Featured() {
   }, []);
 
   useEffect(() => {
-    // loadFeatured();
+    loadFeatured();
   }, []);
 
   return (
