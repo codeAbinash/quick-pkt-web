@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .btn {
-  @apply highlight-none text-btn max-w-lg cursor-pointer select-none rounded-btn bg-accent p-4 text-center text-white;
+  @apply highlight-none max-w-lg cursor-pointer select-none rounded-btn bg-accent p-4 text-center text-btn text-white;
 }
 
 .screen {
-  @apply dark:bg-bg dark:text-white min-h-[100dvh] bg-white p-5 text-text select-none;
+  @apply min-h-[100dvh] select-none bg-white p-5 text-text dark:bg-bg dark:text-white;
 }
