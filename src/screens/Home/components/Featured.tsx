@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { setFeatured } from '../../../Redux/featured';
+import store from '../../../Redux/store';
 import { getFeatured } from '../../../lib/api';
-import { FeaturedType, getFeaturedLs, setFeaturedLs } from './utils';
+import { FeaturedType, setFeaturedLs } from './utils';
 
 export default function Featured() {
-  const featuredData = useMemo(getFeaturedLs, []);
-  const [featured, setFeatured] = useState<FeaturedType[] | null>(featuredData);
+  const featured: FeaturedType[] | null = useSelector((state: any) => state.featured);
 
   const loadFeatured = useCallback(async () => {
     const featuredStatus = await getFeatured();
-    console.log(featuredStatus);
     if (featuredStatus.status) {
-      setFeatured(featuredStatus.data.data as FeaturedType[]);
+      store.dispatch(setFeatured(featuredStatus.data.data as FeaturedType[]));
       setFeaturedLs(featuredStatus.data.data as FeaturedType[]);
     }
   }, []);

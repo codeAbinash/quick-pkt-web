@@ -1,16 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { getBanners } from '../../../lib/api';
-import { BannerType, getBannersLs, setBannersLs } from './utils';
+import { BannerType, setBannersLs } from './utils';
+import store from '../../../Redux/store';
+import { setBanners } from '../../../Redux/banners';
 
 export default function Banner() {
   // const containerRef = useRef<HTMLDivElement>(null);
-  const bannersData = useMemo(getBannersLs, []);
-  const [banners, setBanners] = useState<BannerType[] | null>(bannersData);
+  const banners: BannerType[] | null = useSelector((state: any) => state.banners);
 
   const loadBanners = useCallback(async () => {
     const bannersStatus = await getBanners();
     if (bannersStatus.status) {
-      setBanners(bannersStatus.data.data as BannerType[]);
+      store.dispatch(setBanners(bannersStatus.data.data as BannerType[]));
       setBannersLs(bannersStatus.data.data as BannerType[]);
     }
   }, []);

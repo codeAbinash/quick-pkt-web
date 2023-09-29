@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { setSpotlights } from '../../../Redux/spotlights';
+import store from '../../../Redux/store';
 import { getSpotlights } from '../../../lib/api';
-import { SpotlightType, getSpotlightsLs, setSpotlightsLs } from './utils';
+import { SpotlightType, setSpotlightsLs } from './utils';
 
 export default function SpotLight() {
-  const spotlightsData = useMemo(getSpotlightsLs, []);
-  const [spotlights, setSpotlights] = useState<SpotlightType[] | null>(spotlightsData);
+  const spotlights: SpotlightType[] | null = useSelector((state: any) => state.spotlights);
 
   const loadSpotLight = useCallback(async () => {
     const spotLightStatus = await getSpotlights();
     if (spotLightStatus.status) {
-      setSpotlights(spotLightStatus.data.data as SpotlightType[]);
+      store.dispatch(setSpotlights(spotLightStatus.data.data as SpotlightType[]));
       setSpotlightsLs(spotLightStatus.data.data as SpotlightType[]);
     }
   }, []);

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { lazyWithPreload } from 'react-lazy-with-preload';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import store from './Redux/sample';
+import store from './Redux/store';
 import './css/index.scss';
 import { loadTheme } from './lib/util';
 import Home, { HomeScreen } from './screens/Home/Home';
