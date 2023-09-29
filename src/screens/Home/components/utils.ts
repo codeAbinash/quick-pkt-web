@@ -11,7 +11,7 @@ export type BannerType = {
 };
 
 export function getBannersLs(): BannerType[] {
-  return JSON.parse(ls.get('banners') || '[]');
+  return JSON.parse(ls.get('banners') || 'null');
 }
 
 export function setBannersLs(data: BannerType[]): void {
@@ -29,7 +29,7 @@ export type SpotlightType = {
 };
 
 export function getSpotlightsLs(): BannerType[] {
-  return JSON.parse(ls.get('spotlights') || '[]');
+  return JSON.parse(ls.get('spotlights') || 'null');
 }
 
 export function setSpotlightsLs(data: BannerType[]): void {
@@ -47,7 +47,7 @@ export type FeaturedType = {
 };
 
 export function getFeaturedLs(): BannerType[] {
-  return JSON.parse(ls.get('featured') || '[]');
+  return JSON.parse(ls.get('featured') || 'null');
 }
 
 export function setFeaturedLs(data: BannerType[]): void {

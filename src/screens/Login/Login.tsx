@@ -22,7 +22,7 @@ const Login = () => {
     setPhone(value);
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
+  const handleClick = (_: React.MouseEvent<HTMLInputElement>) => {
     handelOTPSend(phone);
   };
 

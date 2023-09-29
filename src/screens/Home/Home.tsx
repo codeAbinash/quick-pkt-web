@@ -18,10 +18,10 @@ function getLoginStatus() {
   return ls.get('isLoggedIn');
 }
 
-function logout() {
-  ls.clear();
-  window.location.reload();
-}
+// function logout() {
+//   ls.clear();
+//   window.location.reload();
+// }
 
 const navItems = [
   {

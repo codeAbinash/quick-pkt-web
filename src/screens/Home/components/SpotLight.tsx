@@ -9,7 +9,7 @@ export default function SpotLight() {
   const loadSpotLight = useCallback(async () => {
     const spotLightStatus = await getSpotlights();
     if (spotLightStatus.status) {
-      setSpotlightsLs(spotLightStatus.data.data as SpotlightType[]);
+      setSpotlights(spotLightStatus.data.data as SpotlightType[]);
       setSpotlightsLs(spotLightStatus.data.data as SpotlightType[]);
     }
   }, []);

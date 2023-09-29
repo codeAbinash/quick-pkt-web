@@ -1,5 +1,5 @@
 import back from './src/arrow-left-16-regular.svg';
-import search_black_48dp from './src/search_black_48dp.svg';
+// import search_black_48dp from './src/search_black_48dp.svg';
 import arrow_right from './src/arrow_right.svg';
 import search from './src/search.svg';
 import sun from './src/sun.svg';

@@ -187,15 +187,15 @@ export function Loading() {
   );
 }
 
-function Error() {
-  return (
-    <div className='screen flex items-center justify-center text-center'>
-      <p>
-        Some Error Occurred <br /> Please Go Back
-      </p>
-    </div>
-  );
-}
+// function Error() {
+//   return (
+//     <div className='screen flex items-center justify-center text-center'>
+//       <p>
+//         Some Error Occurred <br /> Please Go Back
+//       </p>
+//     </div>
+//   );
+// }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

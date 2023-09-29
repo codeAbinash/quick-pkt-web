@@ -144,19 +144,19 @@ export async function logOutUser(): Promise<apiResponse> {
   }
 }
 
-async function updateUser(data: any): Promise<apiResponse> {
-  const headers = authorizedHeader(defaultHeaders);
-  try {
-    const res = await fetch(API.update_user, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(data),
-    });
-    return await returnResponse(res);
-  } catch (err) {
-    return catchError(err);
-  }
-}
+// async function updateUser(data: any): Promise<apiResponse> {
+//   const headers = authorizedHeader(defaultHeaders);
+//   try {
+//     const res = await fetch(API.update_user, {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(data),
+//     });
+//     return await returnResponse(res);
+//   } catch (err) {
+//     return catchError(err);
+//   }
+// }
 
 export async function privacy_policy(): Promise<apiResponse> {
   try {

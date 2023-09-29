@@ -8,6 +8,7 @@ export default function Featured() {
 
   const loadFeatured = useCallback(async () => {
     const featuredStatus = await getFeatured();
+    console.log(featuredStatus);
     if (featuredStatus.status) {
       setFeatured(featuredStatus.data.data as FeaturedType[]);
       setFeaturedLs(featuredStatus.data.data as FeaturedType[]);
