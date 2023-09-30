@@ -9,3 +9,7 @@
 .screen {
   @apply min-h-[100dvh] select-none bg-white p-5 text-text dark:bg-bg dark:text-white;
 }
+
+.colors {
+  @apply bg-white text-text dark:bg-black dark:text-white;
+}

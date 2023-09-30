@@ -26,33 +26,6 @@ const ls = {
 
 export default ls;
 
-// Theme related functions
-export function applyTheme(theme: 'light' | 'dark' | 'default') {
-  document.documentElement.classList.remove('dark');
-  localStorage.setItem('theme', theme);
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else if (theme === 'default') localStorage.removeItem('theme');
-  else {
-    document.documentElement.classList.remove('dark');
-  }
-  console.log(document.documentElement);
-  loadTheme();
-}
-
-export function loadTheme() {
-  if (
-    localStorage.getItem('theme') === 'dark' ||
-    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
-    document.documentElement.style.setProperty('--bg', '#000');
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.style.setProperty('--bg', '#fff');
-    document.documentElement.classList.remove('dark');
-  }
-}
-
 export function blank_fn() {}
 
 export function delay(callback: Function, time = 150) {

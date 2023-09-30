@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { setProfile } from '../../Redux/profile';
+import store from '../../Redux/store';
 import icons from '../../assets/icons/icons';
 import { Bottom } from '../../components/Extras';
+import TapMotion from '../../components/TapMotion';
 import { getCurrentUser } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
 import transitions from '../../lib/transition';
@@ -14,8 +17,6 @@ import Options from './components/Options';
 import RechargeOptions from './components/RechargeOptions';
 import SpecialOffers from './components/SpecialOffers';
 import SpotLight from './components/SpotLight';
-import store from '../../Redux/store';
-import { setProfile } from '../../Redux/profile';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -93,7 +94,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className='w-full select-none'>
+    <div className='colors w-full select-none'>
       <p ref={intersect}></p>
       <div
         className={`${
@@ -107,14 +108,16 @@ export default function Home() {
         </div>
         <div className='flex items-center justify-center gap-6'>
           <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
-          <img
-            src={profile?.data?.profile_pic || icons.user}
-            className='tap95 profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg object-cover dark:bg-white/10'
-            alt='User Icon'
-            onClick={transitions(() => {
-              navigate('/profile');
-            })}
-          />
+          <TapMotion size='sm'>
+            <img
+              src={profile?.data?.profile_pic || icons.user}
+              className='profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg object-cover dark:bg-white/10'
+              alt='User Icon'
+              onClick={transitions(() => {
+                navigate('/profile');
+              })}
+            />
+          </TapMotion>
         </div>
       </div>
       <Outlet />

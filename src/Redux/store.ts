@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import namesSlice from './names';
 import bannerSlice from './banners';
-import spotlightsSlice from './spotlights';
 import featuredSlice from './featured';
+import namesSlice from './names';
 import profileSlice from './profile';
+import settings from './settings';
+import spotlightsSlice from './spotlights';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     spotlights: spotlightsSlice,
     featured: featuredSlice,
     profile: profileSlice,
+    settings,
   },
 });
 

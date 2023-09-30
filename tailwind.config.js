@@ -31,6 +31,10 @@ export default {
       height: {
         5.5: '1.375rem',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(#ccd5ef,#f8fafc)',
+        'gradient-radial-dark': 'radial-gradient(#2C3E50,#050505)',
+      },
     },
   },
   plugins: [],

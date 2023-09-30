@@ -152,7 +152,7 @@ export default function EditProfile() {
   // }, [firstName, lastName, email, profilePicture, isUpdating]);
 
   return (
-    <div className='w-full select-none'>
+    <div className='colors min-h-[100dvh] w-full select-none'>
       <Header onclick={transitions(() => navigate('/profile', { replace: true }))}>
         <p className='font-normMid'>Edit Profile</p>
       </Header>

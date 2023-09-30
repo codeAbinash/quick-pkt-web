@@ -24,7 +24,7 @@ type OptionGroup = {
   groupName: string;
   options: Option[];
 };
-const options: OptionGroup[] = [
+const OPTIONS: OptionGroup[] = [
   {
     groupName: 'Account',
     options: [
@@ -54,7 +54,9 @@ const options: OptionGroup[] = [
         name: 'Dark Mode',
         icon: icons.dark_mode,
         link: '/dark_mode',
-        small: 'Auto',
+        small: (_: UserProfile, settings: any) => {
+          return settings?.theme || 'Auto';
+        },
       },
       {
         name: 'Language',
@@ -126,9 +128,11 @@ export default function Profile() {
   const lastName = profile?.data.last_name || 'Name';
   const mobile = '+91 ' + (profile?.data.mobile_number || '');
   const profilePicture = profile?.data.profile_pic || icons.user;
+  const settings = useSelector((state: any) => state.settings);
+
   const navigate = useNavigate();
   return (
-    <div className='select-none'>
+    <div className='colors select-none'>
       <Header onclick={transitions(() => navigate('/', { replace: true }))}>
         <p className='font-normMid'>More Options</p>
       </Header>
@@ -151,7 +155,7 @@ export default function Profile() {
       </div>
 
       <div className='mx-auto max-w-lg p-5'>
-        {options.map((optionGroup: OptionGroup, i: number) => (
+        {OPTIONS.map((optionGroup: OptionGroup, i: number) => (
           <div className='mt-5' key={i}>
             <p className='pl-2 text-sm font-normMid text-zinc-500'>{optionGroup.groupName}</p>
             <div className='mt-3 flex flex-col gap-2 rounded-2xl bg-inputBg/60 p-4 dark:bg-[rgb(255,255,255,0.06)]'>
@@ -183,8 +187,8 @@ export default function Profile() {
                       </span>
                     </div>
                     <div className='flex items-center gap-1.5'>
-                      <span className='text-xs font-420 opacity-50'>
-                        {typeof option.small === 'function' ? option.small(profile) : option.small}
+                      <span className='text-xs font-420 capitalize opacity-50'>
+                        {typeof option.small === 'function' ? option.small(profile, settings) : option.small}
                       </span>
                       <img src={icons.arrow_right} className='w-5 opacity-50 dark:invert' />
                     </div>
