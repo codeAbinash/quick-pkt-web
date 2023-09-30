@@ -163,7 +163,7 @@ export default function EditProfile() {
         onChange={onChangeFileSelect}
         accept='image/png, image/jpeg, image/jpg'
       />
-      <ProfilePicture imageUrl={profilePicture} onImageClick={() => pp.current?.click()} />
+      <ProfilePicture imageUrl={profilePicture} onImageClick={() => pp.current?.showPicker()} />
       <div>
         <p className='anim-user-name text-center text-xl font-semibold'>{fullName}</p>
         <div className='mt-1 flex items-center justify-center gap-2'>

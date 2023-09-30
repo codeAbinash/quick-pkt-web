@@ -9,8 +9,8 @@
     "gp": "tsc && vite build --config vite.config.gp.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --host",
-    "prettier-check": "prettier --check .",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --check .",
+    "prettier-write": "prettier --write ."
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",

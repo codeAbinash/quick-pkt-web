@@ -42,7 +42,7 @@ export default function DarkMode() {
         <span className='text-normMid'>Dark Mode</span>
       </Header>
       <div className='p-5'>
-        <div className='to bg-gradient-radial dark:bg-gradient-radial-dark my-5 mb-10 flex flex-col items-center justify-center rounded-3xl py-20'>
+        <div className='to my-5 mb-10 flex flex-col items-center justify-center rounded-3xl bg-gradient-radial py-20 dark:bg-gradient-radial-dark'>
           <p className='text-2xl font-medium capitalize'>{currentTheme} Mode</p>
           <p className='text-sm'>{getThemeDescription(currentTheme)}</p>
         </div>
