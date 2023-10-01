@@ -1,14 +1,14 @@
 const cacheData = {
   showCacheThenFetch: {
-    name: 'quick-pkt-show-cache-then-fetch-v27',
+    name: 'quick-pkt-show-cache-then-fetch-v1',
     valid: 'quick-pkt-show-cache-then-fetch',
   },
   emojiCache: {
-    name: 'emoji-cache-v3',
+    name: 'emoji-cache-v1',
     valid: 'emoji-cache',
   },
   fontCache: {
-    name: 'quick-pkt-font-cache-v3',
+    name: 'quick-pkt-font-cache-v1',
     valid: 'quick-pkt-font-cache',
   },
   static: {
