@@ -3,7 +3,6 @@ import { defineConfig } from 'vite';
 
 export default ({ mode }) => {
   return defineConfig({
-    base: '/quick-pkt',
     plugins: [react()],
     build: {
       assetsInlineLimit: 0,
