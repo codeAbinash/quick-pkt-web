@@ -9,7 +9,7 @@ async function registerSW() {
     }
   } else console.log('Service worker is not available for this device');
 }
-// registerSW();
+registerSW();
 
 function absorbEvent_(event) {
   var e = event || window.event;

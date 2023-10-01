@@ -84,29 +84,29 @@ self.addEventListener('fetch', (event) => {
         return cacheResponse || fetchUrl;
       }),
     );
-  } else if (url.includes('https://codeabinash.github.io/quick-pkt/')) {
-    if (url.includes('quick-pkt/icons/reset.svg')) {
-      console.log('Deleting all cache');
-      caches.keys().then((cacheNames) => {
-        console.log(cacheNames);
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            return caches.delete(cacheName);
-          }),
-        );
-      });
-    } else
-      event.respondWith(
-        caches.match(event.request).then((cacheResponse) => {
-          const fetchUrl = fetch(event.request).then((fetchResponse) => {
-            return caches.open(cacheData.showCacheThenFetch.name).then((cache) => {
-              cache.put(event.request, fetchResponse.clone());
-              return fetchResponse;
-            });
+  } else if (url.includes('https://quick-pkt.vercel.app/')) {
+    // if (url.includes('quick-pkt/icons/reset.svg')) {
+    //   console.log('Deleting all cache');
+    //   caches.keys().then((cacheNames) => {
+    //     console.log(cacheNames);
+    //     return Promise.all(
+    //       cacheNames.map((cacheName) => {
+    //         return caches.delete(cacheName);
+    //       }),
+    //     );
+    //   });
+    // } else
+    event.respondWith(
+      caches.match(event.request).then((cacheResponse) => {
+        const fetchUrl = fetch(event.request).then((fetchResponse) => {
+          return caches.open(cacheData.showCacheThenFetch.name).then((cache) => {
+            cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
           });
-          return cacheResponse || fetchUrl;
-        }),
-      );
+        });
+        return cacheResponse || fetchUrl;
+      }),
+    );
   } else {
     // Always load from internet
     event.respondWith(fetch(event.request));
