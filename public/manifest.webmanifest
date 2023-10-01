@@ -3,7 +3,7 @@
   "name": "Quick PKT",
   "display": "standalone",
   "description": "A quick way to Recharge",
-  "start_url": "/quick-pkt/",
+  "start_url": ".",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
