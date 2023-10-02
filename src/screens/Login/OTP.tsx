@@ -22,7 +22,13 @@ function setNextOTPSentTimeLs() {
 export default function OTP() {
   const navigate = useNavigate();
   const [nextOTPSentTime, setNextOTPSentTime] = useState(useMemo(() => getNextOTPSentTimeLs(), []));
-  const inputs: any = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
+  const input1 = useRef<HTMLInputElement>(null);
+  const input2 = useRef<HTMLInputElement>(null);
+  const input3 = useRef<HTMLInputElement>(null);
+  const input4 = useRef<HTMLInputElement>(null);
+  const input5 = useRef<HTMLInputElement>(null);
+  const input6 = useRef<HTMLInputElement>(null);
+  const inputs: any = [input1, input2, input3, input4, input5, input6];
   const [isVerifying, setIsVerifying] = React.useState(false);
   const phone = useLocation().state?.phone;
   const [error, setError] = React.useState('');
