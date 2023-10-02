@@ -81,19 +81,22 @@ export default function OTP() {
 
   const handelKeydown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>, i: number) => {
-      event.preventDefault();
-      const target = event.target as HTMLInputElement;
-      if (event.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
-      else if (event.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
-      else if (event.key === 'Escape') inputs[i].current?.blur();
-      else if (event.key === 'Backspace') {
+      const nativeEvent = event.nativeEvent;
+      const target = nativeEvent.target as HTMLInputElement;
+      nativeEvent.preventDefault();
+      // Limit to 1 character
+      if (target.value.length > 0) target.value = target.value.slice(0, 1);
+      if (nativeEvent.key === 'ArrowLeft') i > 0 && inputs[i - 1].current?.focus();
+      else if (nativeEvent.key === 'ArrowRight') i < 5 && inputs[i + 1].current?.focus();
+      else if (nativeEvent.key === 'Escape') inputs[i].current?.blur();
+      else if (nativeEvent.key === 'Backspace') {
         target.value = '';
         i > 0 && inputs[i - 1].current?.focus();
-      } else if (!isNaN(Number(event.key))) {
-        target.value = event.key;
+      } else if (!isNaN(Number(nativeEvent.key))) {
+        target.value = nativeEvent.key;
         if (i == 5 && inputs.every((r: InputRef) => r.current.value)) verifyOtp();
         else i < 5 && inputs[i + 1].current?.focus();
-      } else if (i == 5) if (event.key == 'Enter') verifyOtp();
+      } else if (i == 5) if (nativeEvent.key == 'Enter') verifyOtp();
     },
     [inputs, verifyOtp],
   );
