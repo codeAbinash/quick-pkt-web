@@ -10,6 +10,7 @@ import { Header } from '../../components/Header/Header';
 import transitions from '../../lib/transition';
 import { blank_fn } from '../../lib/util';
 import { UserProfile } from './utils';
+import TapMotion from '../../components/TapMotion';
 
 type Option = {
   name: string;
@@ -138,11 +139,13 @@ export default function Profile() {
       </Header>
       <div className='mt-5'>
         <div className='relative mx-auto mb-4 max-w-lg'>
-          <img
-            src={profilePicture}
-            onClick={transitions(() => navigate('/profile/edit'), 0)}
-            className='profile-picture tap97 mx-auto aspect-square w-[40%] rounded-full bg-inputBg object-cover dark:bg-white/10'
-          />
+          <TapMotion size='lg' className='mx-auto w-[40%]'>
+            <img
+              src={profilePicture}
+              onClick={transitions(() => navigate('/profile/edit'), 0)}
+              className='profile-picture tap97 mx-auto aspect-square w-full rounded-full bg-inputBg object-cover dark:bg-white/10'
+            />
+          </TapMotion>
         </div>
       </div>
       <div>

@@ -10,6 +10,8 @@ import { Header } from '../../components/Header/Header';
 import API, { authorizedHeader, formDataHeaders, getCurrentUser, getError } from '../../lib/api';
 import transitions from '../../lib/transition';
 import { UserProfile, setProfileInfoLs } from './utils';
+import TapMotion from '../../components/TapMotion';
+import { delayFn } from '../../lib/util';
 
 async function updateLocalUserData() {
   const userProfileData = await getCurrentUser();
@@ -28,17 +30,20 @@ function ProfilePicture({
 }) {
   return (
     <div className='relative mx-auto mb-4 max-w-lg'>
-      <img
-        src={imageUrl}
-        onClick={onImageClick}
-        className='tap97 profile-picture mx-auto aspect-square w-[45%] rounded-full bg-inputBg object-cover dark:bg-white/10'
-      />
-      <div
+      <TapMotion size='lg' className='mx-auto w-[45%]'>
+        <img
+          src={imageUrl}
+          onClick={onImageClick}
+          className='tap97 profile-picture mx-auto aspect-square w-full rounded-full bg-inputBg object-cover dark:bg-white/10'
+        />
+      </TapMotion>
+      <TapMotion
+        size='sm'
         onClick={onImageClick}
         className='tap95 anim-edit-icon absolute left-[60%] top-[75%] aspect-square h-12 rounded-full bg-white p-3 shadow-lg'
       >
         <img src={icons.edit} className='editIcon' />
-      </div>
+      </TapMotion>
     </div>
   );
 }
@@ -163,7 +168,7 @@ export default function EditProfile() {
         onChange={onChangeFileSelect}
         accept='image/png, image/jpeg, image/jpg'
       />
-      <ProfilePicture imageUrl={profilePicture} onImageClick={() => pp.current?.showPicker()} />
+      <ProfilePicture imageUrl={profilePicture} onImageClick={delayFn(() => pp.current?.showPicker())} />
       <div>
         <p className='anim-user-name text-center text-xl font-semibold'>{fullName}</p>
         <div className='mt-1 flex items-center justify-center gap-2'>
