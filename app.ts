@@ -4,7 +4,7 @@ const app = {
   description: 'A quick way to Recharge',
   loginDescription: 'A quick way to Recharge',
   base: '',
-  URL: 'https://quickpkt.in',
+  URL: 'https://app.quickpkt.in',
   backendURL: 'https://system.quickpkt.in',
   api: 'https://system.quickpkt.in/api',
   secret: 'hellothisisocdexindia',
