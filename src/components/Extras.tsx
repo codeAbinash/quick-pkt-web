@@ -1,12 +1,30 @@
+import { useNavigate } from 'react-router-dom';
 import icons from '../assets/icons/icons';
 import { blank_fn } from '../lib/util';
+import { TextButton } from './Button';
+import transitions from '../lib/transition';
 
 export default function ReadPrivacyPolicyTerms() {
+  const navigate = useNavigate();
   return (
     <div>
       <p className='text-center text-xxs text-gray-500 dark:text-gray-400'>
-        By signing up you accept our <span className='text-accent'>Privacy Policy</span> and{' '}
-        <span className='text-accent'>Terms of Service</span>
+        By signing up you accept our{' '}
+        <TextButton
+          onClick={transitions(() => {
+            navigate('/privacy_policy');
+          })}
+        >
+          Privacy Policy
+        </TextButton>
+        and
+        <TextButton
+          onClick={transitions(() => {
+            navigate('/terms_and_conditions');
+          })}
+        >
+          Terms & Conditions
+        </TextButton>
       </p>
     </div>
   );
