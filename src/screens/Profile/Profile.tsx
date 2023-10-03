@@ -153,7 +153,7 @@ export default function Profile() {
           {firstName} {lastName}
         </p>
         <div className='mt-1 flex items-center justify-center gap-2'>
-          <p className='anim-user-phone text-sm font-normMid text-gray-500'>{mobile}</p>
+          <p className='anim-user-phone text-sm font-normMid text-neutral-500'>{mobile}</p>
         </div>
       </div>
 

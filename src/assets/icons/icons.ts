@@ -57,6 +57,7 @@ import account_circle from './src/account_circle.svg';
 import options_reward from './options/reward.svg';
 import option_wallet from './options/wallet.svg';
 import option_referrals from './options/referrals.svg';
+import phone from './src/phone.svg';
 
 const icons = {
   options: {
@@ -64,6 +65,7 @@ const icons = {
     wallet: option_wallet,
     referrals: option_referrals,
   },
+  phone,
   account_circle,
   message,
   user_circle,

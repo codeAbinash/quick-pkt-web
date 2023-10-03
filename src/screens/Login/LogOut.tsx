@@ -22,7 +22,7 @@ export default function LogOut() {
       </Header>
       <div className='mt-5 flex min-h-[50vh] items-center justify-center'>
         <div className='mt-5 flex w-full flex-col items-center justify-center gap-5 p-5'>
-          <p className='text-sm font-normMid text-gray-500'>Are you sure you want to log out?</p>
+          <p className='text-sm font-normMid text-neutral-500'>Are you sure you want to log out?</p>
           <Button className='btn w-full flex-grow' onClick={logout}>
             Log Out
           </Button>

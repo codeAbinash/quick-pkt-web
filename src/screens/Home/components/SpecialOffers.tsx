@@ -14,7 +14,7 @@ export default function SpecialOffers() {
                 <TextEmoji emoji='😍' />
               </span>
             </p>
-            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-gray-500 dark:text-gray-400'>
+            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-neutral-500 dark:text-neutral-400'>
               Cashback on every recharge or bill payment. Select option from bellow.
             </p>
             <div className='flex'>

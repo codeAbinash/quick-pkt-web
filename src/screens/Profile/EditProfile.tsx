@@ -172,7 +172,7 @@ export default function EditProfile() {
       <div>
         <p className='anim-user-name text-center text-xl font-semibold'>{fullName}</p>
         <div className='mt-1 flex items-center justify-center gap-2'>
-          <p className='anim-user-phone text-sm font-normMid text-gray-500'>+91 {mobile}</p>
+          <p className='anim-user-phone text-sm font-normMid text-neutral-500'>+91 {mobile}</p>
         </div>
       </div>
       {userMessage.message && (

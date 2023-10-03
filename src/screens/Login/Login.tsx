@@ -69,13 +69,13 @@ const Login = () => {
       </div>
 
       <div className='mx-auto flex w-full max-w-lg flex-col gap-5'>
-        <p className='normal-text text-center text-sm text-gray-500 dark:text-gray-400 dark:text-white/60'>
+        <p className='normal-text text-center text-sm text-neutral-500 dark:text-neutral-400 dark:text-white/60'>
           Enter your <span className='text-accent'>Phone Number</span> to get started
         </p>
         <div>
           <div className='phone-number flex w-full items-center justify-center rounded-btn bg-inputBg pl-4 text-btn dark:bg-white/10'>
             <p className='pr-1'>+91</p>
-            <div className=' darkL mx-2 h-[1.5em] w-0.5 rounded-full bg-gray-300 dark:bg-white/10'></div>
+            <div className=' darkL mx-2 h-[1.5em] w-0.5 rounded-full bg-neutral-300 dark:bg-white/10'></div>
             <input
               type='tel'
               className='w-full border-none bg-transparent p-4 pl-1 caret-accent outline-none'

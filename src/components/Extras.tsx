@@ -8,7 +8,7 @@ export default function ReadPrivacyPolicyTerms() {
   const navigate = useNavigate();
   return (
     <div>
-      <p className='text-center text-xxs text-gray-500 dark:text-gray-400'>
+      <p className='text-center text-xxs text-neutral-500 dark:text-neutral-400'>
         By signing up you accept our{' '}
         <TextButton
           onClick={transitions(() => {
@@ -47,20 +47,19 @@ type InputProps = {
   value?: string;
 };
 
-export function Input(
-  props: InputProps = {
-    placeholder: 'Input Placeholder',
-    icon: icons.mobile_solid,
-    onInput: blank_fn,
-    type: 'text',
-    label: 'Input Label',
-    value: '',
-  },
-) {
-  const { placeholder, icon, type, onInput, label, value } = props;
+export function Input(props: InputProps) {
+  const {
+    placeholder = 'Input Placeholder',
+    icon = icons.mobile_solid,
+    type = 'text',
+    onInput = blank_fn,
+    label = 'Input Label',
+    value = '',
+  } = props;
+
   return (
     <div>
-      <p className='pb-2 pl-1 text-xs font-normMid text-gray-500'>{label}</p>
+      <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'>{label}</p>
       <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
         <img src={icon} alt='Input Icon' className='flex w-6 opacity-30 dark:invert' />
         <input

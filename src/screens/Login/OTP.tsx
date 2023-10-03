@@ -151,7 +151,7 @@ export default function OTP() {
         </div>
       </div>
       <div>
-        <p className='normal-text text-center text-sm text-gray-500 dark:text-gray-400 dark:text-white/60'>
+        <p className='normal-text text-center text-sm text-neutral-500 dark:text-neutral-400 dark:text-white/60'>
           OTP sent to <span>+91 {phone}</span>. <TextButton onClick={editNumber}>Edit</TextButton>
         </p>
       </div>
