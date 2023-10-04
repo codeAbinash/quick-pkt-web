@@ -4,33 +4,14 @@ import Button from '../../../components/Button';
 import { Header } from '../../../components/Header/Header';
 import TapMotion from '../../../components/TapMotion';
 import transitions from '../../../lib/transition';
+import RecentRecharges from './RecentRecharge';
+import { ProviderType } from './Provider';
 
 interface NavigatorWithContacts extends Navigator {
   contacts?: any;
 }
 
 type RechargeType = 'prepaid' | 'postpaid';
-const providers = ['Jio', 'Airtel', 'BSNL', 'V!'];
-const providerColors: {
-  [key in (typeof providers)[number]]: { background: string; text: string };
-} = {
-  Jio: {
-    background: '#0a2885',
-    text: '#fff',
-  },
-  Airtel: {
-    background: '#f60a0b',
-    text: '#fff',
-  },
-  'V!': {
-    background: '#ee2e3e',
-    text: '#fff',
-  },
-  BSNL: {
-    background: '#fff500',
-    text: '#000',
-  },
-};
 
 function phoneNumberParser(phone: string) {
   // Remove all non numeric characters
@@ -41,13 +22,11 @@ function phoneNumberParser(phone: string) {
   return phone;
 }
 
-type providerType = (typeof providers)[number];
-
 export default function Mobile() {
   const [phone, setPhone] = useState('');
   const [nickname, setNickname] = useState('');
   const [rechargeType, setRechargeType] = useState<RechargeType>('prepaid');
-  const [provider, setProvider] = useState<providerType>(providers[0]);
+  const [provider, setProvider] = useState<string>('');
 
   const selectContact = useCallback(async () => {
     const props = ['name', 'email', 'tel', 'address', 'icon'];
@@ -68,7 +47,7 @@ export default function Mobile() {
       <Header>
         <span className='font-normMid'>Mobile Recharge</span>
       </Header>
-      <div className='flex min-h-[calc(100vh-80px)] w-full flex-col items-center justify-between px-5'>
+      <div className='mx-auto flex min-h-[calc(100vh-80px)] w-full max-w-lg flex-col items-center justify-between px-5'>
         <div className='w-full'>
           <RechargeType type={rechargeType} setType={setRechargeType} />
           <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
@@ -126,35 +105,6 @@ export function WatermarkMid() {
   );
 }
 
-const users = ['Abinash', 'Jyoti', '9547400680', 'Sourav'];
-
-function RecentRecharges() {
-  return (
-    <div className='mt-4 flex select-none flex-col gap-5 rounded-2xl bg-inputBg px-6 py-4 pb-6 dark:bg-white/10'>
-      <div className='flex justify-between text-sm font-medium'>
-        <p className=''>Recent Recharges</p>
-        <span className='text-xs text-accent active:bg-accent/10 dark:active:bg-accent/20'> View All</span>
-      </div>
-      <div className='grid grid-cols-4 gap-8 px-1'>
-        {users.map((user) => (
-          <User name={user} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function User({ name }: { name: string }) {
-  return (
-    <div className='flex flex-col items-center justify-center gap-2'>
-      <TapMotion className='flex items-center justify-center'>
-        <img src={icons.user} alt='user img' className='aspect-square w-full rounded-full' />
-      </TapMotion>
-      <p className='text-xs font-normMid'>{name}</p>
-    </div>
-  );
-}
-
 function RechargeType({ type, setType }: { type: RechargeType; setType: (type: RechargeType) => void }) {
   return (
     <div className='mb-4 mt-2 flex justify-between gap-4 rounded-btn bg-inputBg p-1.5 text-xs font-medium dark:bg-white/10'>
@@ -172,29 +122,6 @@ function RechargeType({ type, setType }: { type: RechargeType; setType: (type: R
       >
         Postpaid
       </div>
-    </div>
-  );
-}
-
-// Set the main accent color of the sim card provider here
-
-function ProviderType({ type, setType }: { type: providerType; setType: (type: providerType) => void }) {
-  return (
-    <div className='mb-2 mt-1 flex gap-3 text-sm'>
-      {providers.map((provider) => (
-        <div
-          style={{
-            backgroundColor: type == provider ? providerColors[provider].background : '',
-            color: type == provider ? providerColors[provider].text : '',
-          }}
-          className={`tap97 rounded-full px-5 py-2 font-normMid ${
-            type == provider ? 'bg-accent text-white' : 'bg-inputBg dark:bg-white/10'
-          }`}
-          onClick={transitions(() => setType(provider), 0)}
-        >
-          {provider}
-        </div>
-      ))}
     </div>
   );
 }

@@ -15,6 +15,9 @@ const API = {
   banners: `${API_URL}/banner/get_banners/main`,
   spotlights: `${API_URL}/banner/get_banners/spotlight`,
   featured: `${API_URL}/banner/get_banners/featured`,
+  operators: {
+    get_operators: `${API_URL}/operators/get_operators/mobile_recharge`,
+  },
 };
 
 type defaultHeaders = {
@@ -72,6 +75,20 @@ async function returnResponse(res: any): Promise<apiResponse> {
 function catchError(err: any) {
   console.log(err);
   return { status: false, message: 'Network Error' };
+}
+
+// Write your API functions below this line:
+
+export async function getOperators(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.operators.get_operators, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
 }
 
 export async function sendOTP(phone: string): Promise<apiResponse> {
