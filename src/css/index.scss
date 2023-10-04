@@ -36,7 +36,8 @@ body {
   text-wrap: balance;
 }
 
-.d {
+.d,
+.debug {
   outline: 1px solid red;
 }
 .debug * {

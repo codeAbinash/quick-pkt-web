@@ -58,13 +58,10 @@ import options_reward from './options/reward.svg';
 import option_wallet from './options/wallet.svg';
 import option_referrals from './options/referrals.svg';
 import phone from './src/phone.svg';
+import nickname from './src/nickname.svg';
 
 const icons = {
-  options: {
-    reward: options_reward,
-    wallet: option_wallet,
-    referrals: option_referrals,
-  },
+  nickname,
   phone,
   account_circle,
   message,
@@ -82,6 +79,11 @@ const icons = {
   edit,
   log_out,
   // pen_solid,
+  options: {
+    reward: options_reward,
+    wallet: option_wallet,
+    referrals: option_referrals,
+  },
   user_solid,
   mobile_solid,
   at,
