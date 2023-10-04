@@ -10,7 +10,11 @@ import './css/index.scss';
 import { loadThemeLs } from './lib/theme';
 import Home, { HomeScreen } from './screens/Home/Home';
 
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  loadThemeLs();
+});
 loadThemeLs();
+
 const OTP = lazyWithPreload(() => import('./screens/Login/OTP'));
 const EditProfile = lazyWithPreload(() => import('./screens/Profile/EditProfile'));
 const Profile = lazyWithPreload(() => import('./screens/Profile/Profile'));
