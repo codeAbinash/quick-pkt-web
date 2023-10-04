@@ -1,9 +1,8 @@
-import { useState, useCallback } from 'react';
-
+import { useCallback, useState } from 'react';
 import icons from '../../../assets/icons/icons';
+import Button from '../../../components/Button';
 import { Header } from '../../../components/Header/Header';
 import TapMotion from '../../../components/TapMotion';
-import Button, { TextButton } from '../../../components/Button';
 import transitions from '../../../lib/transition';
 
 interface NavigatorWithContacts extends Navigator {
@@ -65,11 +64,11 @@ export default function Mobile() {
   }, [setPhone, setNickname]);
 
   return (
-    <div className='colors'>
+    <div className='colors select-none'>
       <Header>
         <span className='font-normMid'>Mobile Recharge</span>
       </Header>
-      <div className='flex min-h-[calc(100vh-80px)] w-full flex-col items-center justify-between px-4'>
+      <div className='flex min-h-[calc(100vh-80px)] w-full flex-col items-center justify-between px-5'>
         <div className='w-full'>
           <RechargeType type={rechargeType} setType={setRechargeType} />
           <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
@@ -111,9 +110,18 @@ export default function Mobile() {
           </div>
           <RecentRecharges />
         </div>
-
+        <WatermarkMid />
         <Button className='btn w-full'>Next</Button>
       </div>
+    </div>
+  );
+}
+
+export function WatermarkMid() {
+  return (
+    <div className='w-full select-none text-center opacity-[0.15]'>
+      <p className='text-xl font-bold'>QUICK PKT</p>
+      <p className='text-[0.6rem] font-bold leading-3'>A Quick way to Recharge</p>
     </div>
   );
 }
@@ -122,12 +130,12 @@ const users = ['Abinash', 'Jyoti', '9547400680', 'Sourav'];
 
 function RecentRecharges() {
   return (
-    <div className='mt-4 flex flex-col gap-4 rounded-2xl bg-inputBg p-5 pb-5 dark:bg-white/10'>
-      <div className='flex justify-between pl-1 text-sm font-medium'>
+    <div className='mt-4 flex select-none flex-col gap-5 rounded-2xl bg-inputBg px-6 py-4 pb-6 dark:bg-white/10'>
+      <div className='flex justify-between text-sm font-medium'>
         <p className=''>Recent Recharges</p>
-        <TextButton> View All</TextButton>
+        <span className='text-xs text-accent active:bg-accent/10 dark:active:bg-accent/20'> View All</span>
       </div>
-      <div className='grid grid-cols-4 gap-7 px-1'>
+      <div className='grid grid-cols-4 gap-8 px-1'>
         {users.map((user) => (
           <User name={user} />
         ))}

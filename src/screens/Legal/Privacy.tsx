@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Header } from '../../components/Header/Header';
 // import sample from './sample.txt';
-import { Bottom } from '../../components/Extras';
+import { Watermark } from '../../components/Extras';
 import { privacy_policy } from '../../lib/api';
 import LoadingHtmlPage from './components/LoadingHtmlPage';
 
@@ -44,7 +44,7 @@ export default function Privacy() {
             className='terms_and_conditions flex flex-col justify-center p-5 pt-2 text-sm font-normal'
             dangerouslySetInnerHTML={{ __html: htmlData }}
           />
-          <Bottom />
+          <Watermark />
         </>
       )}
     </div>

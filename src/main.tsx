@@ -29,6 +29,7 @@ const Help = lazy(() => import('./screens/Support/Help'));
 const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
 const Mobile = lazy(() => import('./screens/Recharge/Mobile/Mobile'));
+const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
 
 OTP.preload();
 EditProfile.preload();
@@ -183,6 +184,14 @@ const router = createBrowserRouter(
       element: (
         <Suspense fallback={<Loading />}>
           <Mobile />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/special_offer',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <SpecialOffer />
         </Suspense>
       ),
     },

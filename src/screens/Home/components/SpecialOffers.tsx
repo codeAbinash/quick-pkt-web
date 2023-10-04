@@ -1,20 +1,27 @@
+import { useNavigate } from 'react-router-dom';
 import images from '../../../assets/images/images';
 import TextEmoji from '../../../components/TextEmoji';
+import transitions from '../../../lib/transition';
 
 export default function SpecialOffers() {
+  const navigate = useNavigate();
   return (
-    <div className='px-5'>
+    <div className='px-5' onClick={transitions(() => navigate('/special_offer'))}>
       <div className='tap99 mx-auto flex max-w-sm gap-2 rounded-3xl border border-[#77777722] bg-inputBg/50 p-3 shadow-[0_0_4px_0_rgba(0,0,0,0.0)] dark:bg-white/10 dark:shadow-[0_0_10px_0_rgba(255,255,255,0.1)]'>
-        <img src={images.spotlight3} className='aspect-square h-[5.3rem] rounded-2xl' alt='Special Offer' />
+        <img
+          src={images.spotlight3}
+          className='special-offer-image aspect-square h-[5.3rem] rounded-2xl'
+          alt='Special Offer'
+        />
         <div className='flex flex-col'>
           <div className='flex grow flex-col justify-between py-0.5'>
-            <p className='flex items-center pl-2 text-[0.9rem] font-normMid'>
+            <p className='special-offer-heading flex items-center pl-2 text-[0.9rem] font-normMid'>
               Special Offer for You
               <span className='flex items-start pl-1 text-[1rem]'>
                 <TextEmoji emoji='😍' />
               </span>
             </p>
-            <p className='text-balance pl-2 text-[0.7rem] font-normal leading-4 text-neutral-500 dark:text-neutral-400'>
+            <p className='text-balance special-offer-text pl-2 text-[0.7rem] font-normal leading-4 text-neutral-500 dark:text-neutral-400'>
               Cashback on every recharge or bill payment. Select option from bellow.
             </p>
             <div className='flex'>

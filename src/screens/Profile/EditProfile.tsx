@@ -5,7 +5,7 @@ import { setProfile } from '../../Redux/profile';
 import store from '../../Redux/store';
 import icons from '../../assets/icons/icons';
 import Button from '../../components/Button';
-import { Bottom, Input } from '../../components/Extras';
+import { Watermark, Input } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
 import API, { authorizedHeader, formDataHeaders, getCurrentUser, getError } from '../../lib/api';
 import transitions from '../../lib/transition';
@@ -214,7 +214,7 @@ export default function EditProfile() {
           </Button>
         )}
       </div>
-      <Bottom />
+      <Watermark />
     </div>
   );
 }

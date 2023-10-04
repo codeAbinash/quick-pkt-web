@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { setProfile } from '../../Redux/profile';
 import store from '../../Redux/store';
 import icons from '../../assets/icons/icons';
-import { Bottom } from '../../components/Extras';
+import { Watermark } from '../../components/Extras';
 import TapMotion from '../../components/TapMotion';
 import { getCurrentUser } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
@@ -159,7 +159,7 @@ export function HomeScreen() {
       <Options />
       <SpotLight />
       <Featured />
-      <Bottom />
+      <Watermark />
     </div>
   );
 }

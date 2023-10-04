@@ -5,7 +5,7 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
-import { Bottom } from '../../components/Extras';
+import { Watermark } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
 import transitions from '../../lib/transition';
 import { blank_fn } from '../../lib/util';
@@ -202,7 +202,7 @@ export default function Profile() {
           </div>
         ))}
       </div>
-      <Bottom />
+      <Watermark />
     </div>
   );
 }

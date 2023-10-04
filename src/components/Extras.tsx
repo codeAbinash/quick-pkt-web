@@ -29,7 +29,7 @@ export default function ReadPrivacyPolicyTerms() {
     </div>
   );
 }
-export function Bottom() {
+export function Watermark() {
   return (
     <div className='mb-10 mt-10 w-full select-none text-center opacity-[0.15]'>
       <p className='text-xl font-bold'>QUICK PKT</p>

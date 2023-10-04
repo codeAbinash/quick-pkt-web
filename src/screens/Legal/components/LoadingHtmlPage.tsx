@@ -1,5 +1,5 @@
 import icons from '../../../assets/icons/icons';
-import { Bottom } from '../../../components/Extras';
+import { Watermark } from '../../../components/Extras';
 
 export default function LoadingHtmlPage() {
   return (
@@ -8,7 +8,7 @@ export default function LoadingHtmlPage() {
       <div className=''>
         <img src={icons.loading} alt='Loading' className='w-10 dark:invert' />
       </div>
-      <Bottom />
+      <Watermark />
     </div>
   );
 }
