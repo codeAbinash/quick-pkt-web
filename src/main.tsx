@@ -28,7 +28,7 @@ const Report = lazy(() => import('./screens/Support/Report'));
 const Help = lazy(() => import('./screens/Support/Help'));
 const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
-const Mobile = lazy(() => import('./screens/Recharge/Mobile'));
+const Mobile = lazy(() => import('./screens/Recharge/Mobile/Mobile'));
 
 OTP.preload();
 EditProfile.preload();
