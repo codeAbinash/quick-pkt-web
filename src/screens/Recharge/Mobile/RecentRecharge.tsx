@@ -4,8 +4,6 @@ import icons from '../../../assets/icons/icons';
 import TapMotion from '../../../components/TapMotion';
 import { UserProfile } from '../../Profile/utils';
 
-const users = ['Abinash', 'Ananta'];
-
 type ParamsType = {
   setPhone: Function;
   setNickname: Function;
@@ -57,7 +55,6 @@ export default function RecentRecharges({ setPhone, setNickname, setRechargeType
   );
 }
 
-// Extend ParamsType and make UserParamsType
 type UserParamsType = { name: string; icon: string; onClick?: MouseEventHandler<HTMLDivElement> };
 
 function User({ name, icon, onClick }: UserParamsType) {

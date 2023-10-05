@@ -27,10 +27,16 @@ export const providerDetails: {
     name: 'V!',
     icon: icons.providers.vi,
   },
-  bsnl: {
+  bsnl_topup: {
     background: '#fff500',
     text: '#000',
-    name: 'BSNL',
+    name: 'BSNL Topup',
+    icon: icons.providers.bsnl,
+  },
+  bsnl_special: {
+    background: '#fff500',
+    text: '#000',
+    name: 'BSNL Special',
     icon: icons.providers.bsnl,
   },
 };
