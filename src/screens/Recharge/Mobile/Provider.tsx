@@ -13,7 +13,7 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
       const provider = await getOperators();
       console.log(provider);
       setProviders(provider.data.data);
-      setType(provider.data.data[0].short_code);
+      if (providers == null) setType(provider.data.data[0].short_code);
       setProviderLs(provider.data.data);
     } catch (e) {
       console.log(e);
