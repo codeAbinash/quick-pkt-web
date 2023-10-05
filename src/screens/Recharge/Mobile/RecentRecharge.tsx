@@ -32,13 +32,14 @@ export default function RecentRecharges({ setPhone, setNickname, setRechargeType
           View Recent
         </span>
       </div>
-      <div className='grid grid-cols-4 gap-2'>
+      <div className='grid grid-cols-4 gap-3'>
         <User
           name='Your Number'
           icon={profile?.data?.profile_pic || icons.user}
           onClick={() => {
             if (profile?.data?.mobile_number) setPhone(profile?.data?.mobile_number);
-            if (profile?.data?.first_name) setNickname(profile?.data?.first_name);
+            if (profile?.data?.first_name)
+              setNickname(((profile?.data?.first_name || '') + ' ' + (profile?.data?.last_name || '')).trim() || '');
             console.log(profile?.data?.first_name);
           }}
         />
@@ -61,20 +62,20 @@ type UserParamsType = { name: string; icon: string; onClick?: MouseEventHandler<
 
 function User({ name, icon, onClick }: UserParamsType) {
   return (
-    <div className='flex flex-col items-center justify-center gap-1.5' onClick={onClick}>
-      <TapMotion size='sm' className='flex items-center justify-center'>
-        <img src={icon} className='aspect-square w-[75%] rounded-full' />
-      </TapMotion>
-      <p className='text-[0.65rem] font-normMid'>{name}</p>
-    </div>
+    <TapMotion className='flex flex-col items-center justify-center gap-1' onClick={onClick}>
+      <div className='flex items-center justify-center'>
+        <img src={icon} className='aspect-square w-[80%] rounded-full' />
+      </div>
+      <p className='line-clamp-1 text-[0.65rem] font-normMid'>{name} </p>
+    </TapMotion>
   );
 }
 
 function UserShimmer() {
   return (
-    <div className='flex flex-col items-center justify-center gap-1.5'>
+    <TapMotion className='flex flex-col items-center justify-center gap-1.5'>
       <div className='aspect-square w-[75%] animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-800' />
       <div className='h-3 w-2/3 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800' />
-    </div>
+    </TapMotion>
   );
 }

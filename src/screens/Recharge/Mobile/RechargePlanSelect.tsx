@@ -31,7 +31,7 @@ export default function RechargePlanSelect() {
             <div className='flex flex-col gap-1'>
               <span className='text-sm'>{nickname}</span>
               <span className='text-[0.7rem] capitalize opacity-70'>
-                {phone} | {providerDetails[provider].name} {type}
+                {phone} — {providerDetails[provider].name} {type}
               </span>
             </div>
           </div>

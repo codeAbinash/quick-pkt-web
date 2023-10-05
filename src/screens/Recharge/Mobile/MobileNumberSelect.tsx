@@ -94,7 +94,11 @@ export default function Mobile() {
           <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
           <div className='flex w-full gap-3'>
             <div className='w-full rounded-2xl'>
-              <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
+              <div
+                className={`flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10 ${
+                  message.error ? 'outline outline-red-500' : ''
+                }`}
+              >
                 <img src={icons.phone} className='flex w-6 opacity-40 dark:invert' />
                 <input
                   type='tel'
@@ -115,6 +119,11 @@ export default function Mobile() {
               <img src={icons.contact_us} className='w-6 opacity-70 dark:invert' />
             </TapMotion>
           </div>
+          {message.message && (
+            <p className={`${message.error ? 'text-red-500' : 'text-green-500'} pl-1 pt-1 text-xs`}>
+              {message.message}
+            </p>
+          )}
           <div className='mt-3'>
             <div className='flex w-full flex-col gap-4 rounded-2xl'>
               <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
@@ -139,16 +148,9 @@ export default function Mobile() {
           />
         </div>
         <WatermarkMid />
-        <div className='flex w-full flex-col gap-3'>
-          {message.message && (
-            <p className={`${message.error ? 'text-red-500' : 'text-green-500'} text-center text-sm`}>
-              {message.message}
-            </p>
-          )}
-          <Button className='btn w-full' onClick={mobileRecharge}>
-            Next
-          </Button>
-        </div>
+        <Button className='btn w-full' onClick={mobileRecharge}>
+          Next
+        </Button>
       </div>
     </div>
   );
