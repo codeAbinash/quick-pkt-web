@@ -51,12 +51,14 @@ export default function Mobile() {
         message: validation.message,
         error: true,
       });
-    navigate(
-      `/recharge/mobile/select_plan?phone=${phone}&nickname=${nickname}&type=${rechargeType}&provider=${provider}`,
-      {
-        replace: true,
-      },
-    );
+    transitions(() => {
+      navigate(
+        `/recharge/mobile/select_plan?phone=${phone}&nickname=${nickname}&type=${rechargeType}&provider=${provider}`,
+        {
+          replace: true,
+        },
+      );
+    }, 70)();
   }
 
   useEffect(() => {

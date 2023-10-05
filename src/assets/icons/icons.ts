@@ -59,6 +59,10 @@ import option_wallet from './options/wallet.svg';
 import option_referrals from './options/referrals.svg';
 import phone from './src/phone.svg';
 import nickname from './src/nickname.svg';
+import airtel from './providers/airtel.png';
+import jio from './providers/jio.png';
+import vi from './providers/vi.png';
+import bsnl from './providers/bsnl.png';
 
 const icons = {
   nickname,
@@ -83,6 +87,12 @@ const icons = {
     reward: options_reward,
     wallet: option_wallet,
     referrals: option_referrals,
+  },
+  providers: {
+    airtel,
+    jio,
+    vi,
+    bsnl,
   },
   user_solid,
   mobile_solid,

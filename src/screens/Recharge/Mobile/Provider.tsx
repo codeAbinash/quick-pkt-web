@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getOperators } from '../../../lib/api';
 import transitions from '../../../lib/transition';
-import { Provider, getProviderLs, providerColors, setProviderLs } from './util';
+import { Provider, getProviderLs, providerDetails, setProviderLs } from './util';
 
 export function ProviderType({ type, setType }: { type: string; setType: (type: string) => void }) {
   const [providers, setProviders] = useState<Provider[] | null>(useMemo(getProviderLs, []));
@@ -40,8 +40,8 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
         <div
           key={index}
           style={{
-            backgroundColor: type == provider.short_code ? providerColors[provider.short_code]?.background : '',
-            color: type == provider?.short_code ? providerColors[provider.short_code]?.text : '',
+            backgroundColor: type == provider.short_code ? providerDetails[provider.short_code]?.background : '',
+            color: type == provider?.short_code ? providerDetails[provider.short_code]?.text : '',
           }}
           className={`tap97 rounded-full px-5 py-2 font-normMid ${
             type == provider?.short_code ? 'bg-accent text-white' : 'bg-inputBg dark:bg-white/10'
