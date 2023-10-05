@@ -131,7 +131,12 @@ export default function Mobile() {
               <ProviderType type={provider} setType={setProvider} />
             </div>
           </div>
-          <RecentRecharges />
+          <RecentRecharges
+            setPhone={setPhone}
+            setNickname={setNickname}
+            setProvider={setProvider}
+            setRechargeType={setRechargeType}
+          />
         </div>
         <WatermarkMid />
         <div className='flex w-full flex-col gap-3'>
