@@ -6,17 +6,30 @@ const API_URL = app.api;
 const API = {
   login: `${API_URL}/auth/login_or_signup`,
   logout: `${API_URL}/auth/logout`,
-  send_otp: `${API_URL}/auth/send_otp`,
-  resend_otp: `${API_URL}/auth/resend_otp`,
-  get_current_user: `${API_URL}/user/get_current_user`,
-  update_user: `${API_URL}/user/update_user`,
+  otp: {
+    send: `${API_URL}/auth/send_otp`,
+    resend: `${API_URL}/auth/resend_otp`,
+  },
+  user: {
+    current: {
+      get: `${API_URL}/user/get_current_user`,
+      update: `${API_URL}/user/update_user`,
+    },
+  },
   privacy_policy: `${API_URL}/pages/privacy_policy`,
   terms_and_conditions: `${API_URL}/pages/terms_and_conditions`,
   banners: `${API_URL}/banner/get_banners/main`,
   spotlights: `${API_URL}/banner/get_banners/spotlight`,
   featured: `${API_URL}/banner/get_banners/featured`,
-  operators: {
-    get_operators: `${API_URL}/operators/get_operators/mobile_recharge`,
+  recharge: {
+    mobile: {
+      operators: {
+        get: `${API_URL}/operators/get_operators/mobile_recharge`,
+      },
+      plans: {
+        get: `${API_URL}/mobile_recharge/get_offers/`,
+      },
+    },
   },
 };
 
@@ -64,6 +77,7 @@ export function getError(errors: errors) {
 }
 
 async function returnResponse(res: any): Promise<apiResponse> {
+  console.log(res);
   const data = await res.json();
   if (data.status === true) {
     return { status: true, message: data.message, data: data };
@@ -78,10 +92,24 @@ function catchError(err: any) {
 }
 
 // Write your API functions below this line:
+export async function getPlansMobile(operator: string) {
+  console.log(operator);
+  try {
+    const fetchStr = API.recharge.mobile.plans.get + operator;
+
+    const res = await fetch(fetchStr, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
 
 export async function getOperators(): Promise<apiResponse> {
   try {
-    const res = await fetch(API.operators.get_operators, {
+    const res = await fetch(API.recharge.mobile.operators.get, {
       method: 'POST',
       headers: authorizedHeader(defaultHeaders),
     });
@@ -93,7 +121,7 @@ export async function getOperators(): Promise<apiResponse> {
 
 export async function sendOTP(phone: string): Promise<apiResponse> {
   try {
-    const res = await fetch(API.send_otp, {
+    const res = await fetch(API.otp.send, {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({ phone: phone }),
@@ -124,7 +152,7 @@ export async function resendOTP(phone: string): Promise<apiResponse> {
   // return { status: true, message: 'OK' };
 
   try {
-    const res = await fetch(API.resend_otp, {
+    const res = await fetch(API.otp.resend, {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({ phone: phone }),
@@ -138,7 +166,7 @@ export async function resendOTP(phone: string): Promise<apiResponse> {
 export async function getCurrentUser(): Promise<apiResponse> {
   const headers = authorizedHeader(defaultHeaders);
   try {
-    const res = await fetch(API.get_current_user, {
+    const res = await fetch(API.user.current.get, {
       method: 'POST',
       headers: headers,
     });

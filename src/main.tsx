@@ -30,7 +30,7 @@ const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
 const MobileNumberSelect = lazy(() => import('./screens/Recharge/Mobile/MobileNumberSelect'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
-const RechargePlanSelect = lazy(() => import('./screens/Recharge/Mobile/RechargePlanSelect'));
+const RechargePlanSelect = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
 
 OTP.preload();
 EditProfile.preload();

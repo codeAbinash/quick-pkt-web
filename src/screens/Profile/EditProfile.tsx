@@ -113,7 +113,7 @@ export default function EditProfile() {
     const formData = new FormData();
     for (const key in body) formData.append(key, body[key]!);
 
-    const res = await fetch(API.update_user, {
+    const res = await fetch(API.user.current.update, {
       method: 'POST',
       headers: authorizedHeader(formDataHeaders),
       body: formData,
