@@ -170,8 +170,8 @@ export default function Profile() {
                     option.link
                       ? transitions(() => navigate(option.link!))
                       : option.onClick
-                      ? transitions(() => option.onClick!())
-                      : blank_fn
+                        ? transitions(() => option.onClick!())
+                        : blank_fn
                   }
                 >
                   <div className='flex w-full items-center justify-between gap-6'>
@@ -179,9 +179,8 @@ export default function Profile() {
                       <img
                         src={option.icon}
                         alt=''
-                        className={`aspect-square w-5.5 opacity-80 dark:opacity-90 dark:invert ${
-                          option.classNameIcon ? option.classNameIcon : ''
-                        }`}
+                        className={`aspect-square w-5.5 opacity-80 dark:opacity-90 dark:invert ${option.classNameIcon ? option.classNameIcon : ''
+                          }`}
                       />
                       <span
                         className={`text-[0.85rem] font-420 opacity-90 ${option.className ? option.className : ''}`}
@@ -202,6 +201,7 @@ export default function Profile() {
           </div>
         ))}
       </div>
+      <p className='text-center py-4 opacity-50 text-xs dark:opacity-30 '>Quick PKT v10.0.0(233)</p>
       <Watermark />
     </div>
   );
