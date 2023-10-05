@@ -88,7 +88,7 @@ export default function Mobile() {
       <Header>
         <span className='font-normMid'>Mobile Recharge</span>
       </Header>
-      <div className='mx-auto flex min-h-[calc(100vh-80px)] w-full max-w-lg flex-col items-center justify-between px-5'>
+      <div className='mx-auto flex min-h-[calc(100dvh-80px)] w-full max-w-lg flex-col items-center justify-between px-5'>
         <div className='w-full'>
           <RechargeType type={rechargeType} setType={setRechargeType} />
           <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
