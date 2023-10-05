@@ -32,6 +32,7 @@ export default function Mobile() {
   const navigate = useNavigate();
   const [message, setMessage] = useState(blank_user_message);
   const [params, setParams] = useSearchParams();
+
   const selectContact = useCallback(async () => {
     try {
       const nav: NavigatorWithContacts = navigator;
@@ -44,22 +45,16 @@ export default function Mobile() {
     }
   }, [setPhone, setNickname]);
 
-  function mobileRecharge() {
+  const mobileRecharge = useCallback(() => {
     const validation = phoneNumberValidation(phone);
-    if (!validation.status)
-      return setMessage({
-        message: validation.message,
-        error: true,
-      });
+    if (!validation.status) return setMessage({ message: validation.message, error: true });
     transitions(() => {
       navigate(
         `/recharge/mobile/select_plan?phone=${phone}&nickname=${nickname}&type=${rechargeType}&provider=${provider}`,
-        {
-          replace: true,
-        },
+        { replace: true },
       );
     }, 70)();
-  }
+  }, [phone, nickname, rechargeType, provider]);
 
   useEffect(() => {
     setMessage(blank_user_message);
@@ -88,69 +83,73 @@ export default function Mobile() {
       <Header>
         <span className='font-normMid'>Mobile Recharge</span>
       </Header>
-      <div className='mx-auto flex min-h-[calc(100dvh-80px)] w-full max-w-lg flex-col items-center justify-between px-5'>
+      <div className='mx-auto flex min-h-[calc(100dvh-80px)] w-full max-w-lg flex-col items-center justify-between'>
         <div className='w-full'>
-          <RechargeType type={rechargeType} setType={setRechargeType} />
-          <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
-          <div className='flex w-full gap-3'>
-            <div className='w-full rounded-2xl'>
-              <div
-                className={`flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10 ${
-                  message.error ? 'outline outline-red-500' : ''
-                }`}
-              >
-                <img src={icons.phone} className='flex w-6 opacity-40 dark:invert' />
-                <input
-                  type='tel'
-                  placeholder='e.g. 9876543210'
-                  className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
-                  value={phone}
-                  maxLength={10}
-                />
+          <div className='px-5'>
+            <RechargeType type={rechargeType} setType={setRechargeType} />
+            <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'> Enter Mobile Number</p>
+            <div className='flex w-full gap-3'>
+              <div className='w-full rounded-2xl'>
+                <div
+                  className={`flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10 ${
+                    message.error ? 'outline outline-red-500' : ''
+                  }`}
+                >
+                  <img src={icons.phone} className='flex w-6 opacity-40 dark:invert' />
+                  <input
+                    type='tel'
+                    placeholder='e.g. 9876543210'
+                    className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
+                    onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+                    value={phone}
+                    maxLength={10}
+                  />
+                </div>
               </div>
-            </div>
 
-            <TapMotion
-              onClick={selectContact}
-              size='sm'
-              className='flex aspect-square items-center justify-center rounded-btn bg-inputBg px-4 dark:bg-white/10'
-            >
-              <img src={icons.contact_us} className='w-6 opacity-70 dark:invert' />
-            </TapMotion>
+              <TapMotion
+                onClick={selectContact}
+                size='sm'
+                className='flex aspect-square items-center justify-center rounded-btn bg-inputBg px-4 dark:bg-white/10'
+              >
+                <img src={icons.contact_us} className='w-6 opacity-70 dark:invert' />
+              </TapMotion>
+            </div>
+            {message.message && (
+              <p className={`${message.error ? 'text-red-500' : 'text-green-500'} pl-1 pt-1 text-xs`}>
+                {message.message}
+              </p>
+            )}
           </div>
-          {message.message && (
-            <p className={`${message.error ? 'text-red-500' : 'text-green-500'} pl-1 pt-1 text-xs`}>
-              {message.message}
-            </p>
-          )}
-          <div className='mt-3'>
-            <div className='flex w-full flex-col gap-4 rounded-2xl'>
-              <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
-                <img src={icons.nickname} className='flex w-5.5 opacity-40 dark:invert' />
-                <input
-                  type='text'
-                  placeholder='Nickname (Optional)'
-                  className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
-                  value={nickname}
-                  maxLength={20}
-                />
-              </div>
-              <ProviderType type={provider} setType={setProvider} />
+          <div className='mt-3 flex w-full flex-col gap-4 rounded-2xl px-5'>
+            <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
+              <img src={icons.nickname} className='flex w-5.5 opacity-40 dark:invert' />
+              <input
+                type='text'
+                placeholder='Nickname (Optional)'
+                className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
+                onInput={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
+                value={nickname}
+                maxLength={20}
+              />
             </div>
           </div>
-          <RecentRecharges
-            setPhone={setPhone}
-            setNickname={setNickname}
-            setProvider={setProvider}
-            setRechargeType={setRechargeType}
-          />
+          <ProviderType type={provider} setType={setProvider} />
+          <div className='px-5'>
+            <RecentRecharges
+              setPhone={setPhone}
+              setNickname={setNickname}
+              setProvider={setProvider}
+              setRechargeType={setRechargeType}
+            />
+          </div>
         </div>
         <WatermarkMid />
-        <Button className='btn w-full' onClick={mobileRecharge}>
-          Next
-        </Button>
+        <div className='w-full px-5'>
+          <Button className='btn w-full' onClick={mobileRecharge}>
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

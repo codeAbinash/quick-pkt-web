@@ -1,5 +1,3 @@
-// Set the main accent color of the sim card provider here
-
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getOperators } from '../../../lib/api';
 import transitions from '../../../lib/transition';
@@ -35,7 +33,7 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
     );
 
   return (
-    <div className='no-scrollbar mb-2 mt-1 flex gap-3 overflow-auto text-sm'>
+    <div className='no-scrollbar mb-2 mt-1 flex gap-3 overflow-auto px-5 pt-4'>
       {providers.map((provider, index) => (
         <div
           key={index}
@@ -43,7 +41,7 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
             backgroundColor: type == provider.short_code ? providerDetails[provider.short_code]?.background : '',
             color: type == provider?.short_code ? providerDetails[provider.short_code]?.text : '',
           }}
-          className={`tap97 flex-shrink-0 rounded-full px-5 py-3 text-xs font-normMid ${
+          className={`tap97 flex-shrink-0 rounded-full px-5 py-2.5 text-[0.8rem] font-normMid ${
             type == provider?.short_code ? 'bg-accent text-white' : 'bg-inputBg dark:bg-white/10'
           }`}
           onClick={transitions(() => setType(provider.short_code), 0)}
