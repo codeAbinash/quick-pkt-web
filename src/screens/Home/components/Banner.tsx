@@ -37,7 +37,7 @@ export default function Banner() {
             }}
             className='tap99 flex aspect-[2/1] w-[100%] max-w-sm shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg  first:ml-5 last:mr-5 dark:bg-white/10 md:aspect-auto'
           >
-            <img className='w-full shrink-0 rounded-3xl' src={banner.path} alt={banner.name} />
+            <img className='w-full shrink-0 rounded-3xl' src={banner.path} />
           </div>
         ))
       )}

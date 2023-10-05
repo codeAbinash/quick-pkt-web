@@ -38,7 +38,7 @@ export default function Featured() {
               }}
               className='tap99 aspect-[2/1] w-full overflow-hidden rounded-3xl bg-inputBg dark:bg-white/10'
             >
-              <img src={featured.path} className='w-full' alt={featured.name} />
+              <img src={featured.path} className='w-full' />
             </div>
           ))
         )}

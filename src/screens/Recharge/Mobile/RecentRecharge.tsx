@@ -26,7 +26,7 @@ function User({ name }: { name: string }) {
   return (
     <div className='flex flex-col items-center justify-center gap-2'>
       <TapMotion className='flex items-center justify-center'>
-        <img src={icons.user} alt='user img' className='aspect-square w-full rounded-full' />
+        <img src={icons.user} className='aspect-square w-full rounded-full' />
       </TapMotion>
       <p className='text-xs font-normMid'>{name}</p>
     </div>

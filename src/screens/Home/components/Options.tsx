@@ -31,7 +31,7 @@ export default function Options() {
           onClick={transitions(() => navigate(option.link))}
         >
           <div className='rounded-full bg-accent/[0.15] p-4.5 dark:bg-accent/20'>
-            <img src={option.icon} className='aspect-square w-5.5' alt={option.name} />
+            <img src={option.icon} className='aspect-square w-5.5' />
           </div>
           <span className='text-[0.7rem] font-normMid opacity-80'>{option.name}</span>
         </div>

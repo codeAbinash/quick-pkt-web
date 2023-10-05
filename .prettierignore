@@ -1,2 +1,4 @@
 /public/*/
 /src/assets/animations/*
+package.lock.json
+pnpm-lock.yaml

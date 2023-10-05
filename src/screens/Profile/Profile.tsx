@@ -179,7 +179,6 @@ export default function Profile() {
                     <div className='flex items-center gap-5'>
                       <img
                         src={option.icon}
-                        alt=''
                         className={`aspect-square w-5.5 opacity-80 dark:opacity-90 dark:invert ${
                           option.classNameIcon ? option.classNameIcon : ''
                         }`}

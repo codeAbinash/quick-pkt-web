@@ -6,7 +6,7 @@ export default function LoadingHtmlPage() {
     <div className='flex min-h-[90dvh] flex-col items-center justify-between'>
       <p></p>
       <div className=''>
-        <img src={icons.loading} alt='Loading' className='w-10 dark:invert' />
+        <img src={icons.loading} className='w-10 dark:invert' />
       </div>
       <Watermark />
     </div>

@@ -26,7 +26,7 @@ export function Header({ children, onclick = blank_fn }: { children?: React.Reac
             onclick();
           }}
         >
-          <img src={icons.back} alt='Back' className='aspect-square w-[1.65rem] dark:invert' />
+          <img src={icons.back} className='aspect-square w-[1.65rem] dark:invert' />
         </div>
         <div>{children}</div>
       </div>

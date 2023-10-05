@@ -103,16 +103,15 @@ export default function Home() {
       >
         {/* bg-white/90 backdrop-blur-md dark:bg-black/80*/}
         <div className='flex items-center justify-between gap-2'>
-          <img src={icons.thunder} alt='Logo' className='h-5.5 pl-1.5' />
+          <img src={icons.thunder} className='h-5.5 pl-1.5' />
           <p className='text-xl font-semibold uppercase text-accent'>Quick PKT</p>
         </div>
         <div className='flex items-center justify-center gap-6'>
-          <img src={icons.notification} alt='Notification Icon' className='tap95 w-[1.2rem] opacity-60 dark:invert' />
+          <img src={icons.notification} className='tap95 w-[1.2rem] opacity-60 dark:invert' />
           <TapMotion size='sm'>
             <img
               src={profile?.data?.profile_pic || icons.user}
               className='profile-picture aspect-square w-[2.2rem] rounded-full bg-inputBg object-cover dark:bg-white/10'
-              alt='User Icon'
               onClick={transitions(() => {
                 navigate('/profile');
               })}
@@ -139,7 +138,6 @@ export default function Home() {
               <img
                 className={path === item.path ? item.className_filled : ' dark:invert ' + item.className}
                 src={path === item.path ? item.icon_filled : item.icon}
-                alt={item.name}
               />
             </div>
             <span className='text-center text-[0.65rem] font-normMid'>{item.name}</span>

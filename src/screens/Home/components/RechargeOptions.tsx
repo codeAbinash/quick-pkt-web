@@ -97,7 +97,7 @@ export default function RechargeOptions() {
               onClick={transitions(() => navigate(item.link || '/recharge'), 0)}
             >
               <div className='aspect-square'>
-                <img className='w-8' src={item.icon} alt={item.name} />
+                <img className='w-8' src={item.icon} />
               </div>
               <p className='mt-2 text-[0.6rem] font-420 leading-3 text-neutral-700 dark:text-neutral-300'>
                 {item.element}

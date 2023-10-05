@@ -61,7 +61,7 @@ export function Input(props: InputProps) {
     <div>
       <p className='pb-2 pl-1 text-xs font-normMid text-neutral-500'>{label}</p>
       <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
-        <img src={icon} alt='Input Icon' className='flex w-6 opacity-30 dark:invert' />
+        <img src={icon} className='flex w-6 opacity-30 dark:invert' />
         <input
           type={type}
           placeholder={placeholder}

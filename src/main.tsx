@@ -213,7 +213,7 @@ const router = createBrowserRouter(
 export function Loading() {
   return (
     <div className='screen flex items-center justify-center'>
-      <img src={icons.loading} alt='Loading' className='w-10 dark:invert' />
+      <img src={icons.loading} className='w-10 dark:invert' />
     </div>
   );
 }

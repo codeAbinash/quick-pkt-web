@@ -40,7 +40,7 @@ export default function SpotLight() {
               }}
               className='tap99 flex aspect-[3/4] w-[35%] max-w-[200px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-3xl bg-inputBg shadow-sm first:ml-5 last:mr-5 dark:bg-white/10'
             >
-              <img className='aspect-[3/4] w-full shrink-0 rounded-3xl' src={spotlight.path} alt={spotlight.name} />
+              <img className='aspect-[3/4] w-full shrink-0 rounded-3xl' src={spotlight.path} />
             </div>
           ))}
         </div>

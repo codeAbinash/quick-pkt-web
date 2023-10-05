@@ -93,7 +93,7 @@ export default function Mobile() {
           <div className='flex w-full gap-3'>
             <div className='w-full rounded-2xl'>
               <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
-                <img src={icons.phone} alt='Input Icon' className='flex w-6 opacity-40 dark:invert' />
+                <img src={icons.phone} className='flex w-6 opacity-40 dark:invert' />
                 <input
                   type='tel'
                   placeholder='e.g. 9876543210'
@@ -110,13 +110,13 @@ export default function Mobile() {
               size='sm'
               className='flex aspect-square items-center justify-center rounded-btn bg-inputBg px-4 dark:bg-white/10'
             >
-              <img src={icons.contact_us} alt='Contact Picker' className='w-6 opacity-70 dark:invert' />
+              <img src={icons.contact_us} className='w-6 opacity-70 dark:invert' />
             </TapMotion>
           </div>
           <div className='mt-3'>
             <div className='flex w-full flex-col gap-4 rounded-2xl'>
               <div className='flex items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
-                <img src={icons.nickname} alt='Input Icon' className='flex w-5.5 opacity-40 dark:invert' />
+                <img src={icons.nickname} className='flex w-5.5 opacity-40 dark:invert' />
                 <input
                   type='text'
                   placeholder='Nickname (Optional)'
