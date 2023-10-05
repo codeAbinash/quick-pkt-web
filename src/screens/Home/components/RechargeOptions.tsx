@@ -11,7 +11,7 @@ const rechargeOptions = [
     ),
     icon: icons.mobile,
     name: 'Mobile Recharge',
-    link: '/recharge/mobile',
+    link: '/recharge/mobile/number_select',
   },
   {
     element: (

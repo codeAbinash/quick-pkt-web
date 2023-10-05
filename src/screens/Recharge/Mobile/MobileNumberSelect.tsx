@@ -1,46 +1,85 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import icons from '../../../assets/icons/icons';
 import Button from '../../../components/Button';
 import { Header } from '../../../components/Header/Header';
 import TapMotion from '../../../components/TapMotion';
 import transitions from '../../../lib/transition';
-import RecentRecharges from './RecentRecharge';
+import { blank_user_message, phoneNumberParser, phoneNumberValidation } from '../../../lib/util';
 import { ProviderType } from './Provider';
+import RecentRecharges from './RecentRecharge';
 
 interface NavigatorWithContacts extends Navigator {
   contacts?: any;
 }
 
 type RechargeType = 'prepaid' | 'postpaid';
+const options = { multiple: false };
+const properties = ['name', 'tel'];
 
-function phoneNumberParser(phone: string) {
-  // Remove all non numeric characters
-  phone = phone.replace(/\D/g, '');
-  // If the length is greater than 10, remove the first digits
-  if (phone.length > 10) phone = phone.slice(phone.length - 10);
-
-  return phone;
-}
+type ParamsType = {
+  phone?: string;
+  nickname?: string;
+  type?: RechargeType;
+  provider?: string;
+};
 
 export default function Mobile() {
   const [phone, setPhone] = useState('');
   const [nickname, setNickname] = useState('');
   const [rechargeType, setRechargeType] = useState<RechargeType>('prepaid');
   const [provider, setProvider] = useState<string>('');
-
+  const navigate = useNavigate();
+  const [message, setMessage] = useState(blank_user_message);
+  const [params, setParams] = useSearchParams();
   const selectContact = useCallback(async () => {
-    const props = ['name', 'email', 'tel', 'address', 'icon'];
-    const opts = { multiple: true };
     try {
       const nav: NavigatorWithContacts = navigator;
       if (!nav.contacts) return console.log('No contacts API');
-      const contacts = await nav.contacts.select(props, opts);
+      const contacts = await nav.contacts.select(properties, options);
       setPhone(phoneNumberParser(contacts[0].tel[0]));
       setNickname(contacts[0].name[0]);
     } catch (ex) {
       console.error(ex);
     }
   }, [setPhone, setNickname]);
+
+  function mobileRecharge() {
+    const validation = phoneNumberValidation(phone);
+    if (!validation.status)
+      return setMessage({
+        message: validation.message,
+        error: true,
+      });
+    navigate(
+      `/recharge/mobile/select_plan?phone=${phone}&nickname=${nickname}&type=${rechargeType}&provider=${provider}`,
+      {
+        replace: true,
+      },
+    );
+  }
+
+  useEffect(() => {
+    setMessage(blank_user_message);
+  }, [phone]);
+
+  // Extracting params from URL
+  useEffect(() => {
+    if (params.get('phone')) setPhone(params.get('phone')!);
+    if (params.get('nickname')) setNickname(params.get('nickname')!);
+    if (params.get('type')) setRechargeType(params.get('type')! as RechargeType);
+    if (params.get('provider')) setProvider(params.get('provider')!);
+  }, []);
+
+  // Updating URL
+  useEffect(() => {
+    const p: ParamsType = {};
+    if (phone) p.phone = phone;
+    if (nickname) p.nickname = nickname;
+    if (rechargeType) p.type = rechargeType;
+    if (provider) p.provider = provider;
+    setParams(p, { replace: true });
+  }, [phone, nickname, rechargeType, provider]);
 
   return (
     <div className='colors select-none'>
@@ -61,9 +100,11 @@ export default function Mobile() {
                   className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
                   onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
                   value={phone}
+                  maxLength={10}
                 />
               </div>
             </div>
+
             <TapMotion
               onClick={selectContact}
               size='sm'
@@ -82,6 +123,7 @@ export default function Mobile() {
                   className='grow border-none bg-transparent px-3 py-4 text-sm font-normMid text-text/90 outline-none dark:text-white'
                   onInput={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
                   value={nickname}
+                  maxLength={20}
                 />
               </div>
               <ProviderType type={provider} setType={setProvider} />
@@ -90,7 +132,16 @@ export default function Mobile() {
           <RecentRecharges />
         </div>
         <WatermarkMid />
-        <Button className='btn w-full'>Next</Button>
+        <div className='flex w-full flex-col gap-3'>
+          {message.message && (
+            <p className={`${message.error ? 'text-red-500' : 'text-green-500'} text-center text-sm`}>
+              {message.message}
+            </p>
+          )}
+          <Button className='btn w-full' onClick={mobileRecharge}>
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

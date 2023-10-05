@@ -11,7 +11,7 @@ import API, { authorizedHeader, formDataHeaders, getCurrentUser, getError } from
 import transitions from '../../lib/transition';
 import { UserProfile, setProfileInfoLs } from './utils';
 import TapMotion from '../../components/TapMotion';
-import { delayFn } from '../../lib/util';
+import { blank_user_message, delayFn, userMessage } from '../../lib/util';
 
 async function updateLocalUserData() {
   const userProfileData = await getCurrentUser();
@@ -68,12 +68,6 @@ function profilePicFileValidation(file: File): userMessage {
     };
   return { message: '', error: false };
 }
-
-type userMessage = {
-  message: string;
-  error: boolean;
-};
-const blank_user_message: userMessage = { message: '', error: false };
 
 export default function EditProfile() {
   const profile: UserProfile = useSelector((state: any) => state.profile);

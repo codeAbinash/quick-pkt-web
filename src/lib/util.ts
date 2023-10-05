@@ -55,3 +55,18 @@ export function phoneNumberValidation(phone: string) {
     message: 'Invalid phone number',
   };
 }
+
+export function phoneNumberParser(phone: string) {
+  // Remove all non numeric characters
+  phone = phone.replace(/\D/g, '');
+  // If the length is greater than 10, remove the first digits
+  if (phone.length > 10) phone = phone.slice(phone.length - 10);
+
+  return phone;
+}
+
+export type userMessage = {
+  message: string;
+  error: boolean;
+};
+export const blank_user_message: userMessage = { message: '', error: false };

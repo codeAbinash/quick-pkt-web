@@ -28,8 +28,9 @@ const Report = lazy(() => import('./screens/Support/Report'));
 const Help = lazy(() => import('./screens/Support/Help'));
 const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
-const Mobile = lazy(() => import('./screens/Recharge/Mobile/Mobile'));
+const MobileNumberSelect = lazy(() => import('./screens/Recharge/Mobile/MobileNumberSelect'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
+const RechargePlanSelect = lazy(() => import('./screens/Recharge/Mobile/RechargePlanSelect'));
 
 OTP.preload();
 EditProfile.preload();
@@ -180,10 +181,18 @@ const router = createBrowserRouter(
       ),
     },
     {
-      path: '/recharge/mobile',
+      path: '/recharge/mobile/number_select',
       element: (
         <Suspense fallback={<Loading />}>
-          <Mobile />
+          <MobileNumberSelect />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/recharge/mobile/select_plan',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <RechargePlanSelect />
         </Suspense>
       ),
     },
