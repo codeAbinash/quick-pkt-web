@@ -24,7 +24,7 @@ type ParamsType = {
   provider?: string;
 };
 
-export default function Mobile() {
+export default function SelectMobile() {
   const [phone, setPhone] = useState('');
   const [nickname, setNickname] = useState('');
   const [rechargeType, setRechargeType] = useState<RechargeType>('prepaid');

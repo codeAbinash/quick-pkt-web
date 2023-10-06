@@ -25,10 +25,10 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
   if (providers == null)
     return (
       <div className='my-1.5 flex gap-2'>
-        <div className='tap97 shimmer rounded-full px-10 py-4.5 font-normMid'></div>
-        <div className='tap97 shimmer rounded-full px-8 py-4.5 font-normMid'></div>
-        <div className='tap97 shimmer rounded-full px-7 py-4.5 font-normMid'></div>
-        <div className='tap97 shimmer rounded-full px-9 py-4.5 font-normMid'></div>
+        <div className='tap97 shimmer rounded-full px-10 py-4.5'></div>
+        <div className='tap97 shimmer rounded-full px-8 py-4.5'></div>
+        <div className='tap97 shimmer rounded-full px-7 py-4.5'></div>
+        <div className='tap97 shimmer rounded-full px-9 py-4.5'></div>
       </div>
     );
 

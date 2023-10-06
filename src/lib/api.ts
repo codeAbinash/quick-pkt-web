@@ -27,7 +27,7 @@ const API = {
         get: `${API_URL}/operators/get_operators/mobile_recharge`,
       },
       plans: {
-        get: `${API_URL}/mobile_recharge/get_offers/`,
+        get: `${API_URL}/mobile_recharge/get_plans/`,
       },
     },
   },
@@ -77,7 +77,6 @@ export function getError(errors: errors) {
 }
 
 async function returnResponse(res: any): Promise<apiResponse> {
-  console.log(res);
   const data = await res.json();
   if (data.status === true) {
     return { status: true, message: data.message, data: data };
@@ -86,14 +85,13 @@ async function returnResponse(res: any): Promise<apiResponse> {
   }
 }
 
-function catchError(err: any) {
+function catchError(err: any): apiResponse {
   console.log(err);
   return { status: false, message: 'Network Error' };
 }
 
 // Write your API functions below this line:
 export async function getPlansMobile(operator: string) {
-  console.log(operator);
   try {
     const fetchStr = API.recharge.mobile.plans.get + operator;
 

@@ -28,7 +28,7 @@ const Report = lazy(() => import('./screens/Support/Report'));
 const Help = lazy(() => import('./screens/Support/Help'));
 const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
-const MobileNumberSelect = lazy(() => import('./screens/Recharge/Mobile/MobileNumberSelect'));
+const SelectMobile = lazy(() => import('./screens/Recharge/Mobile/SelectMobile'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
 const RechargePlanSelect = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
 
@@ -184,7 +184,7 @@ const router = createBrowserRouter(
       path: '/recharge/mobile/number_select',
       element: (
         <Suspense fallback={<Loading />}>
-          <MobileNumberSelect />
+          <SelectMobile />
         </Suspense>
       ),
     },

@@ -1,5 +1,4 @@
 import back from './src/arrow-left-16-regular.svg';
-// import search_black_48dp from './src/search_black_48dp.svg';
 import arrow_right from './src/arrow_right.svg';
 import search from './src/search.svg';
 import sun from './src/sun.svg';
@@ -63,8 +62,10 @@ import airtel from './providers/airtel.png';
 import jio from './providers/jio.png';
 import vi from './providers/vi.png';
 import bsnl from './providers/bsnl.png';
+import ordering from './src/ordering.svg';
 
 const icons = {
+  ordering,
   nickname,
   phone,
   account_circle,
