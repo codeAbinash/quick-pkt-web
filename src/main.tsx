@@ -30,7 +30,7 @@ const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
 const LogOut = lazy(() => import('./screens/Login/LogOut'));
 const SelectMobile = lazy(() => import('./screens/Recharge/Mobile/SelectMobile'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
-const RechargePlanSelect = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
+const SelectPlan = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
 
 OTP.preload();
 EditProfile.preload();
@@ -192,7 +192,7 @@ const router = createBrowserRouter(
       path: '/recharge/mobile/select_plan',
       element: (
         <Suspense fallback={<Loading />}>
-          <RechargePlanSelect />
+          <SelectPlan />
         </Suspense>
       ),
     },
