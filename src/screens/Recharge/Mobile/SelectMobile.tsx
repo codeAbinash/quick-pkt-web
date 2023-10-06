@@ -36,7 +36,8 @@ export default function SelectMobile() {
   const selectContact = useCallback(async () => {
     try {
       const nav: NavigatorWithContacts = navigator;
-      if (!nav.contacts) return console.log('No contacts API');
+      // If no permission, ask for permission
+      if (!nav.contacts) return alert('No permission to access contacts');
       const contacts = await nav.contacts.select(properties, options);
       setPhone(phoneNumberParser(contacts[0].tel[0]));
       setNickname(contacts[0].name[0]);
