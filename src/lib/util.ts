@@ -1,21 +1,13 @@
-// App related data
-export const details = {
-  name: 'quick-pkt',
-  version: '0.0.0',
-};
-
 // LocalStorage related functions
 const ls = {
   get: (item: string) => {
-    return localStorage.getItem(details.name + item);
+    return localStorage.getItem(item);
   },
   set: (item: string, data: string) => {
-    return localStorage.setItem(details.name + item, data);
+    return localStorage.setItem(item, data);
   },
   clear: () => {
-    for (let elem in localStorage) {
-      if (elem.startsWith(details.name)) localStorage.removeItem(elem);
-    }
+    localStorage.clear();
   },
   getJsonFn: (item: string) => {
     return function () {

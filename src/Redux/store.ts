@@ -4,8 +4,9 @@ import bannerSlice from './banners';
 import featuredSlice from './featured';
 import namesSlice from './names';
 import profileSlice from './profile';
-import settings from './settings';
+import settingsSlice from './settings';
 import spotlightsSlice from './spotlights';
+import mobileRechargeSlice from './mobileRecharge';
 
 const store = configureStore({
   reducer: {
@@ -14,8 +15,8 @@ const store = configureStore({
     spotlights: spotlightsSlice,
     featured: featuredSlice,
     profile: profileSlice,
-    settings,
+    settingsSlice: settingsSlice,
+    mobileRecharge: mobileRechargeSlice,
   },
 });
-
 export default store;

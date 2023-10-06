@@ -1,21 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { providerDetails } from './util';
-import jsonPlans from './plans.json';
-import transitions from '../../../lib/transition';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { PlanType, setMobileRecharge, setMobileRechargeLs } from '../../../Redux/mobileRecharge';
+import store from '../../../Redux/store';
+import icons from '../../../assets/icons/icons';
+import { Watermark } from '../../../components/Extras';
 import { Header } from '../../../components/Header/Header';
 import TapMotion from '../../../components/TapMotion';
-import { Watermark } from '../../../components/Extras';
+import { getPlansMobile } from '../../../lib/api';
 import headerIntersect from '../../../lib/headerIntersect';
-import icons from '../../../assets/icons/icons';
-const tabs = ['All Plans', 'Data Add On', 'Top Up', 'Special Offer', 'Full Talk Time', 'Roaming', 'SMS', 'Validity'];
-type PlanType = {
-  amount: string;
-  validity: string;
-  description: string;
-  planid: string;
-};
+import transitions from '../../../lib/transition';
+import { OrganizedPlans, getOrganizedPlans, providerDetails } from './util';
 
 export default function SelectRechargePlan() {
   const [params] = useSearchParams();
@@ -23,8 +19,10 @@ export default function SelectRechargePlan() {
   const phone = params.get('phone');
   const nickname = params.get('nickname');
   const type = params.get('type');
-  const [plans, setPlans] = useState<PlanType[] | null>(null);
   const provider = params.get('provider') as keyof typeof providerDetails;
+  const plans = useSelector((state: any) => state.mobileRecharge.plans[provider] || null);
+  const [organizedPlans, setOrganizedPlans] = useState<OrganizedPlans | null>(null);
+  // const lastUpdated = useSelector((state: any) => state.mobileRecharge.lastUpdated[provider] || null);
 
   const edit = useCallback(() => {
     transitions(() => {
@@ -35,18 +33,30 @@ export default function SelectRechargePlan() {
   }, [phone, nickname, type, provider]);
 
   const loadPlans = useCallback(async () => {
-    // const plans = await getPlansMobile(provider as string);
-    // if (plans.status) {
-    // console.log(plans.data?.data);
-    setPlans(jsonPlans);
+    // Check if the data is not old enough
+    // if (plans && lastUpdated && Date.now() - lastUpdated < 1000 * 60 * 60) {
+    //   console.log('Using old plans ' + Date.now());
+    //   return;
     // }
-  }, [provider]);
+    if (plans) {
+      const organizedPlans = getOrganizedPlans(plans as PlanType[], provider as string);
+      setOrganizedPlans(organizedPlans);
+      return;
+    }
+    const plansRes = await getPlansMobile(provider as string);
+    if (plansRes.status) {
+      const organizedPlans = getOrganizedPlans(plansRes.data?.data as PlanType[], provider as string);
+      setOrganizedPlans(organizedPlans);
+      store.dispatch(setMobileRecharge({ key: provider as string, value: plansRes.data?.data as PlanType[] }));
+      setMobileRechargeLs();
+    }
+  }, []);
   useEffect(() => {
     loadPlans();
   }, []);
 
   return (
-    <div>
+    <div className='mx-auto max-w-lg'>
       <Header onclick={edit}>
         <span className='font-normMid'>Select Plan</span>
       </Header>
@@ -68,20 +78,32 @@ export default function SelectRechargePlan() {
           </div>
         </TapMotion>
       </div>
-      <Plans plans={plans} />
+      {organizedPlans === null ? (
+        <div className='px-5 pt-4'>
+          <div className='flex h-40 items-center justify-center'>
+            <img src={icons.loading} className='w-10 animate-spin' />
+          </div>
+        </div>
+      ) : (
+        <Plans plans={organizedPlans} />
+      )}
       <Watermark />
     </div>
   );
 }
 
-function Plans({ plans }: { plans: PlanType[] | null }) {
-  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
-  const [ascending, setAscending] = useState<boolean>(true);
+function Plans({ plans }: { plans: OrganizedPlans }) {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
+
+  const tabs = Object.keys(plans || {});
+  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+  const [ascending, setAscending] = useState<boolean>(true);
+
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
   }, []);
+
   return (
     <>
       <div
@@ -122,7 +144,9 @@ function Plans({ plans }: { plans: PlanType[] | null }) {
                 <div
                   key={index}
                   className={`${item === selectedTab ? 'selected' : ''} flex-shrink-0 pb-2`}
-                  onClick={() => setSelectedTab(item)}
+                  onClick={() => {
+                    setSelectedTab(item);
+                  }}
                 >
                   <span
                     className={`${
@@ -156,7 +180,9 @@ function Plans({ plans }: { plans: PlanType[] | null }) {
             transition={{ duration: 0.15 }}
             className='flex flex-col gap-3'
           >
-            {plans === null ? 'Loading...' : plans.map((plan, index) => <Plan plan={plan} key={index} />)}
+            {plans[selectedTab].map((plan, index) => (
+              <Plan key={index} plan={plan} />
+            ))}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -195,7 +221,7 @@ function Disclaimer() {
     return (
       <div className='px-5 pt-4'>
         <div className='overflow-hidden rounded-2xl'>
-          <div className='flex items-center justify-between gap-2 bg-accent/10 px-4 py-2 dark:bg-accent/10'>
+          <div className='flex items-center justify-between gap-2 bg-accent/10 px-4 py-2 dark:bg-accent/20'>
             <span className='text-[0.6rem]'>
               <span className='font-normMid'>Disclaimer : </span>We almost cover all the plans. Please verify the plan
               details with your operator before proceeding.
