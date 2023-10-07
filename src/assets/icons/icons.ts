@@ -63,8 +63,10 @@ import jio from './providers/jio.png';
 import vi from './providers/vi.png';
 import bsnl from './providers/bsnl.png';
 import ordering from './src/ordering.svg';
+import select from './src/select.svg';
 
 const icons = {
+  select,
   ordering,
   nickname,
   phone,
