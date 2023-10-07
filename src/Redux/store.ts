@@ -15,7 +15,7 @@ const store = configureStore({
     spotlights: spotlightsSlice,
     featured: featuredSlice,
     profile: profileSlice,
-    settingsSlice: settingsSlice,
+    settings: settingsSlice,
     mobileRecharge: mobileRechargeSlice,
   },
 });
