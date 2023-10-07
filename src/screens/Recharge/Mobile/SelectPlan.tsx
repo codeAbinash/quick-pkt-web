@@ -79,11 +79,10 @@ export default function SelectRechargePlan() {
         </TapMotion>
       </div>
       {organizedPlans === null ? (
-        <div className='px-5 pt-4'>
-          <div className='flex h-40 items-center justify-center'>
-            <img src={icons.loading} className='w-10 animate-spin' />
-          </div>
-        </div>
+        <>
+          <TabsShimmer />
+          <PlansShimmer />
+        </>
       ) : (
         <Plans plans={organizedPlans} />
       )}
@@ -238,4 +237,42 @@ function Disclaimer() {
     );
   }
   return null;
+}
+
+function TabShimmer() {
+  return <span className='tap95 animate-pulse rounded-lg bg-inputBg p-4 px-10 dark:bg-white/10'></span>;
+}
+function TabsShimmer({ tabs }: { tabs?: number }) {
+  if (!tabs) tabs = 5;
+
+  return (
+    <div className='w-full px-5 pt-6'>
+      <div className='no-scrollbar flex w-full gap-5 overflow-scroll'>
+        <div className='flex flex-shrink-0 gap-4 pb-2'>
+          {[...Array(tabs)].map((_, index) => (
+            <TabShimmer key={index} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+// A simple shimmer that contain nothing
+function PlanShimmer() {
+  return (
+    <div className='flex animate-pulse  items-center justify-between gap-2 rounded-3xl bg-inputBg p-4 py-10 dark:bg-white/10'></div>
+  );
+}
+
+function PlansShimmer({ plans }: { plans?: number }) {
+  if (!plans) plans = 10;
+  return (
+    <div className='px-5 pt-4'>
+      <div className='flex flex-col gap-3'>
+        {[...Array(plans)].map((_, index) => (
+          <PlanShimmer key={index} />
+        ))}
+      </div>
+    </div>
+  );
 }
