@@ -39,7 +39,9 @@ export default function DarkMode() {
   return (
     <div className='colors min-h-[100dvh] select-none'>
       <Header>
-        <span className='text-normMid'>Dark Mode</span>
+        <span className='text-normMid'>
+          <span className='font-normMid'>Dark Mode</span>
+        </span>
       </Header>
       <div className='p-5'>
         <div className='to my-5 mb-10 flex flex-col items-center justify-center rounded-3xl bg-gradient-radial py-20 dark:bg-gradient-radial-dark'>

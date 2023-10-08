@@ -4,7 +4,7 @@ export default function ContactUs() {
   return (
     <div>
       <Header>
-        <p>Contact Us</p>
+        <span className='font-normMid'>Contact Us</span>
       </Header>
     </div>
   );

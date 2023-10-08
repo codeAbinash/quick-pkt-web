@@ -114,7 +114,7 @@ function ProviderSelect({
           isOpen && 'select-provider-button'
         } w-full max-w-[350px] rounded-3xl bg-white/90 p-6 pb-9 text-center backdrop-blur-md dark:bg-black/90`}
       >
-        <p className='font-medium'>Select Provider</p>
+        <p className='font-medium'>Select Operator</p>
         <div className='mt-5 flex flex-col items-center justify-between gap-1'>
           {providers.map((provider, index) => (
             <div

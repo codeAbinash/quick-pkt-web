@@ -4,7 +4,7 @@ export default function AboutUs() {
   return (
     <div>
       <Header>
-        <p>About Us</p>
+        <span className='font-normMid'>About Us</span>
       </Header>
     </div>
   );
