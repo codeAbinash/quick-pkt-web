@@ -64,6 +64,10 @@ import vi from './providers/vi.png';
 import bsnl from './providers/bsnl.png';
 import ordering from './src/ordering.svg';
 import select from './src/select.svg';
+import walletSend from './wallet/send.svg';
+import walletRequest from './wallet/request.svg';
+import walletHistory from './wallet/history.svg';
+import walletScan from './wallet/scan.svg';
 
 const icons = {
   select,
@@ -90,6 +94,12 @@ const icons = {
     reward: options_reward,
     wallet: option_wallet,
     referrals: option_referrals,
+  },
+  walletOptions: {
+    send: walletSend,
+    request: walletRequest,
+    history: walletHistory,
+    scan: walletScan,
   },
   providers: {
     airtel,

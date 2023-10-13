@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import app from '../app';
 import store from './Redux/store';
 import icons from './assets/icons/icons';
+import { PopupAlertContextProvider } from './context/PopupAlertContext';
 import './css/index.scss';
 import { loadThemeLs } from './lib/theme';
 import Home, { HomeScreen } from './screens/Home/Home';
@@ -31,6 +32,7 @@ const LogOut = lazy(() => import('./screens/Login/LogOut'));
 const SelectMobile = lazy(() => import('./screens/Recharge/Mobile/SelectMobile'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
 const SelectPlan = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
+const Wallet = lazy(() => import('./screens/Home/Wallet'));
 
 OTP.preload();
 EditProfile.preload();
@@ -54,7 +56,7 @@ const router = createBrowserRouter(
           path: '/wallet',
           element: (
             <Suspense fallback={<Loading />}>
-              <div>Wallet</div>
+              <Wallet />
             </Suspense>
           ),
         },
@@ -228,12 +230,33 @@ export function Loading() {
 //   );
 // }
 
+const defaultPopup = {
+  show: false,
+  title: '',
+  message: '',
+  buttons: [
+    {
+      text: 'Ok',
+      onClick: () => {
+        console.log('ok');
+      },
+    },
+    {
+      text: 'Cancel',
+      onClick: () => {
+        console.log('cancel');
+      },
+    },
+  ],
+};
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <React.Suspense fallback={<Loading />}> */}
-      <RouterProvider router={router} />
-      {/* </React.Suspense> */}
+      <PopupAlertContextProvider>
+        {/* <PopupAlert /> */}
+        <RouterProvider router={router} />
+      </PopupAlertContextProvider>
     </Provider>
   </React.StrictMode>,
 );

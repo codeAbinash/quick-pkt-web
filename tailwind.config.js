@@ -5,7 +5,6 @@ export default {
     extend: {
       colors: {
         bg: '#000000',
-        // accent: '#ff4310',
         accent: '#ff4310',
         accentBright: '#ff4310',
         text: '#333',
