@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.9.5
     version: 1.9.6(react-redux@8.1.3)(react@18.2.0)
   emoji-store:
-    specifier: ^1.0.5
-    version: 1.0.5
+    specifier: ^2.0.0
+    version: 2.0.0
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
@@ -978,8 +978,8 @@ packages:
     resolution: {integrity: sha512-aoCqgU6r9+o9/S7wkcSbmPRFi7OWZWiXS9rtjEd+Ouyu/Xyw5RSq2XN8s5Qp8IaFOLiRrhQCphCIjAxgG3eCAg==}
     dev: true
 
-  /emoji-store@1.0.5:
-    resolution: {integrity: sha512-+esgiSbmhH1CtOn1z1dXZePlRK0IMKYHxGvtgO42vA8/aoGjfguuevonn5nFvRlMogXntVkbkqI1q416JzRjcg==}
+  /emoji-store@2.0.0:
+    resolution: {integrity: sha512-EeglPo4b87TOwA/e+/n2mxO2XACT9z7yExrzhKsuIBt/tTj9Aa3ZNZJSGIHJ6e5+o45PADxe21Yg6FpXvlZs2Q==}
     dev: false
 
   /esbuild@0.18.20:
