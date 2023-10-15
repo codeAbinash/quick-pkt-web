@@ -84,24 +84,60 @@ export default function SelectRechargePlan() {
           <PlansShimmer />
         </>
       ) : (
-        <Plans plans={organizedPlans} />
+        <Plans plans={organizedPlans} setPlans={setOrganizedPlans} />
       )}
       <Watermark />
     </div>
   );
 }
 
-function Plans({ plans }: { plans: OrganizedPlans }) {
+function matchedPlans(plan: PlanType, str: string): boolean {
+  return (
+    plan.description.toLowerCase().includes(str) ||
+    plan.amount.includes(str) ||
+    plan.validity.includes(str) ||
+    costPerDay(plan).includes(str)
+  );
+}
+
+function searchPlan(plans: OrganizedPlans, str: string, ascending: boolean): OrganizedPlans {
+  const newPlans: OrganizedPlans = {};
+  str = str.trim().toLowerCase();
+  if (str === '' && ascending) return plans;
+  if (str === '' && !ascending) {
+    for (const key in plans) newPlans[key] = [...plans[key]].reverse();
+    return newPlans;
+  }
+  for (const key in plans) {
+    newPlans[key] = plans[key].filter((plan) => matchedPlans(plan, str));
+    if (!ascending) newPlans[key].reverse();
+  }
+  return newPlans;
+}
+
+function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function }) {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
-
   const tabs = Object.keys(plans || {});
+  const [plansToShow, setPlansToShow] = useState<OrganizedPlans>(plans);
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
-  const [ascending, setAscending] = useState<boolean>(true);
+  const [ascending, setAscending] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPlansToShow(searchPlan(plans, search, ascending));
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [search, plans]);
+
+  useEffect(() => {
+    setPlansToShow(searchPlan(plans, search, ascending));
+  }, [plans, ascending]);
 
   return (
     <>
@@ -117,9 +153,11 @@ function Plans({ plans }: { plans: OrganizedPlans }) {
               <input
                 type='text'
                 placeholder='Enter amount or search plans'
-                className='grow border-none bg-transparent px-3 text-[0.8rem] font-420 text-text/90 outline-none dark:text-white'
-                // onInput={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
-                // value={nickname}
+                className='grow border-none bg-transparent px-3 text-[0.8rem] font-normMid text-text/90 outline-none dark:text-white'
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
               />
             </div>
             <TapMotion
@@ -179,13 +217,24 @@ function Plans({ plans }: { plans: OrganizedPlans }) {
             transition={{ duration: 0.15 }}
             className='flex flex-col gap-3'
           >
-            {plans[selectedTab].map((plan, index) => (
-              <Plan key={index} plan={plan} />
-            ))}
+            {plansToShow[selectedTab].length === 0 ? (
+              <NoResult search={search} />
+            ) : (
+              plansToShow[selectedTab].map((plan, index) => <Plan key={index} plan={plan} />)
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
     </>
+  );
+}
+
+function NoResult({ search }: { search: string }) {
+  return (
+    <div className='flex min-h-[45dvh] flex-col items-center justify-center'>
+      <img src={icons.no_result_found} className='w-3/4 dark:invert' />
+      <span className='text-[0.8rem] font-normMid opacity-50'>No results for "{search}"</span>
+    </div>
   );
 }
 

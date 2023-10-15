@@ -24,7 +24,7 @@ export default function Wallet() {
             </TapMotion>
           </div>
         </div>
-        <Options />
+        {/* <Options /> */}
         {/* <Transactions /> */}
       </div>
       <Watermark />
