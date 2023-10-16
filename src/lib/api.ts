@@ -31,6 +31,13 @@ const API = {
       },
     },
   },
+  wallet: {
+    transactions: {
+      history: {
+        all: `${API_URL}/wallet/get_all_transaction`,
+      },
+    },
+  },
 };
 
 type defaultHeaders = {
@@ -91,6 +98,18 @@ function catchError(err: any): apiResponse {
 }
 
 // Write your API functions below this line:
+export async function getTransactionsHistory(page: number): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.wallet.transactions.history.all + '?page=' + page, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
 export async function getPlansMobile(operator: string) {
   try {
     const fetchStr = API.recharge.mobile.plans.get + operator;

@@ -69,8 +69,15 @@ import walletRequest from './wallet/request.svg';
 import walletHistory from './wallet/history.svg';
 import walletScan from './wallet/scan.svg';
 import no_result_found from './src/no_result_found.jpg';
+import transition_send from './transition/send.svg';
+import transition_receive from './transition/receive.svg';
 
 const icons = {
+  transition: {
+    send: transition_send,
+    receive: transition_receive,
+  },
+
   no_result_found,
   select,
   ordering,

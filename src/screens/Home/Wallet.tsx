@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import icons from '../../assets/icons/icons';
 import { Watermark } from '../../components/Extras';
 import TapMotion from '../../components/TapMotion';
+import { getTransactionsHistory } from '../../lib/api';
 
 export default function Wallet() {
   return (
@@ -25,7 +27,7 @@ export default function Wallet() {
           </div>
         </div>
         {/* <Options /> */}
-        {/* <Transactions /> */}
+        <Transactions />
       </div>
       <Watermark />
     </div>
@@ -74,11 +76,106 @@ function Options() {
     </div>
   );
 }
+
+type TransactionType = {
+  id: number;
+  user_id: string;
+  amount: string;
+  reference: string;
+  closing_balance: string;
+  opening_balance: string;
+  description: string;
+  status: string;
+  type: string;
+  created_at: string;
+  updated_at: string;
+};
+
 function Transactions() {
+  const [page, setPage] = useState(1);
+  const [transactions, setTransactions] = useState<TransactionType[] | null>(null);
+
+  async function loadTransactions(page: number) {
+    const transactionStatus = await getTransactionsHistory(page);
+    if (!transactionStatus.status) {
+      return;
+    }
+    console.log(transactionStatus.data);
+    setTransactions(transactionStatus.data.data.data);
+  }
+  useEffect(() => {
+    loadTransactions(page);
+  }, []);
+
   return (
     <div>
-      <p className='pl-2 text-sm font-normMid'>Transactions</p>
-      <div></div>
+      <p className='mt-2 pl-2 font-normMid'>Transactions</p>
+      <div>
+        <AllTransactions transactions={transactions} />
+      </div>
+    </div>
+  );
+}
+
+function AllTransactions({ transactions }: { transactions: TransactionType[] | null }) {
+  if (transactions === null) {
+    return <TransactionsShimmer />;
+  }
+  return (
+    <div className='mt-3 flex min-h-[50dvh] flex-col gap-3'>
+      {transactions?.map((transaction, index) => (
+        <TapMotion
+          size='lg'
+          className='flex items-center justify-center gap-3 rounded-3xl bg-inputBg p-4 dark:bg-white/10'
+          key={index}
+        >
+          <img src={transaction.type === 'credit' ? icons.transition.receive : icons.transition.send} className='w-8' />
+          <div className='flex flex-grow flex-col gap-0.5'>
+            <p className='text-sm font-420'>{transaction.description}</p>
+            <p className='text-xs opacity-70'>{niceDate(transaction.created_at)}</p>
+          </div>
+          <div className='text-right'>
+            <p className={'text-sm font-normMid'}>
+              {transaction.type === 'credit' ? '+' : '-'} ₹{transaction.amount}
+            </p>
+            <p className='text-[0.7rem] font-normMid'>
+              {transaction.status === 'pending' ? (
+                <span className='text-yellow-500'>Pending</span>
+              ) : transaction.status === 'failed' ? (
+                <span className='text-red-500'>Failed</span>
+              ) : (
+                <span className='text-green-500'>Success</span>
+              )}
+            </p>
+          </div>
+        </TapMotion>
+      ))}
+    </div>
+  );
+}
+
+function niceDate(date: string) {
+  const d = new Date(date);
+  // Like 07 Oct 2021, 10:30 AM
+  return `${d.getDate()} ${d.toLocaleString('default', { month: 'short' })} ${d.getFullYear()}, ${d.toLocaleTimeString(
+    'en-US',
+    {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    },
+  )}`;
+}
+
+function TransactionsShimmer() {
+  return (
+    <div className='mt-3 flex flex-col gap-3'>
+      {[1, 2, 3, 4, 5].map((_, index) => (
+        <div
+          className='flex animate-pulse items-center justify-center gap-3 rounded-3xl bg-inputBg p-4 py-9 dark:bg-white/10'
+          key={index}
+        ></div>
+      ))}
     </div>
   );
 }
