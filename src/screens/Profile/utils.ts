@@ -8,6 +8,7 @@ export type UserProfile = {
     mobile_number: string;
     email: string;
     profile_pic: string;
+    available_balance: string;
   };
 } | null;
 
