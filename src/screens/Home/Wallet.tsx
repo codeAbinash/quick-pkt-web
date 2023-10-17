@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 export default function Wallet() {
   const profile: UserProfile = useSelector((state: any) => state.profile);
   return (
-    <div className='mx-auto flex min-h-[80dvh] max-w-xl flex-col justify-between px-5'>
+    <div className='mx-auto flex min-h-[80dvh] max-w-xl flex-col justify-between px-5 pb-16'>
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-2 rounded-3xl bg-accent p-5 pt-4 text-white'>
           <div className='flex items-center justify-between'>

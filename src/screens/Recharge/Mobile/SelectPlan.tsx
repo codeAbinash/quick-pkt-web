@@ -158,6 +158,12 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (e.nativeEvent.key === 'Enter') {
+                    // @ts-ignore
+                    e.nativeEvent.target.blur();
+                  }
+                }}
               />
             </div>
             <TapMotion
@@ -215,7 +221,7 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className='flex flex-col gap-3'
+            className='flex min-h-[30dvh] flex-col gap-3'
           >
             {plansToShow[selectedTab].length === 0 ? (
               <NoResult search={search} />
