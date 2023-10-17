@@ -25,16 +25,6 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
     getProvider();
   }, []);
 
-  if (providers == null)
-    return (
-      <div className='my-1.5 flex gap-2'>
-        <div className='tap97 shimmer rounded-full px-10 py-4.5'></div>
-        <div className='tap97 shimmer rounded-full px-8 py-4.5'></div>
-        <div className='tap97 shimmer rounded-full px-7 py-4.5'></div>
-        <div className='tap97 shimmer rounded-full px-9 py-4.5'></div>
-      </div>
-    );
-
   function selectProvider() {
     setIsOpen(true);
   }
@@ -50,26 +40,34 @@ export function ProviderType({ type, setType }: { type: string; setType: (type: 
       />
       <div className='flex items-center justify-between px-6 py-4 pb-1'>
         <p className='pl-1 text-[0.8rem] font-normMid opacity-80'>Network Operator</p>
-        <div
-          className='flex items-center justify-center gap-4'
-          onClick={transitions(() => {
-            selectProvider();
-          })}
-        >
-          <img src={providerDetails[type]?.icon} className='h-8' />
 
-          <TapMotion
-            size='lg'
-            className={`${
-              !isOpen && ' select-provider-button'
-            } flex items-center justify-between gap-2 rounded-btn bg-inputBg py-3.5 pl-6 pr-3.5 text-sm dark:bg-white/10`}
+        {providers == null ? (
+          <div className='flex items-center justify-center gap-4'>
+            <div className='shimmer aspect-square h-11 rounded-full '></div>
+            <div className='shimmer h-11 w-24 rounded-xl'></div>
+          </div>
+        ) : (
+          <div
+            className='flex items-center justify-center gap-4'
+            onClick={transitions(() => {
+              selectProvider();
+            })}
           >
-            {providerDetails[type]?.name}
-            <div>
-              <img src={icons.select} className='w-5 opacity-70 dark:invert' />
-            </div>
-          </TapMotion>
-        </div>
+            <img src={providerDetails[type]?.icon} className='h-8' />
+
+            <TapMotion
+              size='lg'
+              className={`${
+                !isOpen && ' select-provider-button'
+              } flex items-center justify-between gap-2 rounded-btn bg-inputBg py-3.5 pl-6 pr-3.5 text-xs dark:bg-white/10`}
+            >
+              {providerDetails[type]?.name}
+              <div>
+                <img src={icons.select} className='w-5 opacity-70 dark:invert' />
+              </div>
+            </TapMotion>
+          </div>
+        )}
       </div>
       {/* <div className='no-scrollbar mb-2 mt-1 flex gap-3 overflow-auto px-5 pt-4'>
       {providers.map((operator, index) => (
@@ -119,7 +117,7 @@ function ProviderSelect({
           {providers.map((provider, index) => (
             <div
               key={index}
-              className={`tap97 w-full max-w-[300px] rounded-btn bg-[#0000000d] py-4 text-sm font-normMid dark:bg-white/10`}
+              className={`tap97 w-full max-w-[300px] rounded-btn bg-[#0000000d] py-4 text-xs font-normMid dark:bg-white/10`}
               onClick={(e) => {
                 e.stopPropagation();
                 transitions(() => {

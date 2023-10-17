@@ -85,11 +85,9 @@ export function getError(errors: errors) {
 
 async function returnResponse(res: any): Promise<apiResponse> {
   const data = await res.json();
-  if (data.status === true) {
-    return { status: true, message: data.message, data: data };
-  } else {
-    return { status: false, message: getError(data.errors) || data.message || 'Network Error' };
-  }
+  if (data.status === true) return { status: true, message: data.message, data: data };
+  else if (!data.errors) return { status: false, message: data.message || 'Network Error' };
+  return { status: false, message: getError(data.errors) || data.message || 'Network Error' };
 }
 
 function catchError(err: any): apiResponse {

@@ -67,7 +67,7 @@ export default function SelectRechargePlan() {
               <img src={providerDetails[provider].icon} className='aspect-square h-11 object-contain' />
               <div className='flex flex-col gap-1'>
                 <span className='text-sm'>{nickname}</span>
-                <span className='text-[0.7rem] capitalize opacity-70'>
+                <span className='text-[0.65rem] capitalize opacity-70'>
                   {phone} — {providerDetails[provider].name} {type}
                 </span>
               </div>

@@ -40,7 +40,7 @@ function ProfilePicture({
       <TapMotion
         size='sm'
         onClick={onImageClick}
-        className='tap95 anim-edit-icon absolute left-[60%] top-[75%] aspect-square h-12 rounded-full bg-white p-3 shadow-lg'
+        className='tap95 anim-edit-icon absolute left-[60%] top-[75%] aspect-square h-11 rounded-full bg-white p-3 shadow-lg'
       >
         <img src={icons.edit} className='editIcon' />
       </TapMotion>
