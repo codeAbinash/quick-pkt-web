@@ -2,16 +2,32 @@
  * This component should not rerender on profile update
  */
 
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import app from '../../../app';
 import icons from '../../assets/icons/icons';
 import { Watermark } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
-import transitions from '../../lib/transition';
-import { blank_fn } from '../../lib/util';
-import { UserProfile } from './utils';
 import TapMotion from '../../components/TapMotion';
-import app from '../../../app';
+import { usePopupAlertContext } from '../../context/PopupAlertContext';
+import { logOutUser } from '../../lib/api';
+import transitions from '../../lib/transition';
+import ls, { blank_fn } from '../../lib/util';
+import { UserProfile } from './utils';
+
+async function logout() {
+  const logoutStatus = await logOutUser();
+  console.log(logoutStatus);
+  logoutStatus.status && forcedLogout();
+  return false;
+}
+
+function forcedLogout() {
+  ls.clear();
+  // Clear all the history
+  history.go(-(history.length - 1));
+}
 
 type Option = {
   name: string;
@@ -26,103 +42,6 @@ type OptionGroup = {
   groupName: string;
   options: Option[];
 };
-const OPTIONS: OptionGroup[] = [
-  {
-    groupName: 'Account',
-    options: [
-      {
-        name: 'Edit Profile',
-        icon: icons.edit,
-        link: '/profile/edit',
-        classNameIcon: 'anim-edit-icon',
-        small: (profile: UserProfile) => {
-          return profile?.data.first_name;
-        },
-      },
-      {
-        name: 'Log Out',
-        icon: icons.log_out,
-        className: 'text-red-600',
-        classNameIcon: '',
-        small: 'Log out',
-        // link: '/log_out',
-      },
-    ],
-  },
-  {
-    groupName: 'System',
-    options: [
-      {
-        name: 'Dark Mode',
-        icon: icons.dark_mode,
-        link: '/dark_mode',
-        small: (_: UserProfile, settings: any) => {
-          return settings?.theme || 'Auto';
-        },
-      },
-      {
-        name: 'Language',
-        icon: icons.language,
-        small: 'English',
-      },
-    ],
-  },
-  {
-    groupName: 'Support',
-    options: [
-      {
-        name: 'Help',
-        icon: icons.help,
-        link: '/help',
-      },
-      {
-        name: 'Report a Problem',
-        icon: icons.report,
-        link: '/report_a_problem',
-      },
-      {
-        name: 'Rate Us',
-        icon: icons.rate,
-        // link : 'https'
-      },
-      {
-        name: 'FAQs',
-        icon: icons.help,
-        link: '/faqs',
-      },
-    ],
-  },
-  {
-    groupName: 'Legal',
-    options: [
-      {
-        name: 'Terms and Conditions',
-        icon: icons.terms,
-        link: '/terms_and_conditions',
-      },
-      {
-        name: 'Privacy Policy',
-        icon: icons.privacy_policy,
-        link: '/privacy_policy',
-      },
-    ],
-  },
-  {
-    groupName: 'About',
-    options: [
-      {
-        name: 'About Us',
-        icon: icons.about_us,
-        link: '/about_us',
-      },
-      {
-        name: 'Contact Us',
-        icon: icons.contact_us,
-        link: '/contact_us',
-      },
-    ],
-  },
-];
 
 export default function Profile() {
   const profile = useSelector((state: any) => state.profile);
@@ -131,6 +50,149 @@ export default function Profile() {
   const mobile = '+91 ' + (profile?.data.mobile_number || '');
   const profilePicture = profile?.data.profile_pic || icons.user;
   const settings = useSelector((state: any) => state.settings);
+  const { newPopup } = usePopupAlertContext();
+  const OPTIONS: OptionGroup[] = useMemo(
+    () => [
+      {
+        groupName: 'Account',
+        options: [
+          {
+            name: 'Edit Profile',
+            icon: icons.edit,
+            link: '/profile/edit',
+            classNameIcon: 'anim-edit-icon',
+            small: (profile: UserProfile) => {
+              return profile?.data.first_name;
+            },
+          },
+          {
+            name: 'Log Out',
+            icon: icons.log_out,
+            className: 'text-red-600',
+            classNameIcon: '',
+            small: 'Log out',
+            onClick: () => {
+              newPopup({
+                title: 'Log Out',
+                subTitle: 'Are you sure you want to log out?',
+                action: [
+                  {
+                    text: 'Cancel',
+                    className: 'text-neutral-500',
+                    onclick: blank_fn,
+                  },
+                  {
+                    text: 'Log Out',
+                    className: 'text-red-600',
+                    onclick: async () => {
+                      newPopup({
+                        title: 'Logging Out',
+                        subTitle: 'Please wait while we log you out',
+                        action: [],
+                      });
+                      const status = await logout();
+                      if (status === false) {
+                        newPopup({
+                          title: 'Logout Failed!',
+                          subTitle: 'Do you want to force logout?',
+                          action: [
+                            {
+                              text: 'Cancel',
+                              className: 'text-neutral-500',
+                              onclick: blank_fn,
+                            },
+                            {
+                              text: 'Force Logout',
+                              className: 'text-red-600',
+                              onclick: forcedLogout,
+                            },
+                          ],
+                        });
+                      }
+                    },
+                  },
+                ],
+              });
+            },
+          },
+        ],
+      },
+      {
+        groupName: 'System',
+        options: [
+          {
+            name: 'Dark Mode',
+            icon: icons.dark_mode,
+            link: '/dark_mode',
+            small: (_: UserProfile, settings: any) => {
+              return settings?.theme || 'Auto';
+            },
+          },
+          {
+            name: 'Language',
+            icon: icons.language,
+            small: 'English',
+          },
+        ],
+      },
+      {
+        groupName: 'Support',
+        options: [
+          {
+            name: 'Help',
+            icon: icons.help,
+            link: '/help',
+          },
+          {
+            name: 'Report a Problem',
+            icon: icons.report,
+            link: '/report_a_problem',
+          },
+          {
+            name: 'Rate Us',
+            icon: icons.rate,
+            // link : 'https'
+          },
+          {
+            name: 'FAQs',
+            icon: icons.help,
+            link: '/faqs',
+          },
+        ],
+      },
+      {
+        groupName: 'Legal',
+        options: [
+          {
+            name: 'Terms and Conditions',
+            icon: icons.terms,
+            link: '/terms_and_conditions',
+          },
+          {
+            name: 'Privacy Policy',
+            icon: icons.privacy_policy,
+            link: '/privacy_policy',
+          },
+        ],
+      },
+      {
+        groupName: 'About',
+        options: [
+          {
+            name: 'About Us',
+            icon: icons.about_us,
+            link: '/about_us',
+          },
+          {
+            name: 'Contact Us',
+            icon: icons.contact_us,
+            link: '/contact_us',
+          },
+        ],
+      },
+    ],
+    [],
+  );
 
   const navigate = useNavigate();
   return (

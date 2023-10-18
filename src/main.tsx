@@ -10,6 +10,7 @@ import { PopupAlertContextProvider } from './context/PopupAlertContext';
 import './css/index.scss';
 import { loadThemeLs } from './lib/theme';
 import Home, { HomeScreen } from './screens/Home/Home';
+import PopupAlert from './components/PopupAlert';
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
   loadThemeLs();
@@ -230,31 +231,11 @@ export function Loading() {
 //   );
 // }
 
-const defaultPopup = {
-  show: false,
-  title: '',
-  message: '',
-  buttons: [
-    {
-      text: 'Ok',
-      onClick: () => {
-        console.log('ok');
-      },
-    },
-    {
-      text: 'Cancel',
-      onClick: () => {
-        console.log('cancel');
-      },
-    },
-  ],
-};
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PopupAlertContextProvider>
-        {/* <PopupAlert /> */}
+        <PopupAlert />
         <RouterProvider router={router} />
       </PopupAlertContextProvider>
     </Provider>
