@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import icons from '../../assets/icons/icons';
-import { Watermark } from '../../components/Extras';
 import TapMotion from '../../components/TapMotion';
 import { getTransactionsHistory } from '../../lib/api';
 import { UserProfile } from '../Profile/utils';
-import { useSelector } from 'react-redux';
 
 export default function Wallet() {
   const profile: UserProfile = useSelector((state: any) => state.profile);
@@ -109,27 +108,36 @@ function Transactions() {
       <div>
         <AllTransactions transactions={transactions} />
         <div className='mt-3 flex w-full items-center justify-center'>
-          {
-            !isMorePageAvailable ? (
-              <span className='mt-5 text-xs font-normMid opacity-50'>No More Transactions</span>
-            ) : isLoading ? (
+          {isMorePageAvailable ? (
+            isLoading ? (
               <div className='tap95 highlight-none mt-5 animate-pulse rounded-full px-7 text-xs font-normMid'>
                 <img src={icons.linear_loading_dots} className='h-10 opacity-50 dark:invert' />
               </div>
             ) : null
-            //   <button
-            //     className='tap95 highlight-none my-0.5 mt-5 rounded-full bg-inputBg p-2.5 px-7 text-xs font-normMid dark:bg-white/10'
-            //     onClick={() => {
-            //       setPage(page + 1);
-            //       loadTransactions(page + 1);
-            //     }}
-            //   >
-            //     Show More
-            //   </button>
-          }
+          ) : transactions?.length ? (
+            <span className='mt-5 text-xs font-normMid opacity-50'>No More Transactions</span>
+          ) : null}
         </div>
         {isMorePageAvailable && <div ref={observerTarget}></div>}
       </div>
+    </div>
+  );
+}
+//   <button
+//     className='tap95 highlight-none my-0.5 mt-5 rounded-full bg-inputBg p-2.5 px-7 text-xs font-normMid dark:bg-white/10'
+//     onClick={() => {
+//       setPage(page + 1);
+//       loadTransactions(page + 1);
+//     }}
+//   >
+//     Show More
+//   </button>
+
+function NoTransactions() {
+  return (
+    <div className='w-full'>
+      <img src={icons.no_data} className='w-full dark:grayscale dark:invert' />
+      <p className='text-center text-xs font-normMid opacity-50'>No Transactions</p>
     </div>
   );
 }
@@ -138,6 +146,11 @@ function AllTransactions({ transactions }: { transactions: TransactionType[] | n
   if (transactions === null) {
     return <TransactionsShimmer />;
   }
+
+  if (transactions.length === 0) {
+    return <NoTransactions />;
+  }
+
   return (
     <div className='mt-3 flex min-h-[40dvh] flex-col gap-3'>
       {transactions?.map((transaction, index) => (

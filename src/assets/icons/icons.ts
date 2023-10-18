@@ -72,8 +72,10 @@ import no_result_found from './src/no_result_found.jpg';
 import transition_send from './transition/send.svg';
 import transition_receive from './transition/receive.svg';
 import linear_loading_dots from './src/linear_loading_dots.svg';
+import no_data from './src/no_data.jpg';
 
 const icons = {
+  no_data,
   linear_loading_dots,
   transition: {
     send: transition_send,
