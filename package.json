@@ -21,8 +21,7 @@
     "react-dom": "^18.2.0",
     "react-lazy-with-preload": "^2.2.1",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
-    "swiper": "^10.3.0"
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
