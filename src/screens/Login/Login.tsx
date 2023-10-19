@@ -6,8 +6,9 @@ import Button from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
 import { sendOTP } from '../../lib/api';
 import transitions from '../../lib/transition';
-import { delayFn, phoneNumberValidation } from '../../lib/util';
+import { blank_fn, delayFn, phoneNumberValidation } from '../../lib/util';
 import app from '../../../app';
+import { usePopupAlertContext } from '../../context/PopupAlertContext';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [phone, setPhone] = useState(state?.phone || '');
   const [sending, setSending] = useState(false);
+  const { popups, newPopup } = usePopupAlertContext();
 
   function handleInput(event: React.KeyboardEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
@@ -32,13 +34,32 @@ const Login = () => {
       const validation = phoneNumberValidation(phone);
       delayFn(async () => {
         if (validation.status) {
-          setSending(true);
-          const otpStatus = await sendOTP(phone);
-          if (otpStatus.status) {
-            transitions(() => {
-              navigate('/otp', { replace: true, state: { phone: phone } });
-            })();
-          } else setError(otpStatus.message);
+          // Set popup and ask for confirmation
+          newPopup({
+            title: 'Confirm Phone Number',
+            subTitle: (
+              <p className='opacity-80'>
+                You entered <span className='text-blue-500'>{phone}</span>, Is this number ok, or would you like to edit
+                it?
+              </p>
+            ),
+            action: [
+              { text: 'Edit' },
+              {
+                text: 'OK',
+                className: 'text-accent',
+                onClick: async () => {
+                  setSending(true);
+                  const otpStatus = await sendOTP(phone);
+                  if (otpStatus.status) {
+                    transitions(() => {
+                      navigate('/otp', { replace: true, state: { phone: phone } });
+                    })();
+                  } else setError(otpStatus.message);
+                },
+              },
+            ],
+          });
         } else setError(validation.message);
         setSending(false);
       })();

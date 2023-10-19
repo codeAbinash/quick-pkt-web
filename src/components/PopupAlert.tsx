@@ -38,13 +38,13 @@ export default function PopupAlert() {
       {/* {popups.map((popup, index) => ( */}
       <div
         // key={index}
-        className='w-[85%] rounded-3xl bg-white/70 shadow-[0px_0px_100vh_100dvh_#00000010] backdrop-blur-xl dark:bg-black/70'
+        className='w-[85%] rounded-3xl border border-black/10 bg-white/40 shadow-[0px_0px_100vh_100dvh_#00000020] backdrop-blur-lg dark:border-white/10  dark:bg-black/40'
       >
-        <div className='p-6 pb-3'>
+        <div className='p-6 pb-0'>
           <p className='text-md font-normMid'>{popup.title}</p>
-          <p className='mt-2 text-sm'>{popup.subTitle}</p>
+          <p className='mt-2 text-[0.8rem]'>{popup.subTitle}</p>
         </div>
-        <div className='flex items-center justify-between gap-2 p-3.5 pb-5 pt-3.5 text-[0.8rem]'>
+        <div className='flex items-center justify-between gap-2 p-4 text-[0.8rem]'>
           {popup.action.map((action, index) => (
             <button
               key={index}
@@ -54,7 +54,7 @@ export default function PopupAlert() {
               }
               onClick={() => {
                 removePopup();
-                action.onclick();
+                action.onClick && action.onClick();
               }}
             >
               {action.text}

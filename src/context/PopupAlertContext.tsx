@@ -3,20 +3,20 @@ import React, { createContext, useContext, useState } from 'react';
 
 // Define your context type
 type PopupAlertType = {
-  title: string;
-  subTitle: string;
+  title: string | JSX.Element;
+  subTitle: string | JSX.Element;
   action: ActionType[];
 };
 
 type ActionType = {
-  text: string;
-  className: string;
-  onclick: Function;
+  text: string | JSX.Element;
+  className?: string;
+  onClick?: Function;
 };
 
 type Popups = {
   popups: PopupAlertType[];
-  newPopup: Function;
+  newPopup: (popup: PopupAlertType) => void;
   setPopups: React.Dispatch<React.SetStateAction<PopupAlertType[]>>;
 };
 

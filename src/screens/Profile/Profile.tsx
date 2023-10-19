@@ -70,12 +70,12 @@ export default function Profile() {
                   {
                     text: 'Cancel',
                     className: 'text-neutral-500',
-                    onclick: blank_fn,
+                    onClick: blank_fn,
                   },
                   {
                     text: 'Log Out',
                     className: 'text-red-600',
-                    onclick: forcedLogout,
+                    onClick: forcedLogout,
                   },
                 ],
               });
@@ -199,8 +199,8 @@ export default function Profile() {
                     option.link
                       ? transitions(() => navigate(option.link!))
                       : option.onClick
-                      ? transitions(() => option.onClick!())
-                      : blank_fn
+                      ? option.onClick
+                      : (blank_fn as any)
                   }
                 >
                   <div className='flex w-full items-center justify-between gap-6'>
