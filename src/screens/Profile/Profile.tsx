@@ -11,21 +11,12 @@ import { Watermark } from '../../components/Extras';
 import { Header } from '../../components/Header/Header';
 import TapMotion from '../../components/TapMotion';
 import { usePopupAlertContext } from '../../context/PopupAlertContext';
-import { logOutUser } from '../../lib/api';
 import transitions from '../../lib/transition';
 import ls, { blank_fn } from '../../lib/util';
 import { UserProfile } from './utils';
 
-async function logout() {
-  const logoutStatus = await logOutUser();
-  console.log(logoutStatus);
-  logoutStatus.status && forcedLogout();
-  return false;
-}
-
 function forcedLogout() {
   ls.clear();
-  // Clear all the history
   history.go(-(history.length - 1));
 }
 
@@ -84,32 +75,7 @@ export default function Profile() {
                   {
                     text: 'Log Out',
                     className: 'text-red-600',
-                    onclick: async () => {
-                      newPopup({
-                        title: 'Logging Out',
-                        subTitle: 'Please wait while we log you out',
-                        action: [],
-                      });
-                      const status = await logout();
-                      if (status === false) {
-                        newPopup({
-                          title: 'Logout Failed!',
-                          subTitle: 'Do you want to force logout?',
-                          action: [
-                            {
-                              text: 'Cancel',
-                              className: 'text-neutral-500',
-                              onclick: blank_fn,
-                            },
-                            {
-                              text: 'Force Logout',
-                              className: 'text-red-600',
-                              onclick: forcedLogout,
-                            },
-                          ],
-                        });
-                      }
-                    },
+                    onclick: forcedLogout,
                   },
                 ],
               });

@@ -191,18 +191,18 @@ export async function getCurrentUser(): Promise<apiResponse> {
   }
 }
 
-export async function logOutUser(): Promise<apiResponse> {
-  const headers = authorizedHeader(defaultHeaders);
-  try {
-    const res = await fetch(API.logout, {
-      method: 'POST',
-      headers: headers,
-    });
-    return await returnResponse(res);
-  } catch (err) {
-    return catchError(err);
-  }
-}
+// export async function logOutUser(): Promise<apiResponse> {
+//   const headers = authorizedHeader(defaultHeaders);
+//   try {
+//     const res = await fetch(API.logout, {
+//       method: 'POST',
+//       headers: headers,
+//     });
+//     return await returnResponse(res);
+//   } catch (err) {
+//     return catchError(err);
+//   }
+// }
 
 // async function updateUser(data: any): Promise<apiResponse> {
 //   const headers = authorizedHeader(defaultHeaders);

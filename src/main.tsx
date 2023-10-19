@@ -29,7 +29,6 @@ const FAQ = lazy(() => import('./screens/Support/FAQ'));
 const Report = lazy(() => import('./screens/Support/Report'));
 const Help = lazy(() => import('./screens/Support/Help'));
 const DarkMode = lazy(() => import('./screens/Theme/DarkMode'));
-const LogOut = lazy(() => import('./screens/Login/LogOut'));
 const SelectMobile = lazy(() => import('./screens/Recharge/Mobile/SelectMobile'));
 const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
 const SelectPlan = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
@@ -172,14 +171,6 @@ const router = createBrowserRouter(
       element: (
         <Suspense fallback={<Loading />}>
           <DarkMode />
-        </Suspense>
-      ),
-    },
-    {
-      path: 'log_out',
-      element: (
-        <Suspense fallback={<Loading />}>
-          <LogOut />
         </Suspense>
       ),
     },
