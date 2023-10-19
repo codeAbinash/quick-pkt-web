@@ -14,6 +14,7 @@ import { usePopupAlertContext } from '../../context/PopupAlertContext';
 import transitions from '../../lib/transition';
 import ls, { blank_fn } from '../../lib/util';
 import { UserProfile } from './utils';
+import TextEmoji from '../../components/TextEmoji';
 
 function forcedLogout() {
   ls.clear();
@@ -64,8 +65,12 @@ export default function Profile() {
             small: 'Log out',
             onClick: () => {
               newPopup({
-                title: 'Log Out',
-                subTitle: 'Are you sure you want to log out?',
+                title: (
+                  <span>
+                    Log Out? <TextEmoji emoji='😢' />
+                  </span>
+                ),
+                subTitle: 'Are you sure you want to log out? This will clear all your data from this device.',
                 action: [
                   {
                     text: 'Cancel',

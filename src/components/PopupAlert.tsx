@@ -34,12 +34,8 @@ export default function PopupAlert() {
 
   if (!popups.length) return null;
   return (
-    <div className='50 fixed z-[100] flex h-screen w-full select-none items-center justify-center'>
-      {/* {popups.map((popup, index) => ( */}
-      <div
-        // key={index}
-        className='w-[85%] rounded-3xl border border-black/10 bg-white/40 shadow-[0px_0px_100vh_100dvh_#00000020] backdrop-blur-lg dark:border-white/10  dark:bg-black/40'
-      >
+    <div className='fixed z-[100] flex h-screen w-full select-none items-center justify-center'>
+      <div className='w-[85%] max-w-sm rounded-3xl border border-black/10 bg-white/50 shadow-[0px_0px_100vh_100dvh_#00000015,0_0_10px_10px_#00000005] backdrop-blur-lg dark:border-white/10  dark:bg-black/50'>
         <div className='p-6 pb-0'>
           <p className='text-md font-normMid'>{popup.title}</p>
           <p className='mt-2 text-[0.8rem]'>{popup.subTitle}</p>
@@ -50,7 +46,7 @@ export default function PopupAlert() {
               key={index}
               className={
                 action.className +
-                ' highlight-none tap95 w-full flex-grow rounded-lg py-3 font-normMid active:bg-inputBg active:dark:bg-white/10'
+                ' highlight-none tap95 w-full flex-grow rounded-lg py-3 font-normMid active:bg-black/5 active:dark:bg-white/5'
               }
               onClick={() => {
                 removePopup();
@@ -62,7 +58,6 @@ export default function PopupAlert() {
           ))}
         </div>
       </div>
-      {/* ))} */}
     </div>
   );
 }

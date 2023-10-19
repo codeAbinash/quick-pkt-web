@@ -206,7 +206,7 @@ function TransactionsShimmer() {
     <div className='mt-3 flex flex-col gap-3'>
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (
         <div
-          className='flex animate-pulse items-center justify-center gap-3 rounded-3xl bg-inputBg p-4 py-9 dark:bg-white/10'
+          className='shimmer flex animate-pulse items-center justify-center gap-3 rounded-3xl p-4 py-9 opacity-70'
           key={index}
         ></div>
       ))}

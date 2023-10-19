@@ -17,6 +17,8 @@ import Options from './components/Options';
 import RechargeOptions from './components/RechargeOptions';
 import SpecialOffers from './components/SpecialOffers';
 import SpotLight from './components/SpotLight';
+import { PopupAlertType, usePopupAlertContext } from '../../context/PopupAlertContext';
+import TextEmoji from '../../components/TextEmoji';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -62,6 +64,29 @@ const navItems = [
   },
 ];
 
+function FillProfile(newPopup: (popup: PopupAlertType) => void, navigate: Function) {
+  newPopup({
+    title: (
+      <span>
+        Profile Incomplete <TextEmoji emoji='😳' />
+      </span>
+    ),
+    subTitle: (
+      <span>
+        Please fill the profile to continue <TextEmoji emoji='🤗' />. This will help us to serve you better{' '}
+        <TextEmoji emoji='🥰' />.
+      </span>
+    ),
+    action: [
+      { text: 'Not Now', className: 'text-neutral-500' },
+      {
+        text: 'Edit Profile',
+        className: 'text-accent',
+        onClick: transitions(() => navigate('/profile/edit')),
+      },
+    ],
+  });
+}
 export default function Home() {
   // Check If it is logged in
   const isLoggedIn = useMemo(() => getLoginStatus(), []);
@@ -71,6 +96,7 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const profile: UserProfile = useSelector((state: any) => state.profile);
+  const { newPopup } = usePopupAlertContext();
 
   const getUserData = useCallback(async function getUserData() {
     const userData = await getCurrentUser();
@@ -78,6 +104,9 @@ export default function Home() {
       const profile = userData?.data as UserProfile;
       store.dispatch(setProfile(profile));
       setProfileInfoLs(profile);
+      if (profile?.filled_required) {
+        FillProfile(newPopup, navigate);
+      }
     }
   }, []);
 

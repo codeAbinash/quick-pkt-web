@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 // Define your context type
-type PopupAlertType = {
+export type PopupAlertType = {
   title: string | JSX.Element;
   subTitle: string | JSX.Element;
   action: ActionType[];

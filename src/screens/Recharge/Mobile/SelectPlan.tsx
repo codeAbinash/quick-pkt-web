@@ -146,7 +146,7 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
           isIntersecting ? '' : 'shadow-sm shadow-[#00000015] dark:shadow-[#ffffff15]'
         }`}
       >
-        <div className='select-none'>
+        <div>
           <div className='flex w-full flex-row gap-3 rounded-2xl px-5'>
             <div className='flex flex-grow items-center justify-center rounded-btn bg-inputBg pl-4 dark:bg-white/10'>
               <img src={icons.search} className='flex w-5 pb-0.5 opacity-40 dark:invert' />
@@ -238,8 +238,8 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
 function NoResult({ search }: { search: string }) {
   return (
     <div className='flex min-h-[45dvh] flex-col items-center justify-center'>
-      <img src={icons.no_result_found} className='w-3/4 dark:invert' />
-      <span className='text-[0.8rem] font-normMid opacity-50'>No results for "{search}"</span>
+      <img src={icons.no_result_found} className='w-3/4 opacity-70 dark:invert' />
+      <span className='text-[0.8rem] font-420 opacity-50'>No results for "{search}"</span>
     </div>
   );
 }

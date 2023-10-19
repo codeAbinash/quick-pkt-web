@@ -10,6 +10,7 @@ export type UserProfile = {
     profile_pic: string;
     available_balance: string;
   };
+  filled_required: boolean;
 } | null;
 
 export function getProfileInfoLs(): UserProfile {
