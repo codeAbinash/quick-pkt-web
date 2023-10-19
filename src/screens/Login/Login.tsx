@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import ReadPrivacyPolicyTerms from '../../components/Extras';
 import { sendOTP } from '../../lib/api';
 import transitions from '../../lib/transition';
-import { blank_fn, delayFn, phoneNumberValidation } from '../../lib/util';
+import { blank_fn, delayFn, phoneNumberParser, phoneNumberValidation } from '../../lib/util';
 import app from '../../../app';
 import { usePopupAlertContext } from '../../context/PopupAlertContext';
 
@@ -21,7 +21,8 @@ const Login = () => {
   function handleInput(event: React.KeyboardEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
     const value = target.value;
-    setPhone(value);
+    if (value.length == 11) return;
+    setPhone(phoneNumberParser(value));
   }
 
   const handleClick = (_: React.MouseEvent<HTMLInputElement>) => {
@@ -101,7 +102,7 @@ const Login = () => {
               type='tel'
               className='w-full border-none bg-transparent p-4 pl-1 caret-accent outline-none'
               placeholder='xxxx xxx xxx'
-              maxLength={10}
+              // maxLength={10}
               value={phone}
               onInput={handleInput}
               autoComplete='tel'
