@@ -202,7 +202,11 @@ function niceDate(date: string) {
 }
 
 function TransactionsShimmer() {
-  return <div className='flex min-h-[15dvh] items-center justify-center'></div>;
+  return (
+    <div className='flex min-h-[20dvh] items-end justify-center'>
+      <p className='text-xs opacity-70'>Loading Transactions</p>
+    </div>
+  );
   // return (
   //   <div className='mt-3 flex flex-col gap-3'>
   //     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (
