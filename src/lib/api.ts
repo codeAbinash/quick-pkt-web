@@ -38,6 +38,10 @@ const API = {
       },
     },
   },
+  notifications: {
+    get_all: `${API_URL}/alert/get_notification`,
+    mark_read: `${API_URL}/alert/mark_read`,
+  },
 };
 
 type defaultHeaders = {
@@ -96,6 +100,30 @@ function catchError(err: any): apiResponse {
 }
 
 // Write your API functions below this line:
+export async function markNotificationRead(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.notifications.mark_read, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
+export async function getNotifications(): Promise<apiResponse> {
+  try {
+    const res = await fetch(API.notifications.get_all, {
+      method: 'POST',
+      headers: authorizedHeader(defaultHeaders),
+    });
+    return await returnResponse(res);
+  } catch (err) {
+    return catchError(err);
+  }
+}
+
 export async function getTransactionsHistory(page: number): Promise<apiResponse> {
   try {
     const res = await fetch(API.wallet.transactions.history.all + '?page=' + page, {

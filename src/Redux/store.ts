@@ -7,6 +7,7 @@ import profileSlice from './profile';
 import settingsSlice from './settings';
 import spotlightsSlice from './spotlights';
 import mobileRechargeSlice from './mobileRecharge';
+import notificationsSlice from './notifications';
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     profile: profileSlice,
     settings: settingsSlice,
     mobileRecharge: mobileRechargeSlice,
+    notifications: notificationsSlice,
   },
 });
 export default store;

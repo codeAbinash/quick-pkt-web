@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { setNotification } from '../../Redux/notifications';
 import { setProfile } from '../../Redux/profile';
 import store from '../../Redux/store';
 import icons from '../../assets/icons/icons';
 import { Watermark } from '../../components/Extras';
 import TapMotion from '../../components/TapMotion';
-import { getCurrentUser } from '../../lib/api';
+import TextEmoji from '../../components/TextEmoji';
+import { PopupAlertType, usePopupAlertContext } from '../../context/PopupAlertContext';
+import { getCurrentUser, getNotifications } from '../../lib/api';
 import headerIntersect from '../../lib/headerIntersect';
 import transitions from '../../lib/transition';
 import ls from '../../lib/util';
@@ -17,8 +20,6 @@ import Options from './components/Options';
 import RechargeOptions from './components/RechargeOptions';
 import SpecialOffers from './components/SpecialOffers';
 import SpotLight from './components/SpotLight';
-import { PopupAlertType, usePopupAlertContext } from '../../context/PopupAlertContext';
-import TextEmoji from '../../components/TextEmoji';
 
 function getLoginStatus() {
   return ls.get('isLoggedIn');
@@ -87,6 +88,7 @@ function FillProfile(newPopup: (popup: PopupAlertType) => void, navigate: Functi
     ],
   });
 }
+
 export default function Home() {
   // Check If it is logged in
   const isLoggedIn = useMemo(() => getLoginStatus(), []);
@@ -96,6 +98,7 @@ export default function Home() {
   const intersect = useRef<HTMLParagraphElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const profile: UserProfile = useSelector((state: any) => state.profile);
+  const [isNewNotification, setIsNewNotification] = useState(false);
   const { newPopup } = usePopupAlertContext();
 
   const getUserData = useCallback(async function getUserData() {
@@ -110,6 +113,14 @@ export default function Home() {
     }
   }, []);
 
+  const loadNotifications = useCallback(async function loadNotifications() {
+    const notifications = await getNotifications();
+    console.log(notifications);
+    if (!notifications.status) return;
+    store.dispatch(setNotification((notifications?.data?.data?.notifications as Notification[]) || []));
+    setIsNewNotification(notifications?.data?.data?.notifications?.length);
+  }, []);
+
   useEffect(() => {
     if (!isLoggedIn) navigate('/login', { replace: true });
   }, []);
@@ -120,6 +131,10 @@ export default function Home() {
 
   useEffect(() => {
     getUserData();
+  }, []);
+
+  useEffect(() => {
+    loadNotifications();
   }, []);
 
   return (
@@ -136,7 +151,21 @@ export default function Home() {
           <p className='text-xl font-semibold uppercase text-accent'>Quick PKT</p>
         </div>
         <div className='flex items-center justify-center gap-6'>
-          <img src={icons.notification} className='tap95 w-[1.2rem] opacity-60 dark:invert' />
+          <div className='relative'>
+            <img
+              src={icons.notification}
+              className='tap95 w-[1.2rem] opacity-60 dark:invert'
+              onClick={transitions(() => {
+                navigate('/notifications');
+              })}
+            />
+            {
+              <div
+                className={`absolute right-0 top-0 h-2 w-2 rounded-full ${isNewNotification ? 'bg-accent ' : ''}`}
+              ></div>
+            }
+          </div>
+
           <TapMotion size='sm'>
             <img
               src={profile?.data?.profile_pic || icons.user}

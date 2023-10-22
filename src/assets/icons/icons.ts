@@ -73,9 +73,11 @@ import transition_send from './transition/send.svg';
 import transition_receive from './transition/receive.svg';
 import linear_loading_dots from './src/linear_loading_dots.svg';
 import no_data from './src/no_data.jpg';
+import notification_bell from './src/notification_bell.svg';
 
 const icons = {
   no_data,
+  notification_bell,
   linear_loading_dots,
   transition: {
     send: transition_send,

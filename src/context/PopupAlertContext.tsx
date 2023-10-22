@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from 'react';
 
 // Define your context type
 export type PopupAlertType = {
-  title: string | JSX.Element;
-  subTitle: string | JSX.Element;
+  title: string | JSX.Element | '' | null;
+  subTitle: string | JSX.Element | '' | null;
   action: ActionType[];
 };
 

@@ -46,7 +46,7 @@ export default function PopupAlert() {
               key={index}
               className={
                 action.className +
-                ' highlight-none tap95 w-full flex-grow rounded-lg py-3 font-normMid active:bg-black/5 active:dark:bg-white/5'
+                ' highlight-none tap95 w-full flex-grow rounded-lg py-3.5 font-normMid active:bg-black/5 active:dark:bg-white/5'
               }
               onClick={() => {
                 removePopup();
