@@ -34,6 +34,7 @@ const SpecialOffer = lazy(() => import('./screens/Home/SpecialOffer'));
 const SelectPlan = lazy(() => import('./screens/Recharge/Mobile/SelectPlan'));
 const Wallet = lazy(() => import('./screens/Home/Wallet'));
 const Notifications = lazy(() => import('./screens/Home/Notifications'));
+const ConfirmRecharge = lazy(() => import('./screens/Recharge/Mobile/PayMobileRecharge'));
 
 OTP.preload();
 EditProfile.preload();
@@ -188,6 +189,14 @@ const router = createBrowserRouter(
       element: (
         <Suspense fallback={<Loading />}>
           <SelectPlan />
+        </Suspense>
+      ),
+    },
+    {
+      path: '/recharge/mobile/pay',
+      element: (
+        <Suspense fallback={<Loading />}>
+          <ConfirmRecharge />
         </Suspense>
       ),
     },

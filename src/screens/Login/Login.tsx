@@ -16,7 +16,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [phone, setPhone] = useState(state?.phone || '');
   const [sending, setSending] = useState(false);
-  const { popups, newPopup } = usePopupAlertContext();
+  const { newPopup } = usePopupAlertContext();
 
   function handleInput(event: React.KeyboardEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
@@ -36,31 +36,33 @@ const Login = () => {
       delayFn(async () => {
         if (validation.status) {
           // Set popup and ask for confirmation
-          newPopup({
-            title: 'Confirm Phone Number',
-            subTitle: (
-              <p className='opacity-80'>
-                You entered <span className='text-blue-500'>{phone}</span>, Is this number ok, or would you like to edit
-                it?
-              </p>
-            ),
-            action: [
-              { text: 'Edit' },
-              {
-                text: 'OK',
-                className: 'text-accent',
-                onClick: async () => {
-                  setSending(true);
-                  const otpStatus = await sendOTP(phone);
-                  if (otpStatus.status) {
-                    transitions(() => {
-                      navigate('/otp', { replace: true, state: { phone: phone } });
-                    })();
-                  } else setError(otpStatus.message);
+          transitions(() =>
+            newPopup({
+              title: 'Confirm Phone Number',
+              subTitle: (
+                <p className='opacity-80'>
+                  You entered <span className='text-blue-500'>{phone}</span>, Is this number ok, or would you like to
+                  edit it?
+                </p>
+              ),
+              action: [
+                { text: 'Edit' },
+                {
+                  text: 'OK',
+                  className: 'text-accent',
+                  onClick: async () => {
+                    setSending(true);
+                    const otpStatus = await sendOTP(phone);
+                    if (otpStatus.status) {
+                      transitions(() => {
+                        navigate('/otp', { replace: true, state: { phone: phone } });
+                      })();
+                    } else setError(otpStatus.message);
+                  },
                 },
-              },
-            ],
-          });
+              ],
+            }),
+          )();
         } else setError(validation.message);
         setSending(false);
       })();

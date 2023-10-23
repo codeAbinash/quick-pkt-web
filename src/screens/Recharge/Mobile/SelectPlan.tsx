@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom';
 import { PlanType, setMobileRecharge, setMobileRechargeLs } from '../../../Redux/mobileRecharge';
 import store from '../../../Redux/store';
 import icons from '../../../assets/icons/icons';
@@ -126,6 +126,7 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
   const [ascending, setAscending] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const { newPopup } = usePopupAlertContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
@@ -229,7 +230,9 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
             {plansToShow[selectedTab].length === 0 ? (
               <NoResult search={search} />
             ) : (
-              plansToShow[selectedTab].map((plan, index) => <Plan key={index} plan={plan} newPopup={newPopup} />)
+              plansToShow[selectedTab].map((plan, index) => (
+                <Plan key={index} plan={plan} newPopup={newPopup} navigate={navigate} />
+              ))
             )}
           </motion.div>
         </AnimatePresence>
@@ -247,18 +250,33 @@ function NoResult({ search }: { search: string }) {
   );
 }
 
-function Plan({ plan, newPopup }: { plan: PlanType; newPopup: (popup: PopupAlertType) => void }) {
+function Plan({
+  plan,
+  newPopup,
+  navigate,
+}: {
+  plan: PlanType;
+  newPopup: (popup: PopupAlertType) => void;
+  navigate: NavigateFunction;
+}) {
   return (
     <TapMotion
       size='lg'
-      className='group flex items-center justify-between gap-2 rounded-3xl bg-inputBg p-4 dark:bg-white/10'
+      className='group flex select-none items-center justify-between gap-2 rounded-3xl bg-inputBg p-4 dark:bg-white/10'
       onClick={transitions(() => {
         newPopup({
           title: 'Plan Details',
           subTitle: <PlanDetails plan={plan} />,
-          action: [{ text: 'Cancel' }, { text: 'Recharge', className: 'text-accent' }],
+          action: [
+            { text: 'Cancel' },
+            {
+              text: 'Recharge',
+              className: 'text-accent',
+              onClick: transitions(() => navigate('/recharge/mobile/pay'), 0),
+            },
+          ],
         });
-      })}
+      }, 0)}
     >
       <div className='flex flex-shrink-0 flex-grow-0 flex-col items-center justify-center px-2'>
         <p className='text-[1.1rem] font-medium'>₹{plan.amount}</p>
@@ -279,12 +297,18 @@ function PlanDetails({ plan }: { plan: PlanType }) {
     <div>
       <span className='opacity-80'>{plan.description.split('+').join(',')}</span>
       <div className='mb-0 mt-3 flex flex-wrap gap-2 text-[0.65rem] font-normMid'>
-        <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>₹{plan.amount}</div>
+        <div className='tap95 rounded-lg border border-neutral-200 bg-inputBg px-4 py-2 dark:border-neutral-800 dark:bg-black'>
+          ₹{plan.amount}
+        </div>
         {plan.validity === '' || plan.validity === 'N/A' ? null : (
-          <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>{plan.validity}</div>
+          <div className='tap95 rounded-lg border border-neutral-200 bg-inputBg px-4 py-2 dark:border-neutral-800 dark:bg-black'>
+            {plan.validity}
+          </div>
         )}
         {COST_PER_DAY === '' || COST_PER_DAY === 'N/A' ? null : (
-          <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>{COST_PER_DAY}</div>
+          <div className='tap95 rounded-lg border border-neutral-200 bg-inputBg px-4 py-2 dark:border-neutral-800 dark:bg-black'>
+            {COST_PER_DAY}
+          </div>
         )}
       </div>
     </div>
