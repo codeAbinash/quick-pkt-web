@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlanType, setMobileRecharge, setMobileRechargeLs } from '../../../Redux/mobileRecharge';
@@ -12,6 +12,8 @@ import { getPlansMobile } from '../../../lib/api';
 import headerIntersect from '../../../lib/headerIntersect';
 import transitions from '../../../lib/transition';
 import { OrganizedPlans, getOrganizedPlans, providerDetails } from './util';
+import { PopupAlertType, usePopupAlertContext } from '../../../context/PopupAlertContext';
+import { delayFn } from '../../../lib/util';
 
 export default function SelectRechargePlan() {
   const [params] = useSearchParams();
@@ -123,6 +125,7 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [ascending, setAscending] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const { newPopup } = usePopupAlertContext();
 
   useEffect(() => {
     headerIntersect(intersect.current as Element, setIsIntersecting);
@@ -226,7 +229,7 @@ function Plans({ plans, setPlans }: { plans: OrganizedPlans; setPlans: Function 
             {plansToShow[selectedTab].length === 0 ? (
               <NoResult search={search} />
             ) : (
-              plansToShow[selectedTab].map((plan, index) => <Plan key={index} plan={plan} />)
+              plansToShow[selectedTab].map((plan, index) => <Plan key={index} plan={plan} newPopup={newPopup} />)
             )}
           </motion.div>
         </AnimatePresence>
@@ -244,11 +247,18 @@ function NoResult({ search }: { search: string }) {
   );
 }
 
-function Plan({ plan }: { plan: PlanType }) {
+function Plan({ plan, newPopup }: { plan: PlanType; newPopup: (popup: PopupAlertType) => void }) {
   return (
     <TapMotion
       size='lg'
       className='group flex items-center justify-between gap-2 rounded-3xl bg-inputBg p-4 dark:bg-white/10'
+      onClick={transitions(() => {
+        newPopup({
+          title: 'Plan Details',
+          subTitle: <PlanDetails plan={plan} />,
+          action: [{ text: 'Cancel' }, { text: 'Recharge', className: 'text-accent' }],
+        });
+      })}
     >
       <div className='flex flex-shrink-0 flex-grow-0 flex-col items-center justify-center px-2'>
         <p className='text-[1.1rem] font-medium'>₹{plan.amount}</p>
@@ -259,6 +269,25 @@ function Plan({ plan }: { plan: PlanType }) {
         <span className='line-clamp-4 text-[0.7rem] font-420 opacity-70'>{plan.description.split('+').join(',')}</span>
       </div>
     </TapMotion>
+  );
+}
+
+function PlanDetails({ plan }: { plan: PlanType }) {
+  const COST_PER_DAY = costPerDay(plan);
+
+  return (
+    <div>
+      <span className='opacity-80'>{plan.description.split('+').join(',')}</span>
+      <div className='mb-0 mt-3 flex flex-wrap gap-2 text-[0.65rem] font-normMid'>
+        <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>₹{plan.amount}</div>
+        {plan.validity === '' || plan.validity === 'N/A' ? null : (
+          <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>{plan.validity}</div>
+        )}
+        {COST_PER_DAY === '' || COST_PER_DAY === 'N/A' ? null : (
+          <div className='tap95 rounded-lg bg-inputBg px-4 py-2 dark:bg-black'>{COST_PER_DAY}</div>
+        )}
+      </div>
+    </div>
   );
 }
 
