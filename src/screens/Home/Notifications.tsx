@@ -44,10 +44,12 @@ export default function Notifications() {
 function NotificationsList({ notifications }: { notifications: Alert[] }) {
   const { newPopup } = usePopupAlertContext();
   return (
-    <div className='flex min-h-[85dvh] flex-col justify-between gap-3'>
-      {notifications.map((notification, index) => (
-        <NotificationItem key={notification?.id} notification={notification} newPopup={newPopup} index={index} />
-      ))}
+    <div className='flex min-h-[85dvh] select-none flex-col justify-between'>
+      <div className='flex flex-col justify-between gap-3'>
+        {notifications.map((notification, index) => (
+          <NotificationItem key={notification?.id} notification={notification} newPopup={newPopup} index={index} />
+        ))}
+      </div>
       <Watermark />
     </div>
   );
