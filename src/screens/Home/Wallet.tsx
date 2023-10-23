@@ -4,6 +4,8 @@ import icons from '../../assets/icons/icons';
 import TapMotion from '../../components/TapMotion';
 import { getTransactionsHistory } from '../../lib/api';
 import { UserProfile } from '../Profile/utils';
+import transitions from '../../lib/transition';
+import { usePopupAlertContext } from '../../context/PopupAlertContext';
 
 export default function Wallet() {
   const profile: UserProfile = useSelector((state: any) => state.profile);
@@ -142,7 +144,23 @@ function NoTransactions() {
   );
 }
 
+function TransactionDetails({ transaction }: { transaction: TransactionType }) {
+  return (
+    <div className='flex flex-col gap-2'>
+      <span className='font-normMid'>{transaction.description}</span>
+      <span>
+        Transaction of <span className='font-normMid'>₹{transaction.amount}</span>
+        <span className={getStatusColor(transaction.status)}> ({transaction.status}) </span>
+        on <span>{niceDate(transaction.created_at)}</span>. <span>Your Transaction Reference is </span>{' '}
+        <span className='select-all text-blue-500'>{transaction.reference}</span>.{' '}
+      </span>
+    </div>
+  );
+}
+
 function AllTransactions({ transactions }: { transactions: TransactionType[] | null }) {
+  const { newPopup } = usePopupAlertContext();
+
   if (transactions === null) {
     return <TransactionsShimmer />;
   }
@@ -158,6 +176,17 @@ function AllTransactions({ transactions }: { transactions: TransactionType[] | n
           size='lg'
           className='flex items-center justify-center gap-3 rounded-3xl bg-inputBg p-4 dark:bg-white/10'
           key={index}
+          onClick={transitions(() => {
+            newPopup({
+              title: `Transaction Details (${transaction.type})`,
+              subTitle: <TransactionDetails transaction={transaction} />,
+              action: [
+                {
+                  text: 'OK',
+                },
+              ],
+            });
+          })}
         >
           <img src={transaction.type === 'credit' ? icons.transition.receive : icons.transition.send} className='w-8' />
           <div className='flex flex-grow flex-col gap-0.5'>
@@ -168,24 +197,20 @@ function AllTransactions({ transactions }: { transactions: TransactionType[] | n
             <p className={'text-sm font-normMid'}>
               {transaction.type === 'credit' ? '+' : '-'} ₹{transaction.amount}
             </p>
-            <p className='text-[0.7rem] font-normMid'>
-              {transaction.status === 'pending' ? (
-                <span className='text-yellow-500'>Pending</span>
-              ) : transaction.status === 'failed' ? (
-                <span className='text-red-500'>Failed</span>
-              ) : transaction.status === 'success' ? (
-                <span className='text-green-500'>Success</span>
-              ) : transaction.status === 'refund' ? (
-                <span className='text-red-500'>Refund</span>
-              ) : (
-                <span className='text-red-500'>Unknown</span>
-              )}
-            </p>
+            <p className={`text-[0.7rem] font-normMid ${getStatusColor(transaction.status)}`}>{transaction.status}</p>
           </div>
         </TapMotion>
       ))}
     </div>
   );
+}
+
+function getStatusColor(status: 'pending' | 'failed' | 'success' | 'refund') {
+  if (status === 'pending') return 'text-yellow-500';
+  if (status === 'failed') return 'text-red-500';
+  if (status === 'success') return 'text-green-500';
+  if (status === 'refund') return 'text-red-500';
+  return 'text-red-500';
 }
 
 function niceDate(date: string) {
