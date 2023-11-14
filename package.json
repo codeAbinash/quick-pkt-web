@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-lazy-with-preload": "^2.2.1",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.15.0",
+    "sass": "^1.69.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -36,7 +37,6 @@
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "sass": "^1.66.1",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
